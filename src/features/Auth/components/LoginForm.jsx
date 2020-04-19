@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-import model from "../model";
+import model from "../models";
 import FormField from "../../shared/containers/FormField";
 import Button from "../../shared/components/Form/Button";
 import Checkbox from "../../shared/components/Form/Checkbox";

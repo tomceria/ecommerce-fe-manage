@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ReactComponent as FullLogo } from "../../../../assets/Bambi_Logo_Full.svg";
-import { ReactComponent as IconLogo } from "../../../../assets/Bambi_Logo_Icon.svg";
-import { ReactComponent as IconDullLogo } from "../../../../assets/Bambi_Logo_Icon_nocolor.svg";
-import { ReactComponent as TextLogo } from "../../../../assets/Bambi_Logo_TextLogo.svg";
-import { ReactComponent as TextDullLogo } from "../../../../assets/Bambi_Logo_TextLogo_blank.svg";
+import { ReactComponent as FullLogo } from "../../../../assets/logos/Autogo_Logo_Full.svg";
+import { ReactComponent as IconLogo } from "../../../../assets/logos/Autogo_Logo_Icon.svg";
+import { ReactComponent as IconDullLogo } from "../../../../assets/logos/Autogo_Logo_Icon_nocolor.svg";
+import { ReactComponent as TextLogo } from "../../../../assets/logos/Autogo_Logo_Text.svg";
+import { ReactComponent as TextDullLogo } from "../../../../assets/logos/Autogo_Logo_Text_nocolor.svg";
 
 const ClientLogo = ({ type, color, className, style }) => {
   const logoStyles = {

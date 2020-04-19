@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import model from "../model";
+import model from "../models";
 import ViewProductsCtn from "../containers/ViewProductsCtn";
 import { LayoutCard } from "../../shared/components/UI/Card";
 import Button from "../../shared/components/Form/Button";

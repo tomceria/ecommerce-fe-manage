@@ -1,14 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-import { pages } from "../../shared/containers/Main";
+import routes from "../../shared/routes";
+import { selectAuthInfo } from "../../Auth/reducers";
 import NavItem from "./NavItem";
 import NavBarItem from "./Mobile/NavBarItem";
 import NavSubItem from "./NavSubItem";
 
 const NavList = ({ forNavBar, forSideDrawer }) => {
-  return pages.map(item => (
+  const currentRole = useSelector(selectAuthInfo).role;
+
+  return routes.map(item => (
     <React.Fragment key={item.link}>
-      {forNavBar && !item.hiddenForNavBar && (
+      {forNavBar && !item.hiddenForNavBar && item.roles.includes(currentRole) && (
         <NavBarItem
           // Items
           label={item.label}
@@ -21,7 +25,7 @@ const NavList = ({ forNavBar, forSideDrawer }) => {
           exact={item.link === "/"}
         />
       )}
-      {!forNavBar && !item.hidden && (
+      {!forNavBar && !item.hidden && item.roles.includes(currentRole) && (
         <NavItem
           // Items
           label={item.label}

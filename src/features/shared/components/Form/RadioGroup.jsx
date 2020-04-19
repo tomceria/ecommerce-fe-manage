@@ -20,7 +20,7 @@ const RadioGroup = ({ name, label, control, defaultValue, selections, changed, d
   };
 
   return (
-    <FormControl component="fieldset" disabled={disabled}>
+    <FormControlStyled component="fieldset" disabled={disabled}>
       <FormLabel component="legend">{label}</FormLabel>
       <Controller
         // Form Identifier
@@ -37,7 +37,7 @@ const RadioGroup = ({ name, label, control, defaultValue, selections, changed, d
           </RadioGroupMUI>
         }
       />
-    </FormControl>
+    </FormControlStyled>
   );
 };
 
@@ -72,3 +72,6 @@ RadioGroup.defaultProps = {
   changed: () => {},
   disabled: false
 };
+
+// Styles
+const FormControlStyled = styled(FormControl)``;

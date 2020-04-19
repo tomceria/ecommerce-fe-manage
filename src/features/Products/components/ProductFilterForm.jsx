@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
 
-import { productFilterModel as model } from "../model";
+import { productFilterModel as model } from "../models";
 
 import FormField from "../../shared/containers/FormField";
 import Button from "../../shared/components/Form/Button";
