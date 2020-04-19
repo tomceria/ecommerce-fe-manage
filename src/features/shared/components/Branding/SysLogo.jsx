@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ReactComponent as FullLogo } from "../../../../assets/Tempest_Logo_Full.svg";
-import { ReactComponent as IconLogo } from "../../../../assets/Tempest_Logo_Icon.svg";
-import { ReactComponent as MaskedLogo } from "../../../../assets/Tempest_Logo_Masked.svg";
+import { ReactComponent as FullLogo } from "../../../../assets/logos/Tempest_Logo_Full.svg";
+import { ReactComponent as IconLogo } from "../../../../assets/logos/Tempest_Logo_Icon.svg";
+import { ReactComponent as MaskedLogo } from "../../../../assets/logos/Tempest_Logo_Masked.svg";
 import { colors } from "../../../../styles/variables/colors.style";
 
 const SysLogo = ({ type, color, className, style }) => {

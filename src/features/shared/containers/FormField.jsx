@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
-import _ from "lodash";
 
 import { fieldTypes, validate } from "../../../utils/model.util";
 import Input from "../components/Form/Input";
