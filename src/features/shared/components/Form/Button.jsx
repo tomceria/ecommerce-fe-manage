@@ -3,22 +3,26 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Button as MaterialButton } from "@material-ui/core";
 
-const Button = ({ type, color, startIcon, endIcon, disabled, style, className, children }) => {
+const Button = React.forwardRef(function Button(props, ref) {
+  const { type, color, startIcon, endIcon, disabled, onClick, style, className, children } = props;
+
   return (
     <ButtonCtn
       type={type}
-      color={color}
+      color={color || "default"}
       startIcon={startIcon}
       endIcon={endIcon}
       disabled={disabled}
+      onClick={onClick}
       style={style}
       className={className}
       variant="contained"
+      ref={ref}
     >
       {children}
     </ButtonCtn>
   );
-};
+});
 
 export default Button;
 
@@ -29,16 +33,22 @@ Button.propTypes = {
   startIcon: PropTypes.element,
   endIcon: PropTypes.element,
   disabled: PropTypes.bool,
+  onClick: PropTypes.func,
   style: PropTypes.shape({}),
   className: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element]))
+  ]).isRequired
 };
 Button.defaultProps = {
   type: "button",
-  color: null,
+  color: undefined,
   startIcon: null,
   endIcon: null,
-  disabled: false,
+  disabled: undefined,
+  onClick: undefined,
   style: {},
   className: ""
 };
@@ -49,5 +59,6 @@ const ButtonCtn = styled(MaterialButton)`
 
   & svg {
     transform: scale(1.5) !important;
+    margin-right: 0.5rem;
   }
 `;

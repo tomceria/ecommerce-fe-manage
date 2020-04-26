@@ -102,8 +102,8 @@ Select.propTypes = {
       prefix: PropTypes.string,
       suffix: PropTypes.string
     })
-  ]).isRequired,
-  childrenAlias: PropTypes.string.isRequired,
+  ]),
+  childrenAlias: PropTypes.string,
   style: PropTypes.shape({}),
   error: PropTypes.bool,
   errormessage: PropTypes.string,
@@ -115,6 +115,8 @@ Select.defaultProps = {
   defaultValue: undefined,
   touched: undefined,
   disabled: false,
+  selectableParent: undefined,
+  childrenAlias: undefined,
   style: {},
   error: undefined,
   errormessage: "",

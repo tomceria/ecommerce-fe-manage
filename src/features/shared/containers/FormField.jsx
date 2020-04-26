@@ -17,7 +17,7 @@ const FormField = ({ model, changed, disabled, className, style }) => {
   // Effect for isTouched
   useEffect(() => {
     setIsTouched(
-      !!formFuncs.getValues()[model.name] || !!formFuncs.formState.dirtyFields[model.name]
+      formFuncs.getValues()[model.name] !== "" || !!formFuncs.formState.dirtyFields[model.name]
     );
     // eslint-disable-next-line
   }, [formFuncs.getValues(), formFuncs.formState.dirtyFields]);
@@ -110,7 +110,7 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       // Selections
       selections={selections}
       selectableParent={selectableParent}
-      childrenAlias={childrenAlias || "Parent"}
+      childrenAlias={childrenAlias}
       // Handlers
       touched={isTouched}
       changed={changed}

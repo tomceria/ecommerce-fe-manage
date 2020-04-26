@@ -17,18 +17,8 @@ export const queryParams = {
     });
     return params;
   },
-  set: (paramsObject, location, history, options) => {
-    let params = { ...paramsObject };
-    switch (options) {
-      case "products": {
-        // whitelist
-        const { query, page, size, brand, category, sort, sortDesc } = params;
-        params = { query, page, size, brand, category, sort, sortDesc };
-        break;
-      }
-      default:
-        break;
-    }
+  set: (paramsObject, location, history) => {
+    const params = { ...paramsObject };
     history.push({
       pathname: location.pathname,
       search: `?${new URLSearchParams(params).toString()}`

@@ -27,7 +27,7 @@ const MainHeader = () => {
           <span onClick={handleProfileIconCtnOnClick} className="icon">
             <Avatar
               height={itemHeight}
-              image="https://xansan.com/wp-content/uploads/2018/10/user-avatar-default-2609.png"
+              image="/undraw_male_avatar_323b.png"
               alt="User Profile Picture"
             />
           </span>
@@ -47,7 +47,7 @@ const MainHeader = () => {
 export default MainHeader;
 
 // Styles
-const headerHeight = remScale(64);
+export const headerHeight = remScale(64);
 const Header = styled.header`
   @media (${stylings.mediaQuery.sm}) {
     display: none;

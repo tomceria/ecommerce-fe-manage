@@ -36,7 +36,7 @@ const ProfileDropdown = ({ show, closed, className }) => {
         <Link to="/" onClick={handleLinkOnClick} className="avatar">
           <Avatar
             height={profileHeight}
-            image="https://xansan.com/wp-content/uploads/2018/10/user-avatar-default-2609.png"
+            image="/undraw_male_avatar_323b.png"
             alt="User Profile Picture"
           />
         </Link>
