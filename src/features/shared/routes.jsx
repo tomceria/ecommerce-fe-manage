@@ -12,6 +12,12 @@ import { roleConsts as role, roles as allRoles } from "../../configs/api.config"
 
 // Dashboard
 import Home from "../Dashboard/pages/Home";
+import AdminHome from "../Dashboard/pages/AdminHome";
+// AccountStaff
+import ViewAccountStaffs from "../AccountStaff/pages/ViewAccountStaffs";
+import NewAccountStaff from "../AccountStaff/pages/NewAccountStaff";
+// AccountUsers
+import ViewAccountUsers from "../AccountUsers/pages/ViewAccountUsers";
 // Products
 import ViewProducts from "../Products/pages/ViewProducts";
 import NewProduct from "../Products/pages/NewProduct";
@@ -114,22 +120,52 @@ const routes = [
     link: "/admin",
     component: () => (
       <Protected roles={[role.ADMIN]}>
-        <Home />
+        <AdminHome />
       </Protected>
     ),
     icon: iconAdministration,
     roles: [role.ADMIN],
     sub: [
       {
-        label: "Users",
-        link: "/admin/users",
-        component: () => <p>Administration users</p>,
+        label: "Staff",
+        link: "/admin/staffs",
+        component: () => (
+          <Protected roles={[role.ADMIN]}>
+            <ViewAccountStaffs />
+          </Protected>
+        ),
         roles: [role.ADMIN]
       },
       {
-        label: "Staff",
-        link: "/admin/staffs",
-        component: () => <p>Administration staffs</p>,
+        label: "Add Staff",
+        link: "/admin/staffs/add",
+        component: () => (
+          <Protected roles={[role.ADMIN]}>
+            <NewAccountStaff />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.ADMIN]
+      },
+      {
+        label: "Users",
+        link: "/admin/users",
+        component: () => (
+          <Protected roles={[role.ADMIN]}>
+            <ViewAccountUsers />
+          </Protected>
+        ),
+        roles: [role.ADMIN]
+      },
+      {
+        label: "Add User",
+        link: "/admin/users/add",
+        component: () => (
+          <Protected roles={[role.ADMIN]}>
+            <p>AddUser</p>
+          </Protected>
+        ),
+        hidden: true,
         roles: [role.ADMIN]
       }
     ]

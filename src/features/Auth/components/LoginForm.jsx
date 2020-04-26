@@ -16,10 +16,6 @@ const LoginForm = () => {
       {model.map(field => (
         <FormField model={field} key={field.name} disabled={isSubmitting} />
       ))}
-      <Button type="submit" color="primary" disabled={isSubmitting}>
-        Login
-      </Button>
-      {/* TODO: FormField CHECKBOX */}
       <Checkbox
         label="Stay signed in"
         name="remember"
@@ -27,6 +23,9 @@ const LoginForm = () => {
         inputRef={formFuncs.register}
         disabled={isSubmitting}
       />
+      <Button type="submit" color="primary" className="submit" disabled={isSubmitting}>
+        Login
+      </Button>
     </>
   );
 };

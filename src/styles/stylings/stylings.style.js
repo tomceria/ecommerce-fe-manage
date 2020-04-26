@@ -1,4 +1,4 @@
-import { scaling } from "../variables/size.style";
+import { scaling, remScale } from "../variables/size.style";
 
 const stylings = {
   boxShadow: {
@@ -36,8 +36,16 @@ export const templates = {
     & > *:nth-child(even),
     & > * > *:nth-child(even) {
       margin-left: 0.5rem;
+      margin-right: 0.5rem;
     }
 
+    & > *:last-child:not(:only-child),
+    & > * > *:last-child:not(:only-child) {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+
+    & > * :only-child,
     & > * > *:only-child {
       margin: 0;
     }
@@ -59,16 +67,21 @@ export const templates = {
   `,
   FORM: {
     BASIC: `
+      display: flex;
+      flex-direction: column;
 
-    display: flex;
-    flex-direction: column;
-
-    & > * {
-      margin-top: ${scaling("lg")} !important;
-    }
-    & > *:nth-child(1) {
-      margin-top: 0 !important;
-    }
+      & > * {
+        margin-top: ${scaling("lg")} !important;
+      }
+      & > *:nth-child(1) {
+        margin-top: 0 !important;
+      }
+    `,
+    MODAL: `
+      width: ${remScale(600)};
+      @media (${stylings.mediaQuery.sm}) {
+        width: 100%;
+      }
     `
   }
 };

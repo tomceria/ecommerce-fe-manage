@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import _ from "lodash";
 import {
   Paper,
   TableContainer,
@@ -61,9 +62,9 @@ const Table = ({
                       cell.label
                     ) : (
                       <TableSortLabel
-                        active={cell.id === filters.sort}
+                        active={(cell.sortId || cell.id) === filters.sort}
                         direction={filters.sortDesc ? "desc" : "asc"}
-                        onClick={() => onChangeSort(cell.id)}
+                        onClick={() => onChangeSort(cell.sortId || cell.id)}
                       >
                         {cell.label}
                       </TableSortLabel>
@@ -76,7 +77,8 @@ const Table = ({
               {items.map(item => (
                 <TableRow key={item.id}>
                   {tableHead.map(property => (
-                    <TableCell key={property.id}>{item[property.id]}</TableCell>
+                    // <TableCell key={property.id}>{item[property.id]}</TableCell>
+                    <TableCell key={property.id}>{_.get(item, property.id)}</TableCell>
                   ))}
                 </TableRow>
               ))}

@@ -1,10 +1,13 @@
-import { isLength, isInt, isNumeric } from "validator";
+import { isLength, isInt, isNumeric, isEmail } from "validator";
 
 export const dataTypes = {
   STRING: "STRING",
   NUMBER: {
     INT: "NUMBER_INT",
     REAL: "NUMBER_REAL"
+  },
+  FORMAT: {
+    EMAIL: "FORMAT_EMAIL"
   },
   CUSTOM: "CUSTOM"
 };
@@ -45,6 +48,10 @@ export const validate = (value, _dataTypes, formValues) => {
         doValidate = isNumeric;
         break;
       }
+      case dataTypes.FORMAT.EMAIL: {
+        doValidate = isEmail;
+        break;
+      }
       default: {
         break;
       }
@@ -52,12 +59,12 @@ export const validate = (value, _dataTypes, formValues) => {
     if (!doValidate) {
       if (dT.dataType === dataTypes.CUSTOM) {
         // With dataType === CUSTOM, dT.options should be a callback func instead of an obj
-        results.push(!!dT.options(value, formValues) || dT.msg);
+        results.push(!!dT.options(value.toString(), formValues) || dT.msg);
       } else {
         results.push(false);
       }
     } else {
-      results.push(doValidate(value, dT.options) || dT.msg); // [true, true, "msg", true]
+      results.push(doValidate(value.toString(), dT.options) || dT.msg); // [true, true, "msg", true]
     }
   });
   return results.length === results.filter(r => r === true) || results.filter(r => r !== true)[0];
