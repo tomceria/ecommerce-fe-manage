@@ -9,6 +9,7 @@ export const dataTypes = {
   FORMAT: {
     EMAIL: "FORMAT_EMAIL"
   },
+  ARRAY: "ARRAY",
   CUSTOM: "CUSTOM"
 };
 export const fieldTypes = {
@@ -28,6 +29,10 @@ export const fieldTypes = {
   },
   RADIO: {
     GROUPED: "RADIO_GROUPED"
+  },
+  // CUSTOM FIELDS
+  MEDIA: {
+    IMAGES: "MEDIA_IMAGES"
   }
 };
 
@@ -50,6 +55,26 @@ export const validate = (value, _dataTypes, formValues) => {
       }
       case dataTypes.FORMAT.EMAIL: {
         doValidate = isEmail;
+        break;
+      }
+      case dataTypes.ARRAY: {
+        doValidate = (_v, _options) => {
+          if (!_v) {
+            return false;
+          }
+          const arr = JSON.parse(_v);
+          if (!Array.isArray(arr)) {
+            return false;
+          }
+          const { min, max } = _options;
+          if (min && arr.length < min) {
+            return false;
+          }
+          if (max && arr.length > max) {
+            return false;
+          }
+          return true;
+        };
         break;
       }
       default: {

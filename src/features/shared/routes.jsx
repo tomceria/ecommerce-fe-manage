@@ -10,6 +10,7 @@ import iconSearch from "@iconify/icons-bx/bx-search";
 import Protected from "../Auth/hocs/Protected";
 import { roleConsts as role, roles as allRoles } from "../../configs/api.config";
 
+import TestPage from "../Test/pages/TestPage";
 // Dashboard
 import Home from "../Dashboard/pages/Home";
 import AdminHome from "../Dashboard/pages/AdminHome";
@@ -169,6 +170,15 @@ const routes = [
         roles: [role.ADMIN]
       }
     ]
+  },
+  {
+    label: "TEST AREA",
+    link: "/test",
+    component: TestPage,
+    icon: iconAdministration,
+    hidden: true,
+    hiddenForNavBar: true,
+    roles: allRoles
   },
   {
     label: "Search Results",

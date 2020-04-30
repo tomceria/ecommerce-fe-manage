@@ -3,6 +3,11 @@ import axios from "axios";
 const options = {
   cred: {
     withCredentials: true
+  },
+  fileUpload: {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
   }
 };
 const defaultOptions = "cred";
@@ -17,7 +22,7 @@ const optionsParse = opts => {
       return optsObj;
     });
 };
-const request = async (action, url, data, thenFunc, catchFunc, optionsStr) => {
+const request = async (action, url, data, optionsStr, thenFunc, catchFunc) => {
   if (!action || !url) {
     return;
   }

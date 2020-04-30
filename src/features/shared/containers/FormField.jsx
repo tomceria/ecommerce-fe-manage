@@ -5,9 +5,12 @@ import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
 
 import { fieldTypes, validate } from "../../../utils/model.util";
+
 import Input from "../components/Form/Input";
 import Select from "../components/Form/Select";
 import RadioGroup from "../components/Form/RadioGroup";
+
+import ImageDropzone from "../components/Form/ImageDropzone";
 
 const FormField = ({ model, changed, disabled, className, style }) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -61,6 +64,10 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.RADIO.GROUPED: {
       FieldComponent = RadioGroup;
+      break;
+    }
+    case fieldTypes.MEDIA.IMAGES: {
+      FieldComponent = ImageDropzone;
       break;
     }
   }
