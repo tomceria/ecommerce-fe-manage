@@ -6,7 +6,7 @@ const apiInfo = {
 };
 
 export const baseURL = `${apiInfo.host}:${apiInfo.port}/api-manage`;
-export const uploadPath = "/uploads";
+export const uploadPath = `${baseURL}/media/images/uploads`;
 
 export const roleConsts = {
   ADMIN: "admin",
