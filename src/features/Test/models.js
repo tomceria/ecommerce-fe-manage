@@ -26,5 +26,11 @@ export default [
       }
     ],
     fieldType: fieldTypes.MEDIA.IMAGES
+  },
+  {
+    name: "variations",
+    label: "Variations",
+    dataTypes: [],
+    fieldType: fieldTypes.VARIATION.MULTIPLE
   }
 ];

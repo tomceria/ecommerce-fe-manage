@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
+import _ from "lodash";
 
 import { fieldTypes, validate } from "../../../utils/model.util";
 
@@ -11,6 +12,7 @@ import Select from "../components/Form/Select";
 import RadioGroup from "../components/Form/RadioGroup";
 
 import ImageDropzone from "../components/Form/ImageDropzone";
+import VariationField from "../components/Form/VariationField";
 
 const FormField = ({ model, changed, disabled, className, style }) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -50,7 +52,6 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       break;
     }
     case fieldTypes.INPUT.NUMBER: {
-      // TODO: INPUT NUMBER
       properties.type = "number";
       if (model.fieldTypeOptions) {
         properties.step = model.fieldTypeOptions.step;
@@ -68,6 +69,10 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.MEDIA.IMAGES: {
       FieldComponent = ImageDropzone;
+      break;
+    }
+    case fieldTypes.VARIATION.MULTIPLE: {
+      FieldComponent = VariationField;
       break;
     }
   }
@@ -113,7 +118,7 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       rules={{
         validate: value => validate(value, model.dataTypes, formFuncs.getValues)
       }}
-      error={!!formFuncs.errors[model.name]}
+      error={!!_.get(formFuncs.errors, model.name)}
       // Selections
       selections={selections}
       selectableParent={selectableParent}
@@ -122,7 +127,9 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       touched={isTouched}
       changed={changed}
       // Others
-      errormessage={formFuncs.errors[model.name] && formFuncs.errors[model.name].message}
+      errormessage={
+        _.get(formFuncs.errors, model.name) && _.get(formFuncs.errors, model.name).message
+      }
       disabled={disabled}
       className={className}
       style={style}

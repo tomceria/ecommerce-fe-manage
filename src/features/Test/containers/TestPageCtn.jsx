@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
@@ -8,16 +8,17 @@ import FormWrapper from "../../shared/containers/FormWrapper";
 import { templates } from "../../../styles/stylings/stylings.style";
 
 const TestPageCtn = () => {
-  const formFuncs = useForm();
+  const formFuncs = useForm({
+    defaultValues: {
+      variations: [{ id: "", name: "", colors: "" }]
+    }
+  });
 
   const [errRes, setErrRes] = useState(null);
 
-  useEffect(() => {
-    console.log(formFuncs.getValues());
-  }, [formFuncs.getValues()]); //eslint-disable-line
-
   const handleOnSubmit = async data => {
     try {
+      formFuncs.setError("variations", "", "Variations error test");
       console.log(data);
     } catch (e) {
       setErrRes(e.response);
@@ -26,6 +27,8 @@ const TestPageCtn = () => {
 
   const handleOnClear = (_formFuncs, _model) => {
     console.log("Perform clearing", _formFuncs, _model);
+    console.log(formFuncs.getValues());
+    console.log(formFuncs.errors);
   };
 
   return (

@@ -38,6 +38,13 @@ const Input = ({
     return e.target.value;
   };
 
+  const handleOnPaste = e => {
+    if (changed) {
+      changed(e);
+    }
+    return e.clipboardData.getData("Text");
+  };
+
   return (
     <Controller
       as={TextFieldStyled} // eslint-disable-line
@@ -64,6 +71,7 @@ const Input = ({
       size="small"
       helperText={error && errormessage}
       onChange={([event]) => handleOnChange(event)}
+      onPaste={event => handleOnPaste(event)}
       className={className}
     />
   );

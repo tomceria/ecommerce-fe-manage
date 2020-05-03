@@ -33,6 +33,9 @@ export const fieldTypes = {
   // CUSTOM FIELDS
   MEDIA: {
     IMAGES: "MEDIA_IMAGES"
+  },
+  VARIATION: {
+    MULTIPLE: "VARIATION_MULTIPLE"
   }
 };
 
