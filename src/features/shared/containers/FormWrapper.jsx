@@ -66,10 +66,13 @@ FormWrapper.propTypes = {
   submitted: PropTypes.func.isRequired,
   errRes: PropTypes.shape({
     status: PropTypes.number,
-    data: PropTypes.shape({
-      errors: PropTypes.arrayOf(PropTypes.shape({})),
-      message: PropTypes.string
-    })
+    data: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        errors: PropTypes.arrayOf(PropTypes.shape({})),
+        message: PropTypes.string
+      })
+    ])
   }),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.string])),
