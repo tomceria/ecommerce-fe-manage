@@ -121,7 +121,7 @@ Input.defaultProps = {
 };
 
 // Styles
-const TextFieldStyled = styled(TextField)`
+export const TextFieldStyled = styled(TextField)`
   & > .MuiOutlinedInput-root {
     border-radius: 0.25em;
     transition: ${speed.trans} ease-out;

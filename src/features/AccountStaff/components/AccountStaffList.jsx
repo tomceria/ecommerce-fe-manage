@@ -42,7 +42,9 @@ const AccountStaffList = ({
               style={{ flexGrow: 1 }}
             >
               <Icon icon={item.Staff.locked ? iconLock : iconLockOpen} />
-              {item.Staff.locked ? "Locked" : "Active"}
+              <span>
+                {item.Staff.locked ? "Locked" : "Active"}
+              </span>
             </Button>
           </div>
         )
@@ -65,7 +67,9 @@ const AccountStaffList = ({
             style={{ flexGrow: 1 }}
           >
             <Icon icon={iconEdit} />
-            Reset
+            <span>
+              Reset
+            </span>
           </Button>
         </div>
       )

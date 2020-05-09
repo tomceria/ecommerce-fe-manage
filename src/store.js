@@ -8,10 +8,12 @@ import authReducer from "./features/Auth/reducers";
 import accountStaffReducer from "./features/AccountStaff/reducers";
 import accountUsersReducer from "./features/AccountUsers/reducers";
 
-// UNUSED
 import productsReducer from "./features/Products/reducers";
+import typesReducer from "./features/Types/reducers";
 import brandsReducer from "./features/Brands/reducers";
-import categoriesReducer from "./features/Categories/reducers";
+import attributesReducer from "./features/Attributes/reducers";
+
+import inventoryReducer from "./features/Inventory/reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,9 +23,13 @@ export default configureStore({
     auth: authReducer,
     accountStaff: accountStaffReducer,
     accountUsers: accountUsersReducer,
+    //
     products: productsReducer,
+    types: typesReducer,
     brands: brandsReducer,
-    categories: categoriesReducer
+    attributes: attributesReducer,
+    //
+    inventory: inventoryReducer
   },
   middleware: [sagaMiddleware]
 });

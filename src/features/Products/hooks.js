@@ -4,33 +4,33 @@ import { useLocation, useHistory } from "react-router-dom";
 
 import { performGetProducts } from "./actions";
 import { performGetBrands } from "../Brands/actions";
-import { performGetCategories } from "../Categories/actions";
+import { performGetTypes } from "../Types/actions";
 import { selectBrands } from "../Brands/reducers";
-import { selectCategories } from "../Categories/reducers";
+import { selectTypes } from "../Types/reducers";
 import { queryParams } from "../../utils/route.util";
 
 export function useProductSubInfo() {
   const dispatch = useDispatch();
 
+  const isLoadingTypes = useSelector(selectTypes.isLoadingTypes);
   const isLoadingBrands = useSelector(selectBrands.isLoadingBrands);
-  const isLoadingCategories = useSelector(selectCategories.isLoadingCategories);
+  const isSuccessTypes = useSelector(selectTypes.isSuccessTypes);
   const isSuccessBrands = useSelector(selectBrands.isSuccessBrands);
-  const isSuccessCategories = useSelector(selectCategories.isSuccessCategories);
 
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    dispatch(performGetTypes());
     dispatch(performGetBrands());
-    dispatch(performGetCategories());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (!isLoadingBrands && !isLoadingCategories && isSuccessBrands && isSuccessCategories) {
+    if (!isLoadingBrands && !isLoadingTypes && isSuccessBrands && isSuccessTypes) {
       setIsReady(true);
     }
     // eslint-disable-next-line
-  }, [isLoadingBrands, isLoadingCategories]);
+  }, [isLoadingBrands, isLoadingTypes]);
 
   return isReady;
 }
@@ -76,7 +76,7 @@ export function useProductFilters(initialFilters, filters, isLoadingFilterForm, 
       // Only set value when data finished fetching (above returns isReady(bool))
       let finalFilters = initialFilters;
       finalFilters = { ...finalFilters, ...queryParams.get(location) };
-      ["query", "brand", "category"].forEach(attr => {
+      ["query", "type", "brand"].forEach(attr => {
         formFuncs.setValue(attr, finalFilters[attr]);
       });
     }

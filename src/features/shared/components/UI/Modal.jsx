@@ -87,6 +87,11 @@ const ModalStyledContainer = styled.div`
     margin: 0;
     font-size: ${remScale(34)};
   }
+  @media (${stylings.mediaQuery.sm}) {
+    & > .titleCtn > .title {
+      font-size: ${remScale(21)};
+    }
+  }
 
   & > .titleCtn > .close {
     background: ${colors.gray.dark} !important;

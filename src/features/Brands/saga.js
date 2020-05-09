@@ -17,8 +17,7 @@ function* workGetBrands(action) {
   let response = {};
   yield put(setLoadingBrands(true));
   try {
-    response = yield call(axios.get, `${baseURL}/brands`);
-    // response = yield call(axios.get, `${baseURL}/items`, { params: { ...action.payload } });
+    response = yield call(axios.get, `${baseURL}/brands`, { params: { ...action.payload } });
     yield put(setSuccessBrands(true));
   } catch (e) {
     yield put(setSuccessBrands(false));
@@ -41,7 +40,7 @@ function* workGetBrand(action) {
   } catch (e) {
     yield put(setSuccessBrand(false));
   }
-  yield put(doGetBrand(response));
+  yield put(doGetBrand(response.data.brand));
   yield put(setLoadingBrand(false));
 }
 

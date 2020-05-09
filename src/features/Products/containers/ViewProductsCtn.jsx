@@ -1,24 +1,34 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 
 import { performGetProducts } from "../actions";
 import { selectProductsFilters, selectProducts } from "../reducers";
 import { useProductFilters, useProductSubInfo } from "../hooks";
+import ConfirmHideProduct from "../pages/modals/ConfirmHideProduct";
+
 import ProductList from "../components/ProductList";
 import ProductFilterForm from "../components/ProductFilterForm";
 import FormWrapper from "../../shared/containers/FormWrapper";
-import { scrollToRef } from "../../../utils/function.util";
-import { queryParams } from "../../../utils/route.util";
+import request from "../../../utils/request.util";
+import {
+  filterSubmitHandler,
+  filtersReloadHandler,
+  changePageHandler,
+  changeRowsPerPageHandler,
+  changeSortHandler
+} from "../../../utils/filter.util";
 import { templates } from "../../../styles/stylings/stylings.style";
 
 const ViewProductsCtn = ({ initialFilters, tableHead }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
+  const snackbar = useSnackbar();
 
   const filterFormFuncs = useForm();
 
@@ -33,60 +43,88 @@ const ViewProductsCtn = ({ initialFilters, tableHead }) => {
   const isLoadingFilterForm = !useProductSubInfo();
   useProductFilters(initialFilters, filters, isLoadingFilterForm, filterFormFuncs);
 
+  // Local UI States
+
+  const [products, setProducts] = useState([]);
+  const [modalConfirmHideProduct, setModalConfirmHideProduct] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  // Effects
+
+  useEffect(() => {
+    setProducts(fetchedProducts);
+  }, [fetchedProducts]);
+
+  // List Handlers
   const handleOnSubmit = data => {
-    const newFilters = data;
-    const finalFilters = { ...filters, ...newFilters, page: 1 };
-    if (newFilters.brand && newFilters.category) {
-      if (newFilters.brand === filters.brand) {
-        finalFilters.brand = "";
-      } else if (newFilters.category === filters.category) {
-        finalFilters.category = "";
-      }
-    }
-    filterFormFuncs.setValue([{ brand: finalFilters.brand }, { category: finalFilters.category }]);
-    queryParams.set(finalFilters, location, history, "products");
-    dispatch(performGetProducts(finalFilters));
+    filterSubmitHandler(data, performGetProducts, filters, { location, history, dispatch });
   };
-
   const handleFiltersReload = () => {
-    filterFormFuncs.handleSubmit(handleOnSubmit)();
+    filtersReloadHandler(handleOnSubmit, { filterFormFuncs });
   };
-
   const handleChangePage = page => {
-    const finalFilters = { ...filters, page };
-    queryParams.set(finalFilters, location, history, "products");
-    dispatch(performGetProducts(finalFilters));
-    scrollToRef(topRef);
+    changePageHandler(page, performGetProducts, filters, {
+      location,
+      history,
+      dispatch,
+      topRef
+    });
   };
-
   const handleChangeRowsPerPage = event => {
-    const finalFilters = {
-      ...filters,
-      page: 1,
-      size: parseInt(event.target.value, 10)
-    };
-    queryParams.set(finalFilters, location, history, "products");
-    dispatch(performGetProducts(finalFilters));
-    scrollToRef(topRef);
+    changeRowsPerPageHandler(event, performGetProducts, filters, {
+      location,
+      history,
+      dispatch,
+      topRef
+    });
+  };
+  const handleChangeSort = key => {
+    changeSortHandler(key, performGetProducts, filters, { location, history, dispatch });
   };
 
-  const handleChangeSort = key => {
-    const finalFilters = {
-      ...filters,
-      page: 1,
-      sort: key,
-      sortDesc: filters.sort === key ? !filters.sortDesc : false
-    };
-    queryParams.set(finalFilters, location, history, "products");
-    dispatch(performGetProducts(finalFilters));
+  // Other Handlers
+  const handleOnConfirmHideProduct = async product => {
+    setIsUpdating(true);
+    const newValue = !product.hidden;
+    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+      variant: "warning",
+      persist: true
+    });
+    try {
+      setModalConfirmHideProduct(null);
+      await request("patch", `/items/${product.id}/hidden`, {
+        hidden: newValue
+      });
+      setProducts(prevState => {
+        const newProducts = JSON.parse(JSON.stringify(prevState));
+        newProducts.find(o => o.id === product.id).hidden = newValue;
+        return newProducts;
+      });
+      snackbar.enqueueSnackbar(`${newValue ? "Hide" : "Unhide"} product successfully!`, {
+        variant: "success"
+      });
+    } catch (e) {
+      snackbar.enqueueSnackbar(e.response.data.message, {
+        variant: "error"
+      });
+    }
+    snackbar.closeSnackbar(loadingSb);
+    setIsUpdating(false);
   };
 
   return (
     <>
+      {/* MODALS */}
+      <ConfirmHideProduct
+        product={modalConfirmHideProduct}
+        onClose={() => setModalConfirmHideProduct(null)}
+        onConfirm={handleOnConfirmHideProduct}
+      />
+      {/* end MODALS */}
       <ProductFilterFormWrapper formFuncs={filterFormFuncs} submitted={handleOnSubmit}>
         <ProductFilterForm
           // Status
-          isLoading={isLoadingFilterForm || isLoadingProducts}
+          isLoading={isLoadingFilterForm || isLoadingProducts || isUpdating}
           // Variables
           initialFilters={initialFilters}
           // Functions / Handlers
@@ -99,13 +137,18 @@ const ViewProductsCtn = ({ initialFilters, tableHead }) => {
         success={isSuccessProducts}
         // Variables
         tableHead={tableHead}
-        items={!isLoadingProducts ? fetchedProducts : []}
+        items={!isLoadingProducts ? products : []}
         filters={filters}
         pagination={pagination}
         // Functions / Handlers
         changedPage={handleChangePage}
         changedRowsPerPage={handleChangeRowsPerPage}
         changedSort={handleChangeSort}
+        // Action Handlers
+        rowActions={{
+          toggleHide: product => setModalConfirmHideProduct(product)
+        }}
+        rowActionsDisabled={isUpdating}
         // Others
         passingRef={topRef}
       />

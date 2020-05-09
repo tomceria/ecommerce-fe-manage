@@ -26,7 +26,7 @@ const ProductFilterForm = ({ isLoading, filtersReloaded }) => {
         </Button>
       </div>
       <div>
-        {["brand", "category"].map(fieldName => (
+        {["type", "brand"].map(fieldName => (
           <FormField
             model={model.find(a => a.name === fieldName)}
             key={fieldName}

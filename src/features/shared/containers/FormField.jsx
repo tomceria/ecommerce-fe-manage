@@ -8,11 +8,14 @@ import _ from "lodash";
 import { fieldTypes, validate } from "../../../utils/model.util";
 
 import Input from "../components/Form/Input";
+import Autocomplete from "../components/Form/Autocomplete";
 import Select from "../components/Form/Select";
 import RadioGroup from "../components/Form/RadioGroup";
 
+import ItemPicker from "../components/Form/ItemPicker";
 import ImageDropzone from "../components/Form/ImageDropzone";
-import VariationField from "../components/Form/VariationField";
+import VariationField from "../components/Form/VariationField"; // eslint-disable-line
+import AttributeField from "../components/Form/AttributeField"; // eslint-disable-line
 
 const FormField = ({ model, changed, disabled, className, style }) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -59,6 +62,11 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       FieldComponent = Input;
       break;
     }
+    case fieldTypes.INPUT.AUTOCOMPLETE: {
+      properties.type = "text";
+      FieldComponent = Autocomplete;
+      break;
+    }
     case fieldTypes.SELECT.SIMPLE: {
       FieldComponent = Select;
       break;
@@ -67,12 +75,34 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       FieldComponent = RadioGroup;
       break;
     }
+    // CUSTOM FIELDS
+    case fieldTypes.PICKER.SINGLE: {
+      if (model.fieldTypeOptions) {
+        properties.small = model.fieldTypeOptions.small;
+        properties.listName = model.fieldTypeOptions.listName;
+      }
+      FieldComponent = ItemPicker;
+      break;
+    }
+    case fieldTypes.PICKER.MULTIPLE: {
+      properties.multiple = true;
+      if (model.fieldTypeOptions) {
+        properties.small = model.fieldTypeOptions.small;
+        properties.listName = model.fieldTypeOptions.listName;
+      }
+      FieldComponent = ItemPicker;
+      break;
+    }
     case fieldTypes.MEDIA.IMAGES: {
       FieldComponent = ImageDropzone;
       break;
     }
     case fieldTypes.VARIATION.MULTIPLE: {
       FieldComponent = VariationField;
+      break;
+    }
+    case fieldTypes.ATTRIBUTE.MULTIPLE: {
+      FieldComponent = AttributeField;
       break;
     }
   }
@@ -155,10 +185,14 @@ FormField.propTypes = {
     ),
     fieldType: PropTypes.string.isRequired,
     fieldTypeOptions: PropTypes.shape({
+      // Input
       rows: PropTypes.number,
-      step: PropTypes.string
+      step: PropTypes.string,
+      // ItemPicker
+      small: PropTypes.bool,
+      listName: PropTypes.string
     }),
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.shape({})]),
     selections: PropTypes.oneOfType([
       PropTypes.arrayOf(
         PropTypes.shape({
@@ -166,7 +200,9 @@ FormField.propTypes = {
           name: PropTypes.string.isRequired
         })
       ),
-      PropTypes.func
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.func,
+      PropTypes.bool
     ]),
     selectionOptions: PropTypes.shape({
       isReduxSelector: PropTypes.bool,

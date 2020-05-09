@@ -39,7 +39,7 @@ const AccountUserList = ({
               style={{ flexGrow: 1 }}
             >
               <Icon icon={item.User.locked ? iconLock : iconLockOpen} />
-              {item.User.locked ? "Locked" : "Active"}
+              <span>{item.User.locked ? "Locked" : "Active"}</span>
             </Button>
           </div>
         ),

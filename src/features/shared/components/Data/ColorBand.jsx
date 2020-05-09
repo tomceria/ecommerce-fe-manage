@@ -4,16 +4,16 @@ import styled from "styled-components";
 import { isHexColor } from "validator";
 import { colors, alpha } from "../../../../styles/variables/colors.style";
 
-const ColorBand = ({ colors }) => {
-  const formattedColors = colors
-    ? colors
+const ColorBand = ({ colorsString, style }) => {
+  const formattedColors = colorsString
+    ? colorsString
         .split(",")
         .filter(c => isHexColor(c))
         .map(c => c.split("#").slice(-1))
     : [];
 
   return (
-    <ColorBandStyled>
+    <ColorBandStyled style={style}>
       {formattedColors.map((color, index) => (
         <ColorStripe key={`${color}_${index}`} color={color} className="stripe" /> // eslint-disable-line
       ))}
@@ -25,10 +25,12 @@ export default ColorBand;
 
 // PropTypes
 ColorBand.propTypes = {
-  colors: PropTypes.string
+  colorsString: PropTypes.string,
+  style: PropTypes.shape({})
 };
 ColorBand.defaultProps = {
-  colors: undefined
+  colorsString: undefined,
+  style: undefined
 };
 
 // Styles

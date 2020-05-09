@@ -1,44 +1,66 @@
 import { dataTypes, fieldTypes } from "../../utils/model.util";
 import { selectBrands } from "../Brands/reducers";
-import { selectCategories } from "../Categories/reducers";
+import { selectTypes } from "../Types/reducers";
 
 const brandsSelector = selectBrands.brands;
-const categoriesSelector = selectCategories.categories;
+const typesSelector = selectTypes.types;
 
 // Constant Fields
-const brandField = {
+const typeField = options => ({
+  name: "type",
+  label: "Type",
+  dataTypes: [
+    {
+      dataType: dataTypes.CUSTOM,
+      options: (v, formValues) => {
+        if (options && options.isFilter) {
+          return true;
+        }
+        return v.length > 0;
+      },
+      msg: "Required."
+    }
+  ],
+  fieldType: fieldTypes.SELECT.SIMPLE,
+  selections: typesSelector,
+  selectionOptions: {
+    isReduxSelector: true,
+    noneOption: {
+      label: options && options.isFilter ? "All" : " "
+    }
+    // selectableParent: {
+    // suffix: " [All]"
+    // }
+  }
+});
+const brandField = options => ({
   name: "brand",
   label: "Brand",
-  dataTypes: [{ dataType: dataTypes.STRING }],
+  dataTypes: [
+    {
+      dataType: dataTypes.CUSTOM,
+      options: (v, formValues) => {
+        if (options && options.isFilter) {
+          return true;
+        }
+        return v.length > 0;
+      },
+      msg: "Required."
+    }
+  ],
   fieldType: fieldTypes.SELECT.SIMPLE,
   selections: brandsSelector,
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: "All"
-    },
-    selectableParent: {
-      suffix: " [All]"
-    },
-    childrenAlias: "ChildTH"
-  }
-};
-const categoryField = {
-  name: "category",
-  label: "Category",
-  dataTypes: [{ dataType: dataTypes.STRING }],
-  fieldType: fieldTypes.SELECT.SIMPLE,
-  selections: categoriesSelector,
-  selectionOptions: {
-    isReduxSelector: true,
-    noneOption: {
-      label: "All"
-    },
-    selectableParent: {
-      suffix: " [All]"
+      label: options && options.isFilter ? "All" : " "
     }
+    // selectableParent: {
+    // suffix: " [All]"
+    // },
+    // childrenAlias: "ChildTH"
   }
-};
+});
 
 // Models
 
@@ -67,20 +89,16 @@ const productModel = [
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
+  brandField(),
+  typeField(),
   {
-    name: "masp",
-    label: "SKU ID",
-    dataTypes: [],
-    fieldType: fieldTypes.INPUT.TEXT
-  },
-  {
-    name: "priceOg",
-    label: "Price",
+    name: "year",
+    label: "Year",
     dataTypes: [
       {
-        dataType: dataTypes.NUMBER.REAL,
-        options: { min: 1 },
-        msg: "Must be a number (1 or higher)."
+        dataType: dataTypes.NUMBER.INT,
+        options: { min: 1970 },
+        msg: "Must be a number (1970 or higher)."
       }
     ],
     fieldType: fieldTypes.INPUT.NUMBER,
@@ -88,34 +106,20 @@ const productModel = [
   },
   {
     name: "price",
-    label: "Price (Sale)",
+    label: "Price",
     dataTypes: [
       {
-        dataType: dataTypes.NUMBER.REAL,
+        dataType: dataTypes.NUMBER.INT,
         options: { min: 1 },
         msg: "Must be a number (1 or higher)."
-      },
-      {
-        dataType: dataTypes.CUSTOM,
-        options: (v, formValues) => parseFloat(formValues().priceOg, 10) >= parseFloat(v, 10),
-        msg: "Price (Sale) must be lower than Price."
       }
     ],
     fieldType: fieldTypes.INPUT.NUMBER,
     fieldTypeOptions: { step: "any" }
   },
   {
-    name: "description",
-    label: "Description",
-    dataTypes: [{ dataType: dataTypes.STRING }],
-    fieldType: fieldTypes.INPUT.TEXTAREA, // TODO: INPUT BLOG
-    fieldTypeOptions: { rows: 10 }
-  },
-  brandField,
-  categoryField,
-  {
-    name: "remain",
-    label: "Availability",
+    name: "hidden",
+    label: "Hidden from Display",
     dataTypes: [
       {
         dataType: dataTypes.STRING,
@@ -123,11 +127,42 @@ const productModel = [
       }
     ],
     fieldType: fieldTypes.RADIO.GROUPED,
-    defaultValue: "true",
+    defaultValue: "false",
     selections: [
       { id: "true", name: "Yes" },
       { id: "false", name: "No" }
     ]
+  },
+  {
+    name: "images",
+    label: "Images",
+    dataTypes: [
+      {
+        dataType: dataTypes.ARRAY,
+        options: { min: 1 },
+        msg: "At least 1 image is required."
+      }
+    ],
+    fieldType: fieldTypes.MEDIA.IMAGES
+  },
+  {
+    name: "variations",
+    label: "Variations",
+    dataTypes: [],
+    fieldType: fieldTypes.VARIATION.MULTIPLE
+  },
+  {
+    name: "attributes",
+    label: "Attributes",
+    dataTypes: [],
+    fieldType: fieldTypes.ATTRIBUTE.MULTIPLE
+  },
+  {
+    name: "blog",
+    label: "Detail (Description)",
+    dataTypes: [{ dataType: dataTypes.STRING }],
+    fieldType: fieldTypes.INPUT.TEXTAREA, // TODO: INPUT BLOG
+    fieldTypeOptions: { rows: 10 }
   }
 ];
 export default productModel;
@@ -139,6 +174,6 @@ export const productFilterModel = [
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  brandField,
-  categoryField
+  typeField({ isFilter: true }),
+  brandField({ isFilter: true })
 ];

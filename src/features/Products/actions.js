@@ -9,6 +9,7 @@ export const {
   setSuccessProducts,
   setSuccessProduct
 } = slice.actions;
+
 export const performGetProducts = createAction("PRODUCTS_SAGA_GETPRODUCTS", function prepare(
   filters
 ) {

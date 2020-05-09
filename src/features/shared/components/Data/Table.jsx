@@ -13,7 +13,9 @@ import {
   TableCell,
   TableSortLabel,
   TablePagination,
-  IconButton
+  IconButton,
+  Radio,
+  Checkbox
 } from "@material-ui/core";
 import {
   FirstPage as FirstPageIcon,
@@ -34,9 +36,15 @@ const Table = ({
   items,
   filters,
   pagination,
+  // Handlers
   onChangePage,
   onChangeRowsPerPage,
   onChangeSort,
+  // ItemPicker Props
+  onItemClick,
+  isPicking,
+  selectings,
+  // Others
   passingRef,
   className
 }) => {
@@ -52,6 +60,7 @@ const Table = ({
           <TableCtn className={className}>
             <TableHead>
               <TableRow>
+                {isPicking && <TableCell style={{ width: remScale(15) }} />}
                 {tableHead.map(cell => (
                   <TableCell
                     key={cell.id}
@@ -75,7 +84,15 @@ const Table = ({
             </TableHead>
             <TableBody>
               {items.map(item => (
-                <TableRow key={item.id}>
+                <TableRow key={item.id} onClick={event => onItemClick(event, item)}>
+                  {isPicking && (
+                    <TableCell>
+                      {isPicking === "multiple" && (
+                        <Checkbox checked={selectings.includes(item.id)} />
+                      )}
+                      {isPicking !== "multiple" && <Radio checked={selectings.includes(item.id)} />}
+                    </TableCell>
+                  )}
                   {tableHead.map(property => (
                     // <TableCell key={property.id}>{item[property.id]}</TableCell>
                     <TableCell key={property.id}>{_.get(item, property.id)}</TableCell>
@@ -85,51 +102,53 @@ const Table = ({
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[25, 50, 100]}
-                  colSpan={tableHead.length}
-                  count={pagination.itemCount || 1}
-                  rowsPerPage={pagination.pageSize || 1}
-                  page={pagination.currentPage - 1}
-                  SelectProps={{
-                    inputProps: { "aria-label": "rows per page" },
-                    native: true
-                  }}
-                  onChangePage={onChangePage}
-                  onChangeRowsPerPage={onChangeRowsPerPage}
-                  ActionsComponent={() => (
-                    <PaginationActionsDiv>
-                      <IconButton
-                        onClick={() => onChangePage(1)}
-                        disabled={pagination.currentPage === 1}
-                        aria-label="first page"
-                      >
-                        <FirstPageIcon />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => onChangePage(pagination.currentPage - 1)}
-                        disabled={pagination.currentPage === 1}
-                        aria-label="previous page"
-                      >
-                        <KeyboardArrowLeft />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => onChangePage(pagination.currentPage + 1)}
-                        disabled={pagination.currentPage >= pagination.pageCount}
-                        aria-label="next page"
-                      >
-                        <KeyboardArrowRight />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => onChangePage(pagination.pageCount)}
-                        disabled={pagination.currentPage >= pagination.pageCount}
-                        aria-label="last page"
-                      >
-                        <LastPageIcon />
-                      </IconButton>
-                    </PaginationActionsDiv>
-                  )}
-                />
+                {pagination && (
+                  <TablePagination
+                    rowsPerPageOptions={[25, 50, 100]}
+                    colSpan={tableHead.length}
+                    count={pagination.itemCount || 1}
+                    rowsPerPage={pagination.pageSize || 1}
+                    page={pagination.currentPage - 1}
+                    SelectProps={{
+                      inputProps: { "aria-label": "rows per page" },
+                      native: true
+                    }}
+                    onChangePage={onChangePage}
+                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    ActionsComponent={() => (
+                      <PaginationActionsDiv>
+                        <IconButton
+                          onClick={() => onChangePage(1)}
+                          disabled={pagination.currentPage === 1}
+                          aria-label="first page"
+                        >
+                          <FirstPageIcon />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => onChangePage(pagination.currentPage - 1)}
+                          disabled={pagination.currentPage === 1}
+                          aria-label="previous page"
+                        >
+                          <KeyboardArrowLeft />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => onChangePage(pagination.currentPage + 1)}
+                          disabled={pagination.currentPage >= pagination.pageCount}
+                          aria-label="next page"
+                        >
+                          <KeyboardArrowRight />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => onChangePage(pagination.pageCount)}
+                          disabled={pagination.currentPage >= pagination.pageCount}
+                          aria-label="last page"
+                        >
+                          <LastPageIcon />
+                        </IconButton>
+                      </PaginationActionsDiv>
+                    )}
+                  />
+                )}
               </TableRow>
             </TableFooter>
           </TableCtn>
@@ -162,17 +181,28 @@ Table.propTypes = {
     pageSize: PropTypes.number,
     itemCount: PropTypes.number,
     pageCount: PropTypes.number
-  }).isRequired,
+  }),
   onChangePage: PropTypes.func,
   onChangeRowsPerPage: PropTypes.func,
   onChangeSort: PropTypes.func,
+  // ItemPicker Props
+  onItemClick: PropTypes.func,
+  isPicking: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  selectings: PropTypes.arrayOf(PropTypes.string),
+  // Others
   passingRef: PropTypes.shape({}),
   className: PropTypes.string
 };
 Table.defaultProps = {
+  pagination: undefined,
   onChangePage: () => {},
   onChangeRowsPerPage: () => {},
   onChangeSort: () => {},
+  onItemClick: () => {},
+  // ItemPicker Props
+  isPicking: undefined,
+  selectings: [],
+  // Others
   passingRef: {},
   className: ""
 };

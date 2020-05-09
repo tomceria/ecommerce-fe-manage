@@ -7,10 +7,10 @@ export const slice = createSlice({
       query: "",
       page: 1,
       size: 25,
+      type: "",
       brand: "",
-      category: "",
-      sort: "name",
-      sortDesc: false
+      sort: "createdAt",
+      sortDesc: true
     },
     //
     products: [],
@@ -31,7 +31,7 @@ export const slice = createSlice({
       state.pagination = data ? data.pagination : {};
     },
     doGetProduct: (state, action) => {
-      state.product = action.payload.response;
+      state.product = action.payload;
     },
     // Loading
     setLoadingProducts: (state, action) => {
