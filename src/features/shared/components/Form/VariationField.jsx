@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFormContext, useFieldArray } from "react-hook-form";
@@ -22,27 +22,14 @@ const VariationField = ({
   error,
   control,
   // rules,
-  // defaultValue,
   // Others
+  defaultValue, // NOT react-hook-form defaultValue
   errormessage,
   disabled,
   style,
   className
 }) => {
   const model = (field, index) => [
-    {
-      name: `${name}[${index}].id`,
-      label: "ID",
-      dataTypes: [
-        {
-          dataType: dataTypes.STRING,
-          options: { min: 1 },
-          msg: "Required."
-        }
-      ],
-      fieldType: fieldTypes.INPUT.TEXT,
-      defaultValue: field.id
-    },
     {
       name: `${name}[${index}].name`,
       label: "Name",
@@ -54,7 +41,10 @@ const VariationField = ({
         }
       ],
       fieldType: fieldTypes.INPUT.TEXT,
-      defaultValue: field.name
+      defaultValue:
+        index < (Array.isArray(defaultValue.object) && defaultValue.object.length)
+          ? defaultValue.object[index].name
+          : field.name
     },
     {
       name: `${name}[${index}].colors`,
@@ -72,7 +62,10 @@ const VariationField = ({
         }
       ],
       fieldType: fieldTypes.INPUT.TEXT,
-      defaultValue: field.colors
+      defaultValue:
+        index < (Array.isArray(defaultValue.object) && defaultValue.object.length)
+          ? defaultValue.object[index].colors
+          : field.colors
     }
   ];
 
@@ -85,6 +78,20 @@ const VariationField = ({
   });
 
   const [colorValues, setColorValues] = useState({});
+
+  // append variations if defaultValue.object is provided
+  useEffect(() => {
+    if (Array.isArray(defaultValue.object) && defaultValue.object.length > 0) {
+      formFuncs.reset({
+        [name]: defaultValue.object.map(() => ({ name: "", colors: "" }))
+      });
+      const newColorValues = {};
+      defaultValue.object.forEach((varia, index) => {
+        newColorValues[index] = varia.colors;
+      });
+      setColorValues(newColorValues);
+    }
+  }, [defaultValue.object]); // eslint-disable-line
 
   const handleOnColorChange = index => {
     setColorValues(prevState => ({
@@ -118,18 +125,25 @@ const VariationField = ({
                   />
                 );
               })}
-              <Button onClick={() => remove(index)} disabled={disabled} className="delete">
+              <Button
+                onClick={() => remove(index)}
+                disabled={
+                  (Array.isArray(defaultValue.object) && index < defaultValue.object.length) ||
+                  disabled
+                }
+                className="delete"
+              >
                 <Icon icon={iconTrash} className="icon" />
               </Button>
             </div>
             <div className="preview">
               <span>Preview:</span>
-              <ColorBand colors={colorValues[index]} />
+              <ColorBand colorsString={colorValues[index]} />
             </div>
           </li>
         ))}
         <hr style={{ margin: "1rem 0" }} />
-        <Button onClick={() => append({ id: "", name: "", colors: "" })} disabled={disabled}>
+        <Button onClick={() => append({ name: "", colors: "" })} disabled={disabled}>
           Add
         </Button>
       </VariationFieldStyled>
@@ -155,7 +169,17 @@ VariationField.propTypes = {
     })
   }).isRequired,
   // rules: PropTypes.shape({}),
-  // defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      object: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string,
+          colors: PropTypes.string
+        })
+      )
+    })
+  ]),
   // Others
   errormessage: PropTypes.string,
   disabled: PropTypes.bool,
@@ -164,7 +188,7 @@ VariationField.propTypes = {
 };
 VariationField.defaultProps = {
   // rules: undefined,
-  // defaultValue: undefined,
+  defaultValue: undefined,
   disabled: false,
   style: {},
   error: undefined,

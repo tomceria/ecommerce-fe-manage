@@ -46,6 +46,13 @@ const ImageDropzone = ({
     }
   }, [localImages]); //eslint-disable-line
 
+  // Set localImages with defaultValue if provided
+  useEffect(() => {
+    if (Array.isArray(defaultValue.object)) {
+      setLocalImages(defaultValue.object);
+    }
+  }, [defaultValue]);
+
   const handleOnError = errRes => {
     const { message } = errRes.data;
     snackbar.enqueueSnackbar(message, { variant: "error" });
@@ -162,7 +169,7 @@ const ImageDropzone = ({
           as={<input type="text" disabled style={{ display: "none" }} />}
           control={control}
           rules={rules}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue && defaultValue.value ? defaultValue.value : "[]"}
         />
       </ImageDropzoneStyled>
       <p className="errorMsg">{error && errormessage}</p>
@@ -186,7 +193,13 @@ ImageDropzone.propTypes = {
     })
   }).isRequired,
   rules: PropTypes.shape({}),
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      value: PropTypes.string,
+      object: PropTypes.arrayOf(PropTypes.shape({}))
+    })
+  ]),
   // Others
   errormessage: PropTypes.string,
   disabled: PropTypes.bool,
@@ -195,7 +208,7 @@ ImageDropzone.propTypes = {
 };
 ImageDropzone.defaultProps = {
   rules: undefined,
-  defaultValue: "[]",
+  defaultValue: undefined,
   disabled: false,
   style: {},
   error: undefined,

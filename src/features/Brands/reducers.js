@@ -14,10 +14,13 @@ export const slice = createSlice({
   reducers: {
     // Set Brands
     doGetBrands: (state, action) => {
-      state.brands = action.payload.response.data.brands;
+      // state.filters = { ...state.filters, ...action.payload.filters };
+      const { data } = action.payload.response;
+      state.brands = data ? data.brands : [];
+      // state.pagination = data ? data.pagination : {};
     },
     doGetBrand: (state, action) => {
-      state.brand = action.payload.response;
+      state.brand = action.payload;
     },
     // Loading
     setLoadingBrands: (state, action) => {

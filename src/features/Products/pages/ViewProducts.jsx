@@ -21,8 +21,13 @@ const ViewProducts = () => {
           <Link to="/products/brands">
             <Button color="secondary">View Brands</Button>
           </Link>
-          <Link to="/products/categories">
-            <Button color="secondary">View Categories</Button>
+          <Link to="/products/types">
+            <Button color="secondary">View Types</Button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/products/attributes">
+            <Button color="secondary">View Attributes</Button>
           </Link>
         </div>
       </LayoutCardStyled>
@@ -38,13 +43,13 @@ const ViewProducts = () => {
           }}
           tableHead={[
             { id: "name", label: model.find(e => e.name === "name").label, width: 200 },
-            { id: "masp", label: model.find(e => e.name === "masp").label, width: 150 },
             { id: "image", label: "Image", noSort: true },
-            { id: "priceOg", label: model.find(e => e.name === "priceOg").label },
             { id: "price", label: model.find(e => e.name === "price").label, width: 135 },
-            { id: "brand", label: model.find(e => e.name === "brand").label, width: 450 },
-            { id: "category", label: model.find(e => e.name === "category").label, width: 150 },
-            { id: "createdAt", label: "Created at", width: 125 }
+            { id: "type", label: model.find(e => e.name === "type").label },
+            { id: "brand", label: model.find(e => e.name === "brand").label },
+            { id: "year", label: model.find(e => e.name === "year").label },
+            { id: "createdAt", label: "Created at", width: 125 },
+            { id: "hidden", label: "Visibility", width: 150 }
           ]}
         />
       </LayoutCard>

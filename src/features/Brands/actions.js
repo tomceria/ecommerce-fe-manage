@@ -9,6 +9,7 @@ export const {
   setSuccessBrands,
   setSuccessBrand
 } = slice.actions;
+
 export const performGetBrands = createAction("BRANDS_SAGA_GETBRANDS", function prepare(filters) {
   return {
     payload: { ...filters }

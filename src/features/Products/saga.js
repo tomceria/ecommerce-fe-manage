@@ -17,7 +17,9 @@ function* workGetProducts(action) {
   let response = {};
   yield put(setLoadingProducts(true));
   try {
-    response = yield call(axios.get, `${baseURL}/items`, { params: { ...action.payload } });
+    response = yield call(axios.get, `${baseURL}/items`, {
+      params: { ...action.payload, withHidden: true }
+    });
     yield put(setSuccessProducts(true));
   } catch (e) {
     yield put(setSuccessProducts(false));
@@ -35,12 +37,15 @@ function* workGetProduct(action) {
   let response = {};
   yield put(setLoadingProduct(true));
   try {
-    response = yield call(axios.get, `${baseURL}/items/${action.payload}`);
+    response = yield call(
+      axios.get,
+      `${baseURL}/items/${action.payload}?silent=true&keepAttr=true`
+    );
     yield put(setSuccessProduct(true));
   } catch (e) {
     yield put(setSuccessProduct(false));
   }
-  yield put(doGetProduct(response));
+  yield put(doGetProduct(response.data.item));
   yield put(setLoadingProduct(false));
 }
 

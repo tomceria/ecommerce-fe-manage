@@ -61,4 +61,8 @@ const ButtonCtn = styled(MaterialButton)`
     transform: scale(1.5) !important;
     margin-right: 0.5rem;
   }
+
+  & svg:last-child {
+    margin-right: 0;
+  }
 `;

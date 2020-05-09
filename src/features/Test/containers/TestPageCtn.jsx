@@ -10,7 +10,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 const TestPageCtn = () => {
   const formFuncs = useForm({
     defaultValues: {
-      variations: [{ id: "", name: "", colors: "" }]
+      variations: [{ name: "", colors: "" }]
     }
   });
 
