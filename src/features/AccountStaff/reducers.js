@@ -35,7 +35,7 @@ export const slice = createSlice({
       state.pagination = data ? data.pagination : {};
     },
     doGetAccountStaff: (state, action) => {
-      state.account = action.payload.response;
+      state.account = action.payload.data.account;
     },
     // Set Staff Roles
     doGetStaffRoles: (state, action) => {

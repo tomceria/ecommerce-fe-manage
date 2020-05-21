@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import _ from "lodash";
 import { Controller } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
@@ -15,7 +16,11 @@ import { colors } from "../../../../styles/variables/colors.style";
 import { templates } from "../../../../styles/stylings/stylings.style";
 
 export const LISTNAMES = {
-  PRODUCTS: "LIST_PRODUCTS"
+  ACCOUNTUSERS: "LIST_ACCOUNTUSERS",
+  ACCOUNTSTAFF: "LIST_ACCOUNTSTAFF",
+  ACCOUNTSTAFF_MERCHANDISER: "LIST_ACCOUNTSTAFF_MERCHANDISER",
+  PRODUCTS: "LIST_PRODUCTS",
+  INVENTORY: "LIST_INVENTORY"
 };
 
 const prepareList = listName => {
@@ -23,10 +28,77 @@ const prepareList = listName => {
     label: ""
   };
   switch (listName) {
+    case LISTNAMES.ACCOUNTUSERS: {
+      listConsts.label = "User";
+      listConsts.url = "/accountUser";
+      listConsts.resultName = "accounts";
+      listConsts.selectingIdentifier = "User.id";
+      listConsts.tableHead = [
+        { id: "User.id", label: "User ID", noSort: true },
+        { id: "username", label: "Username", noSort: true },
+        { id: "email", label: "Email", noSort: true },
+        { id: "User.Info.lastName", label: "Last name", noSort: true },
+        { id: "User.Info.firstName", label: "First name", noSort: true }
+      ];
+      break;
+    }
+    case LISTNAMES.ACCOUNTSTAFF: {
+      listConsts.label = "Staff";
+      listConsts.url = "/accountStaff";
+      listConsts.resultName = "accounts";
+      listConsts.selectingIdentifier = "Staff.id";
+      listConsts.tableHead = [
+        { id: "Staff.id", label: "Staff ID", noSort: true },
+        { id: "username", label: "Username", noSort: true },
+        { id: "email", label: "Email", noSort: true },
+        { id: "Staff.Role.name", label: "Role", noSort: true }
+      ];
+      break;
+    }
+    case LISTNAMES.ACCOUNTSTAFF_MERCHANDISER: {
+      listConsts.label = "Merchandiser";
+      listConsts.url = "/accountStaff?roleId=merchandiser";
+      listConsts.resultName = "accounts";
+      listConsts.selectingIdentifier = "Staff.id";
+      listConsts.tableHead = [
+        { id: "Staff.id", label: "Staff ID", noSort: true },
+        { id: "username", label: "Username", noSort: true },
+        { id: "email", label: "Email", noSort: true }
+      ];
+      break;
+    }
     case LISTNAMES.PRODUCTS: {
       listConsts.label = "Product";
       listConsts.url = "/items";
       listConsts.resultName = "items";
+      listConsts.selectingIdentifier = "id";
+      listConsts.tableHead = [
+        { id: "id", label: "ID", noSort: true },
+        { id: "name", label: "Name", noSort: true }
+      ];
+      break;
+    }
+    case LISTNAMES.INVENTORY: {
+      listConsts.label = "Inventory item";
+      listConsts.url = "/inventories";
+      listConsts.resultName = "inventories";
+      listConsts.selectingIdentifier = "id";
+      listConsts.tableHead = [
+        { id: "id", label: "ID", noSort: true },
+        { id: "Item.name", label: "Product name", noSort: true },
+        { id: "Variation.name", label: "Variation", noSort: true },
+        { id: "Variation.id", label: "Variation ID", noSort: true },
+        { id: "available", label: "Availability", noSort: true },
+        { id: "bought", label: "Bought?", noSort: true }
+      ];
+      listConsts.listTransform = items => {
+        return items.map(item => {
+          const newItem = JSON.parse(JSON.stringify(item));
+          newItem.available = newItem.available ? <b>Yes</b> : "No";
+          newItem.bought = newItem.bought ? "Yes" : <b>No</b>;
+          return newItem;
+        });
+      };
       break;
     }
     default: {
@@ -81,7 +153,13 @@ const ItemPicker = ({
       setIsLoading(true);
       try {
         const result = await axios.get(listConsts.url, { withCredentials: true, params: filters });
-        setItems(result.data[listConsts.resultName]);
+        let fetchedItems = result.data[listConsts.resultName];
+        fetchedItems = fetchedItems.map(item => {
+          const newItem = JSON.parse(JSON.stringify(item));
+          newItem.id = _.get(newItem, listConsts.selectingIdentifier);
+          return newItem;
+        });
+        setItems(listConsts.listTransform ? listConsts.listTransform(fetchedItems) : fetchedItems);
         setPagination(result.data.pagination);
       } catch (e) {
         setItems([]);
@@ -192,10 +270,7 @@ const ItemPicker = ({
             // Status
             loading={isLoading}
             // Variables
-            tableHead={[
-              { id: "id", label: "ID", noSort: true },
-              { id: "name", label: "Name", noSort: true }
-            ]}
+            tableHead={listConsts.tableHead}
             items={items}
             filters={filters}
             pagination={pagination}

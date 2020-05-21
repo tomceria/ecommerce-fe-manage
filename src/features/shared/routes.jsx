@@ -1,9 +1,15 @@
 import React from "react";
 
 import iconHome from "@iconify/icons-bx/bx-home-alt";
+// Manager
 import iconProduct from "@iconify/icons-bx/bx-carousel";
 import iconInventory from "@iconify/icons-bx/bx-box";
+// Merchandiser
+import iconOrder from "@iconify/icons-bx/bx-notepad";
+// Customer Support
+// Admin
 import iconAdministration from "@iconify/icons-bx/bx-wrench";
+// Others
 import iconSearch from "@iconify/icons-bx/bx-search";
 import iconShopInfo from "@iconify/icons-bx/bx-info-circle";
 
@@ -41,6 +47,11 @@ import NewInventoryItem from "../Inventory/pages/NewInventoryItem";
 import EditInventoryItem from "../Inventory/pages/EditInventoryItem";
 // Shop
 import EditShop from "../Shop/pages/EditShop";
+// Orders
+import ViewOrders from "../Orders/pages/ViewOrders";
+import InspectOrder from "../Orders/pages/InspectOrder";
+import NewOrder from "../Orders/pages/NewOrder";
+import VerifyOrder from "../Orders/pages/VerifyOrder";
 
 const routes = [
   {
@@ -50,6 +61,7 @@ const routes = [
     icon: iconHome,
     roles: allRoles
   },
+  // MANAGER
   {
     label: "Products",
     link: "/products",
@@ -227,6 +239,54 @@ const routes = [
     icon: iconShopInfo,
     roles: [role.MANAGER]
   },
+  // Merchandiser
+  {
+    label: "Orders",
+    link: "/orders",
+    component: () => (
+      <Protected roles={[role.MERCHANDISER]}>
+        <ViewOrders />
+      </Protected>
+    ),
+    icon: iconOrder,
+    roles: [role.MERCHANDISER],
+    sub: [
+      {
+        label: "Verify Order",
+        link: "/orders/:id/verify",
+        component: () => (
+          <Protected roles={[role.MERCHANDISER]}>
+            <VerifyOrder />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MERCHANDISER]
+      },
+      {
+        label: "New POS Order",
+        link: "/orders/add",
+        component: () => (
+          <Protected roles={[role.MERCHANDISER]}>
+            <NewOrder />
+          </Protected>
+        ),
+        roles: [role.MERCHANDISER]
+      },
+      {
+        label: "Inspect Order",
+        link: "/orders/:id",
+        component: () => (
+          <Protected roles={[role.MERCHANDISER]}>
+            <InspectOrder />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MERCHANDISER]
+      }
+    ]
+  },
+  // Customer Support
+  // Admin
   {
     label: "Administration",
     link: "/admin",

@@ -28,14 +28,15 @@ export const templates = {
       display: flex;
     }
 
-    & > *:nth-child(odd),
-    & > * > *:nth-child(odd) {
+    & > *:not(:only-child),
+    & > * > *:not(:only-child) {
+      margin-left: 0.5rem;
       margin-right: 0.5rem;
     }
 
-    & > *:nth-child(even),
-    & > * > *:nth-child(even) {
-      margin-left: 0.5rem;
+    & > *:first-child:not(:only-child),
+    & > * > *:first-child:not(:only-child) {
+      margin-left: 0;
       margin-right: 0.5rem;
     }
 
