@@ -30,7 +30,7 @@ export const slice = createSlice({
       state.pagination = data ? data.pagination : {};
     },
     doGetAccountUser: (state, action) => {
-      state.account = action.payload.response;
+      state.account = action.payload.data.account;
     },
     // Loading
     setLoadingAccountUsers: (state, action) => {

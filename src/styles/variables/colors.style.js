@@ -29,6 +29,11 @@ export const colors = {
       normal: "#dc3545",
       light: "#ef7e89",
       dark: "#b21f2d"
+    },
+    warning: {
+      normal: "#ffc107",
+      light: "#ffd54f",
+      dark: "#ff8f00"
     }
   }
 };
