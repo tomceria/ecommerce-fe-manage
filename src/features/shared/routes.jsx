@@ -5,6 +5,7 @@ import iconProduct from "@iconify/icons-bx/bx-carousel";
 import iconInventory from "@iconify/icons-bx/bx-box";
 import iconAdministration from "@iconify/icons-bx/bx-wrench";
 import iconSearch from "@iconify/icons-bx/bx-search";
+import iconShopInfo from "@iconify/icons-bx/bx-info-circle";
 
 import Protected from "../Auth/hocs/Protected";
 import { roleConsts as role, roles as allRoles } from "../../configs/api.config";
@@ -38,6 +39,8 @@ import EditAttribute from "../Attributes/pages/EditAttribute";
 import ViewInventoryItems from "../Inventory/pages/ViewInventoryItems";
 import NewInventoryItem from "../Inventory/pages/NewInventoryItem";
 import EditInventoryItem from "../Inventory/pages/EditInventoryItem";
+// Shop
+import EditShop from "../Shop/pages/EditShop";
 
 const routes = [
   {
@@ -211,6 +214,18 @@ const routes = [
         roles: [role.MANAGER]
       }
     ]
+  },
+  // Shop
+  {
+    label: "Shop",
+    link: "/shop",
+    component: () => (
+      <Protected roles={[role.MANAGER]}>
+        <EditShop />
+      </Protected>
+    ),
+    icon: iconShopInfo,
+    roles: [role.MANAGER]
   },
   {
     label: "Administration",

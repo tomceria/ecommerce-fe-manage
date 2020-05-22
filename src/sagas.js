@@ -8,6 +8,7 @@ import typesSaga from "./features/Types/saga";
 import brandsSaga from "./features/Brands/saga";
 import attributesSaga from "./features/Attributes/saga";
 import inventorySaga from "./features/Inventory/saga";
+import shopSaga from "./features/Shop/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     brandsSaga(),
     attributesSaga(),
     //
-    inventorySaga()
+    inventorySaga(),
+    shopSaga()
   ]);
 }

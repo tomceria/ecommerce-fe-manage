@@ -15,6 +15,8 @@ import attributesReducer from "./features/Attributes/reducers";
 
 import inventoryReducer from "./features/Inventory/reducers";
 
+import shopReducer from "./features/Shop/reducers";
+
 const sagaMiddleware = createSagaMiddleware();
 
 export default configureStore({
@@ -29,7 +31,8 @@ export default configureStore({
     brands: brandsReducer,
     attributes: attributesReducer,
     //
-    inventory: inventoryReducer
+    inventory: inventoryReducer,
+    shop: shopReducer
   },
   middleware: [sagaMiddleware]
 });
