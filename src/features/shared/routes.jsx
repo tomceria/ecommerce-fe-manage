@@ -56,6 +56,10 @@ import ViewOrders from "../Orders/pages/ViewOrders";
 import InspectOrder from "../Orders/pages/InspectOrder";
 import NewOrder from "../Orders/pages/NewOrder";
 import VerifyOrder from "../Orders/pages/VerifyOrder";
+// Maker
+import ViewMakers from "../Makers/pages/ViewMakers";
+import NewMaker from "../Makers/pages/NewMaker";
+import EditMaker from "../Makers/pages/EditMaker";
 
 const routes = [
   {
@@ -88,7 +92,7 @@ const routes = [
         hidden: true,
         roles: [role.MANAGER]
       },
-      // scale
+      // Scale
       {
         label: "Scales",
         link: "/products/scales",
@@ -154,7 +158,39 @@ const routes = [
         hidden: true,
         roles: [role.MANAGER]
       },
-      // Brand
+      // Maker
+      {
+        label: "Makers",
+        link: "/products/makers",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <ViewMakers />
+          </Protected>
+        ),
+        roles: [role.MANAGER]
+      },
+      {
+        label: "Add Maker",
+        link: "/products/makers/add",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <NewMaker />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      },
+      {
+        label: "Edit Maker",
+        link: "/products/makers/:id",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <EditMaker />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      },
       {
         label: "Brands",
         link: "/products/brands",
@@ -165,6 +201,7 @@ const routes = [
         ),
         roles: [role.MANAGER]
       },
+      // Brand
       {
         label: "New Brand",
         link: "/products/brands/add",

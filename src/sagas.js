@@ -6,7 +6,9 @@ import accountStaffSaga from "./features/AccountStaff/saga";
 import accountUsersSaga from "./features/AccountUsers/saga";
 
 import productsSaga from "./features/Products/saga";
+import scalesSaga from "./features/Scales/saga";
 import typesSaga from "./features/Types/saga";
+import makersSaga from "./features/Makers/saga";
 import brandsSaga from "./features/Brands/saga";
 import attributesSaga from "./features/Attributes/saga";
 import inventorySaga from "./features/Inventory/saga";
@@ -15,8 +17,6 @@ import shopSaga from "./features/Shop/saga";
 import ordersSaga from "./features/Orders/saga";
 import orderStatusesSaga from "./features/OrderStatuses/saga";
 
-import scalesSaga from "./features/Scales/saga";
-
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -24,7 +24,9 @@ export default function* rootSaga() {
     accountUsersSaga(),
     //
     productsSaga(),
+    scalesSaga(),
     typesSaga(),
+    makersSaga(),
     brandsSaga(),
     attributesSaga(),
     //
@@ -33,8 +35,6 @@ export default function* rootSaga() {
     shopSaga(),
     //
     ordersSaga(),
-    orderStatusesSaga(),
-    //
-    scalesSaga()
+    orderStatusesSaga()
   ]);
 }

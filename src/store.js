@@ -9,7 +9,9 @@ import accountStaffReducer from "./features/AccountStaff/reducers";
 import accountUsersReducer from "./features/AccountUsers/reducers";
 
 import productsReducer from "./features/Products/reducers";
+import scalesReducer from "./features/Scales/reducers";
 import typesReducer from "./features/Types/reducers";
+import makersReducer from "./features/Makers/reducers";
 import brandsReducer from "./features/Brands/reducers";
 import attributesReducer from "./features/Attributes/reducers";
 import inventoryReducer from "./features/Inventory/reducers";
@@ -17,8 +19,6 @@ import inventoryReducer from "./features/Inventory/reducers";
 import shopReducer from "./features/Shop/reducers";
 import ordersReducer from "./features/Orders/reducers";
 import orderStatusesReducer from "./features/OrderStatuses/reducers";
-
-import scalesReducer from "./features/Scales/reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -30,7 +30,9 @@ export default configureStore({
     accountUsers: accountUsersReducer,
     //
     products: productsReducer,
+    scales: scalesReducer,
     types: typesReducer,
+    makers: makersReducer,
     brands: brandsReducer,
     attributes: attributesReducer,
     //
@@ -39,9 +41,7 @@ export default configureStore({
     shop: shopReducer,
     //
     orders: ordersReducer,
-    orderStatuses: orderStatusesReducer,
-    // Scales
-    scales: scalesReducer
+    orderStatuses: orderStatusesReducer
   },
   middleware: [sagaMiddleware]
 });
