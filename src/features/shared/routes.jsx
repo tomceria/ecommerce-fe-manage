@@ -29,6 +29,10 @@ import ViewAccountUsers from "../AccountUsers/pages/ViewAccountUsers";
 import ViewProducts from "../Products/pages/ViewProducts";
 import NewProduct from "../Products/pages/NewProduct";
 import EditProduct from "../Products/pages/EditProduct";
+// Scale
+import ViewScales from "../Scales/pages/ViewScales";
+import NewScale from "../Scales/pages/NewScale";
+import EditScale from "../Scales/pages/EditScale";
 // Types
 import ViewTypes from "../Types/pages/ViewTypes";
 import NewType from "../Types/pages/NewType";
@@ -84,6 +88,40 @@ const routes = [
         hidden: true,
         roles: [role.MANAGER]
       },
+      // scale
+      {
+        label: "Scales",
+        link: "/products/scales",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <ViewScales />
+          </Protected>
+        ),
+        roles: [role.MANAGER]
+      },
+      {
+        label: "Add Scale",
+        link: "/products/scales/add",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <NewScale />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      },
+      {
+        label: "Edit Scale",
+        link: "/products/scales/:id",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <EditScale />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      },
+      // Type
       {
         label: "Types",
         link: "/products/types",
@@ -116,6 +154,7 @@ const routes = [
         hidden: true,
         roles: [role.MANAGER]
       },
+      // Brand
       {
         label: "Brands",
         link: "/products/brands",
