@@ -3,34 +3,53 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 
 import { performGetProducts } from "./actions";
-import { performGetBrands } from "../Brands/actions";
+import { performGetScales } from "../Scales/actions";
 import { performGetTypes } from "../Types/actions";
-import { selectBrands } from "../Brands/reducers";
+import { performGetMakers } from "../Makers/actions";
+import { performGetBrands } from "../Brands/actions";
+import { selectScales } from "../Scales/reducers";
 import { selectTypes } from "../Types/reducers";
+import { selectMakers } from "../Makers/reducers";
+import { selectBrands } from "../Brands/reducers";
 import { queryParams } from "../../utils/route.util";
 
 export function useProductSubInfo() {
   const dispatch = useDispatch();
 
+  const isLoadingScales = useSelector(selectScales.isLoadingScales);
   const isLoadingTypes = useSelector(selectTypes.isLoadingTypes);
+  const isLoadingMakers = useSelector(selectMakers.isLoadingMakers);
   const isLoadingBrands = useSelector(selectBrands.isLoadingBrands);
+  const isSuccessScales = useSelector(selectScales.isSuccessScales);
   const isSuccessTypes = useSelector(selectTypes.isSuccessTypes);
+  const isSuccessMakers = useSelector(selectMakers.isSuccessMakers);
   const isSuccessBrands = useSelector(selectBrands.isSuccessBrands);
 
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    dispatch(performGetScales());
     dispatch(performGetTypes());
+    dispatch(performGetMakers());
     dispatch(performGetBrands());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (!isLoadingBrands && !isLoadingTypes && isSuccessBrands && isSuccessTypes) {
+    if (
+      !isLoadingBrands &&
+      !isLoadingTypes &&
+      !isLoadingScales &&
+      !isLoadingMakers &&
+      isSuccessBrands &&
+      isSuccessTypes &&
+      isSuccessScales &&
+      isSuccessMakers
+    ) {
       setIsReady(true);
     }
     // eslint-disable-next-line
-  }, [isLoadingBrands, isLoadingTypes]);
+  }, [isLoadingScales, isLoadingTypes, isLoadingMakers, isLoadingBrands]);
 
   return isReady;
 }
@@ -76,7 +95,7 @@ export function useProductFilters(initialFilters, filters, isLoadingFilterForm, 
       // Only set value when data finished fetching (above returns isReady(bool))
       let finalFilters = initialFilters;
       finalFilters = { ...finalFilters, ...queryParams.get(location) };
-      ["query", "type", "brand"].forEach(attr => {
+      ["query", "scale", "type", "maker", "brand"].forEach(attr => {
         formFuncs.setValue(attr, finalFilters[attr]);
       });
     }

@@ -7,7 +7,9 @@ export const slice = createSlice({
       query: "",
       page: 1,
       size: 25,
+      scale: "",
       type: "",
+      maker: "",
       brand: "",
       sort: "createdAt",
       sortDesc: true

@@ -1,11 +1,42 @@
 import { dataTypes, fieldTypes } from "../../utils/model.util";
-import { selectBrands } from "../Brands/reducers";
+import { selectScales } from "../Scales/reducers";
 import { selectTypes } from "../Types/reducers";
+import { selectMakers } from "../Makers/reducers";
+import { selectBrands } from "../Brands/reducers";
 
-const brandsSelector = selectBrands.brands;
+const scalesSelector = selectScales.scales;
 const typesSelector = selectTypes.types;
+const makersSelector = selectMakers.makers;
+const brandsSelector = selectBrands.brands;
 
 // Constant Fields
+const scaleField = options => ({
+  name: "scale",
+  label: "Scale",
+  dataTypes: [
+    {
+      dataType: dataTypes.CUSTOM,
+      options: (v, formValues) => {
+        if (options && options.isFilter) {
+          return true;
+        }
+        return v.length > 0;
+      },
+      msg: "Required."
+    }
+  ],
+  fieldType: fieldTypes.SELECT.SIMPLE,
+  selections: scalesSelector,
+  selectionOptions: {
+    isReduxSelector: true,
+    noneOption: {
+      label: options && options.isFilter ? "All" : " "
+    }
+    // selectableParent: {
+    // suffix: " [All]"
+    // }
+  }
+});
 const typeField = options => ({
   name: "type",
   label: "Type",
@@ -31,6 +62,34 @@ const typeField = options => ({
     // selectableParent: {
     // suffix: " [All]"
     // }
+  }
+});
+const makerField = options => ({
+  name: "maker",
+  label: "Maker",
+  dataTypes: [
+    {
+      dataType: dataTypes.CUSTOM,
+      options: (v, formValues) => {
+        if (options && options.isFilter) {
+          return true;
+        }
+        return v.length > 0;
+      },
+      msg: "Required."
+    }
+  ],
+  fieldType: fieldTypes.SELECT.SIMPLE,
+  selections: makersSelector,
+  selectionOptions: {
+    isReduxSelector: true,
+    noneOption: {
+      label: options && options.isFilter ? "All" : " "
+    }
+    // selectableParent: {
+    // suffix: " [All]"
+    // },
+    // childrenAlias: "ChildTH"
   }
 });
 const brandField = options => ({
@@ -89,8 +148,10 @@ const productModel = [
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  brandField(),
+  scaleField(),
   typeField(),
+  makerField(),
+  brandField(),
   {
     name: "year",
     label: "Year",
@@ -174,6 +235,8 @@ export const productFilterModel = [
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
+  scaleField({ isFilter: true }),
   typeField({ isFilter: true }),
+  makerField({ isFilter: true }),
   brandField({ isFilter: true })
 ];

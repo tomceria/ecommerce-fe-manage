@@ -27,7 +27,7 @@ const EditProductCtn = ({ subjectId }) => {
   const mapFetchedToFormModel = (_model, product) => {
     const nModel = JSON.parse(JSON.stringify(_model)); // HAS TO BE DEEP COPY
     // Assigning references to reduxSelectors, custom dataType function
-    ["type", "brand"].forEach(f => {
+    ["scale", "type", "maker", "brand"].forEach(f => {
       nModel.find(field => field.name === f).selections = _model.find(
         field => field.name === f
       ).selections;
@@ -49,8 +49,16 @@ const EditProductCtn = ({ subjectId }) => {
           field.defaultValue = product[field.name].toString();
           break;
         }
+        case "scale": {
+          field.defaultValue = product.scaleId;
+          break;
+        }
         case "type": {
           field.defaultValue = product.typeId;
+          break;
+        }
+        case "maker": {
+          field.defaultValue = product.makerId;
           break;
         }
         case "brand": {
