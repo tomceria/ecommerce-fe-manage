@@ -26,7 +26,19 @@ const ProductFilterForm = ({ isLoading, filtersReloaded }) => {
         </Button>
       </div>
       <div>
-        {["type", "brand"].map(fieldName => (
+        {["scale", "type"].map(fieldName => (
+          <FormField
+            model={model.find(a => a.name === fieldName)}
+            key={fieldName}
+            formFuncs={formFuncs}
+            changed={filtersReloaded}
+            disabled={isLoading}
+            style={{ width: "10rem", flexGrow: 1 }}
+          />
+        ))}
+      </div>
+      <div>
+        {["maker", "brand"].map(fieldName => (
           <FormField
             model={model.find(a => a.name === fieldName)}
             key={fieldName}

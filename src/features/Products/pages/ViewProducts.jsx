@@ -18,11 +18,19 @@ const ViewProducts = () => {
           </Link>
         </div>
         <div>
-          <Link to="/products/brands">
-            <Button color="secondary">View Brands</Button>
+          <Link to="/products/scales">
+            <Button color="secondary">View Scales</Button>
           </Link>
           <Link to="/products/types">
             <Button color="secondary">View Types</Button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/products/makers">
+            <Button color="secondary">View Makers</Button>
+          </Link>
+          <Link to="/products/brands">
+            <Button color="secondary">View Brands</Button>
           </Link>
         </div>
         <div>
@@ -45,7 +53,9 @@ const ViewProducts = () => {
             { id: "name", label: model.find(e => e.name === "name").label, width: 200 },
             { id: "image", label: "Image", noSort: true },
             { id: "price", label: model.find(e => e.name === "price").label, width: 135 },
+            { id: "scale", label: model.find(e => e.name === "scale").label },
             { id: "type", label: model.find(e => e.name === "type").label },
+            { id: "maker", label: model.find(e => e.name === "maker").label },
             { id: "brand", label: model.find(e => e.name === "brand").label },
             { id: "year", label: model.find(e => e.name === "year").label },
             { id: "createdAt", label: "Created at", width: 125 },

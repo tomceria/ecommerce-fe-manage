@@ -52,9 +52,19 @@ const ProductList = ({
           </Tooltip>
         </>
       ),
+      scale: item.Scale && (
+        <LinkDisplay to={`products/scales/${item.Scale.id}`} weight={500}>
+          {item.Scale.name}
+        </LinkDisplay>
+      ),
       type: item.Type && (
         <LinkDisplay to={`products/types/${item.Type.id}`} weight={500}>
           {item.Type.name}
+        </LinkDisplay>
+      ),
+      maker: item.Maker && (
+        <LinkDisplay to={`products/makers/${item.Maker.id}`} weight={500}>
+          {item.Maker.name}
         </LinkDisplay>
       ),
       brand: item.Brand && (
