@@ -18,6 +18,8 @@ import shopReducer from "./features/Shop/reducers";
 import ordersReducer from "./features/Orders/reducers";
 import orderStatusesReducer from "./features/OrderStatuses/reducers";
 
+import scalesReducer from "./features/Scales/reducers";
+
 const sagaMiddleware = createSagaMiddleware();
 
 export default configureStore({
@@ -37,7 +39,9 @@ export default configureStore({
     shop: shopReducer,
     //
     orders: ordersReducer,
-    orderStatuses: orderStatusesReducer
+    orderStatuses: orderStatusesReducer,
+    // Scales
+    scales: scalesReducer
   },
   middleware: [sagaMiddleware]
 });

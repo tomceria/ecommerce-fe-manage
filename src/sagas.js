@@ -15,6 +15,8 @@ import shopSaga from "./features/Shop/saga";
 import ordersSaga from "./features/Orders/saga";
 import orderStatusesSaga from "./features/OrderStatuses/saga";
 
+import scalesSaga from "./features/Scales/saga";
+
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -31,6 +33,8 @@ export default function* rootSaga() {
     shopSaga(),
     //
     ordersSaga(),
-    orderStatusesSaga()
+    orderStatusesSaga(),
+    //
+    scalesSaga()
   ]);
 }
