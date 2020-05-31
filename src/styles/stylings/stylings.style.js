@@ -70,6 +70,10 @@ export const templates = {
     BASIC: `
       display: flex;
       flex-direction: column;
+      @media (${stylings.mediaQuery.bg}) {
+        width: 50rem;
+        max-width: 100%;
+      }
 
       & > * {
         margin-top: ${scaling("lg")} !important;

@@ -54,7 +54,6 @@ import EditShop from "../Shop/pages/EditShop";
 // Orders
 import ViewOrders from "../Orders/pages/ViewOrders";
 import InspectOrder from "../Orders/pages/InspectOrder";
-import NewOrder from "../Orders/pages/NewOrder";
 import VerifyOrder from "../Orders/pages/VerifyOrder";
 // Maker
 import ViewMakers from "../Makers/pages/ViewMakers";
@@ -336,16 +335,6 @@ const routes = [
           </Protected>
         ),
         hidden: true,
-        roles: [role.MERCHANDISER]
-      },
-      {
-        label: "New POS Order",
-        link: "/orders/add",
-        component: () => (
-          <Protected roles={[role.MERCHANDISER]}>
-            <NewOrder />
-          </Protected>
-        ),
         roles: [role.MERCHANDISER]
       },
       {

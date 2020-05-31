@@ -34,10 +34,20 @@ const EditOrderCtn = ({ subjectId }) => {
           field.defaultValue = order[field.name];
           break;
         }
-        case "item_id":
-        case "item_name":
-        case "item_variationId": {
-          field.defaultValue = order.Items[0][field.name];
+        case "phone":
+        case "email":
+        case "address": {
+          field.defaultValue = order[`payee_${field.name}`];
+          break;
+        }
+        case "orderDetails": {
+          field.defaultValue = {
+            value: "",
+            object: {
+              orderId: order.id,
+              orderDetails: order.Items
+            }
+          };
           break;
         }
         default: {
@@ -69,12 +79,10 @@ const EditOrderCtn = ({ subjectId }) => {
 
   const handleOnSubmit = async data => {
     const newData = {
-      orderDetails: [
-        {
-          variationId: data.item_variationId,
-          inventoryId: data.item_inventoryId
-        }
-      ]
+      orderDetails: data.orderDetails.map(oD => ({
+        id: parseInt(oD.id, 10),
+        inventoryId: oD.inventoryId
+      }))
     };
     setErrRes(null);
     try {

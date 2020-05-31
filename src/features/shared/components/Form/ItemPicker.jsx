@@ -3,9 +3,12 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import _ from "lodash";
+import { Collapse, List, ListItem, ListItemText } from "@material-ui/core";
 import { Controller } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
+import iconExpand from "@iconify/icons-bx/bx-chevron-down";
+import iconCollapse from "@iconify/icons-bx/bx-chevron-up";
 
 import Button from "./Button";
 import { TextFieldStyled } from "./Input";
@@ -94,8 +97,12 @@ const prepareList = listName => {
       listConsts.listTransform = items => {
         return items.map(item => {
           const newItem = JSON.parse(JSON.stringify(item));
-          newItem.available = newItem.available ? <b>Yes</b> : "No";
-          newItem.bought = newItem.bought ? "Yes" : <b>No</b>;
+          newItem.available = newItem.available ? (
+            <b>Yes</b>
+          ) : (
+            <span style={{ color: "red" }}>No</span>
+          );
+          newItem.bought = newItem.bought ? <span style={{ color: "red" }}>Yes</span> : <b>No</b>;
           return newItem;
         });
       };
@@ -135,6 +142,8 @@ const ItemPicker = ({
   // Selected item list
   const [selecteds, setSelecteds] = useState([]);
   const [selectings, setSelectings] = useState([]);
+  // UI states
+  const [isExpanded, setIsExpand] = useState(false);
   // Item List states
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -298,25 +307,55 @@ const ItemPicker = ({
       {/* Button Display */}
       {!small && <p>{label}</p>}
       <ItemPickerStyled style={style} className={error && "error"} small={small}>
-        {small && <span style={{ marginRight: "0.5rem" }}>{`${label}: `}</span>}
-        {!small && (
-          <Button onClick={handleOnModalOpen} disabled={disabled}>
-            Browse...
-          </Button>
-        )}
-        <span className="valueDisplay">
-          {selecteds.length > 0 && (
-            <p>
-              <b>{selecteds[0]}</b>
-              {selecteds.length > 1 && ` and ${selecteds.length - 1} more`}
-            </p>
+        <div>
+          <div>
+            {small && (
+              <span style={{ display: "flex", alignItems: "center", marginRight: "0.5rem" }}>
+                {`${label}: `}
+              </span>
+            )}
+            {!small && (
+              <Button onClick={handleOnModalOpen} disabled={disabled}>
+                Browse...
+              </Button>
+            )}
+            <span className="valueDisplay">
+              {selecteds.length > 0 && (
+                <p>
+                  <b>{selecteds[0]}</b>
+                  {selecteds.length > 1 && ` and ${selecteds.length - 1} more`}
+                </p>
+              )}
+            </span>
+            {small && (
+              <Button
+                onClick={handleOnModalOpen}
+                disabled={disabled}
+                style={{ marginLeft: "1rem" }}
+              >
+                Browse...
+              </Button>
+            )}
+          </div>
+          {multiple && !small && (
+            <div>
+              <Button onClick={() => setIsExpand(prevState => !prevState)}>
+                <Icon icon={isExpanded ? iconCollapse : iconExpand} />
+              </Button>
+            </div>
           )}
-        </span>
-        {small && (
-          <Button onClick={handleOnModalOpen} disabled={disabled} style={{ marginLeft: "1rem" }}>
-            Browse...
-          </Button>
-        )}
+        </div>
+        <div>
+          <Collapse in={isExpanded} mountOnEnter unmountOnExit timeout={0}>
+            <List>
+              {selecteds.map(s => (
+                <ListItem key={s}>
+                  <ListItemText primary={s} />
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </div>
       </ItemPickerStyled>
       <p className="errorMsg">{error && errormessage}</p>
       {/* react-hook-form Controller */}
@@ -404,6 +443,7 @@ const FieldContainer = styled.div`
 
 const ItemPickerStyled = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 0;
   align-items: center;
   ${props =>
@@ -420,6 +460,16 @@ const ItemPickerStyled = styled.div`
   &.error {
     box-shadow: 0 0 5px 2px ${colors.scheme.error.light};
     border: 1px solid ${colors.scheme.error.normal};
+  }
+
+  & > * {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  & > * > * {
+    display: flex;
   }
 
   & .valueDisplay {

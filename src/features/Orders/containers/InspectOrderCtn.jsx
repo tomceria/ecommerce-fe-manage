@@ -91,6 +91,10 @@ const InspectOrderCtn = ({ subjectId }) => {
                 <td>Phone: </td>
                 <td>{order.payee_phone}</td>
               </tr>
+              <tr>
+                <td>Delivery Address: </td>
+                <td>{order.payee_address}</td>
+              </tr>
             </tbody>
           </table>
           {order.downPayment && order.loanTerm && order.apr && (
@@ -125,7 +129,6 @@ const InspectOrderCtn = ({ subjectId }) => {
               { id: "item_variationId", label: "Variation ID", noSort: true },
               { id: "item_name", label: "Item Name", noSort: true },
               { id: "item_price", label: "Unit Price", noSort: true },
-              { id: "item_quantity", label: "Quantity", noSort: true },
               { id: "item_inventoryId", label: "Selected Inventory Item", noSort: true }
             ]}
             items={order.Items}

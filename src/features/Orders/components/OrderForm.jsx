@@ -7,8 +7,8 @@ import FormField from "../../shared/containers/FormField";
 import Button from "../../shared/components/Form/Button";
 
 const FIELDLIST = {
-  add: ["userId", "lastName", "firstName", "email", "phone", "itemId", "variationId"],
-  verify: ["id", "item_id", "item_name", "item_variationId", "item_inventoryId"]
+  add: ["userId", "lastName", "firstName", "email", "phone", "address", "itemId", "variationId"],
+  verify: ["id", "email", "phone", "address", "orderDetails"]
 };
 
 const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) => {
@@ -44,6 +44,7 @@ const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) =>
               formFuncs={formFuncs}
               disabled={
                 ["id", "item_id", "item_name", "item_variationId"].includes(field.name) ||
+                (isPerformingVerify && ["email", "phone", "address"].includes(field.name)) ||
                 isLoadingForm ||
                 isFetching ||
                 isSubmitting

@@ -144,6 +144,18 @@ const orderModel = [
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
+    name: "address",
+    label: "Address",
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: "Required."
+      }
+    ],
+    fieldType: fieldTypes.INPUT.TEXT
+  },
+  {
     name: "itemId",
     label: "Product",
     dataTypes: [
@@ -177,44 +189,11 @@ const orderModel = [
     }
   },
   {
-    name: "item_id",
-    label: "Product ID",
+    name: "orderDetails",
+    label: "Order Details",
     dataTypes: [],
-    fieldType: fieldTypes.INPUT.TEXT
-  },
-  {
-    name: "item_name",
-    label: "Product Name",
-    dataTypes: [],
-    fieldType: fieldTypes.INPUT.TEXT
-  },
-  {
-    name: "item_variationId",
-    label: "Variation ID",
-    dataTypes: [
-      {
-        dataType: dataTypes.STRING,
-        options: { min: 1 },
-        msg: "Required."
-      }
-    ],
-    fieldType: fieldTypes.INPUT.TEXT
-  },
-  {
-    name: "item_inventoryId",
-    label: "Inventory Item",
-    dataTypes: [
-      {
-        dataType: dataTypes.STRING,
-        options: { min: 1 },
-        msg: "Required."
-      }
-    ],
-    fieldType: fieldTypes.PICKER.SINGLE,
-    fieldTypeOptions: {
-      listName: LISTNAMES.INVENTORY
-    }
-  },
+    fieldType: fieldTypes.ORDERDETAIL.MULTIPLE
+  }
 ];
 export default orderModel;
 
