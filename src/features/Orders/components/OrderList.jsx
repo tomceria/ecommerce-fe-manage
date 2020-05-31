@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 import iconVerify from "@iconify/icons-bx/bx-list-check";
+import iconDelivery from "@iconify/icons-bx/bx-package";
 import iconComplete from "@iconify/icons-bx/bx-check-circle";
 import iconCancel from "@iconify/icons-bx/bx-x-circle";
 
@@ -69,9 +70,7 @@ const OrderList = ({
           )}
         </>
       ),
-      statusId: (
-        <OrderStatusDisplay status={item.Status} />
-      ),
+      statusId: <OrderStatusDisplay status={item.Status} />,
       totalPrice: <NumberDisplay type="currency" value={item.totalPrice} />,
       downPayment: item.downPayment && <NumberDisplay type="currency" value={item.downPayment} />,
       createdAt: (
@@ -108,6 +107,19 @@ const OrderList = ({
             </div>
           )}
           {item.statusId === "verified" && (
+            <div style={{ display: "flex" }}>
+              <Button
+                color="default"
+                onClick={() => rowActions.startDeliverOrder(item)}
+                disabled={rowActionsDisabled}
+                style={{ flexGrow: 1 }}
+              >
+                <Icon icon={iconDelivery} />
+                <span>Start Delivery</span>
+              </Button>
+            </div>
+          )}
+          {item.statusId === "delivering" && (
             <div style={{ display: "flex" }}>
               <Button
                 color="default"
@@ -165,6 +177,7 @@ OrderList.propTypes = {
   changedSort: PropTypes.func,
   rowActions: PropTypes.shape({
     verifyOrder: PropTypes.func,
+    startDeliverOrder: PropTypes.func,
     completeOrder: PropTypes.func,
     cancelOrder: PropTypes.func
   }).isRequired,

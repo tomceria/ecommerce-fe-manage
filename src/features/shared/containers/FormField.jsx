@@ -16,6 +16,7 @@ import ItemPicker from "../components/Form/ItemPicker";
 import ImageDropzone from "../components/Form/ImageDropzone";
 import VariationField from "../components/Form/VariationField"; // eslint-disable-line
 import AttributeField from "../components/Form/AttributeField"; // eslint-disable-line
+import OrderDetailField from "../components/Form/OrderDetailField"; // eslint-disable-line
 
 const FormField = ({ model, changed, disabled, className, style }) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -103,6 +104,10 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.ATTRIBUTE.MULTIPLE: {
       FieldComponent = AttributeField;
+      break;
+    }
+    case fieldTypes.ORDERDETAIL.MULTIPLE: {
+      FieldComponent = OrderDetailField;
       break;
     }
   }

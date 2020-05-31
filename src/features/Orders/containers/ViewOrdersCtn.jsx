@@ -10,8 +10,9 @@ import { performGetOrders } from "../actions";
 import { selectOrdersFilters, selectOrders } from "../reducers";
 import { useOrderFilters, useOrderSubInfo } from "../hooks";
 
-import ConfirmCancelOrder from "../pages/modals/ConfirmCancelOrder";
+import ConfirmStartDeliverOrder from "../pages/modals/ConfirmStartDeliverOrder";
 import ConfirmCompleteOrder from "../pages/modals/ConfirmCompleteOrder";
+import ConfirmCancelOrder from "../pages/modals/ConfirmCancelOrder";
 
 import OrderList from "../components/OrderList";
 import OrderFilterForm from "../components/OrderFilterForm";
@@ -48,6 +49,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
   // Local UI States
 
   const [orders, setOrders] = useState([]);
+  const [modalConfirmStartDeliverOrder, setModalConfirmStartDeliverOrder] = useState(null);
   const [modalConfirmCompleteOrder, setModalConfirmCompleteOrder] = useState(null);
   const [modalConfirmCancelOrder, setModalConfirmCancelOrder] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -90,6 +92,27 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
     history.push(`/orders/${order.id}/verify`);
   };
 
+  const handleOnConfirmStartDeliverOrder = async order => {
+    setIsUpdating(true);
+    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+      variant: "warning",
+      persist: true
+    });
+    try {
+      setModalConfirmStartDeliverOrder(null);
+      await request("patch", `/orders/${order.id}/deliver`);
+      handleFiltersReload();
+      snackbar.enqueueSnackbar("Updated order successfully!", {
+        variant: "success"
+      });
+    } catch (e) {
+      snackbar.enqueueSnackbar(e.response.data.message, {
+        variant: "error"
+      });
+    }
+    snackbar.closeSnackbar(loadingSb);
+    setIsUpdating(false);
+  };
   const handleOnConfirmCompleteOrder = async order => {
     setIsUpdating(true);
     const loadingSb = snackbar.enqueueSnackbar("Loading", {
@@ -136,6 +159,11 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
   return (
     <>
       {/* MODALS */}
+      <ConfirmStartDeliverOrder
+        order={modalConfirmStartDeliverOrder}
+        onClose={() => setModalConfirmStartDeliverOrder(null)}
+        onConfirm={handleOnConfirmStartDeliverOrder}
+      />
       <ConfirmCompleteOrder
         order={modalConfirmCompleteOrder}
         onClose={() => setModalConfirmCompleteOrder(null)}
@@ -173,6 +201,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
         // Action Handlers
         rowActions={{
           verifyOrder: order => handleVerifyOrder(order),
+          startDeliverOrder: order => setModalConfirmStartDeliverOrder(order),
           completeOrder: order => setModalConfirmCompleteOrder(order),
           cancelOrder: order => setModalConfirmCancelOrder(order)
         }}

@@ -80,10 +80,16 @@ export default [
   // dataTypes: [],
   // fieldType: fieldTypes.VARIATION.MULTIPLE
   // },
-  // {
-  // name: "attributes",
-  // label: "Attributes",
-  // dataTypes: [],
-  // fieldType: fieldTypes.ATTRIBUTE.MULTIPLE
-  // }
+  {
+    name: "attributes",
+    label: "Attributes",
+    dataTypes: [],
+    fieldType: fieldTypes.ATTRIBUTE.MULTIPLE
+  },
+  {
+    name: "orderDetails",
+    label: "Order Details",
+    dataTypes: [],
+    fieldType: fieldTypes.ORDERDETAIL.MULTIPLE
+  }
 ];

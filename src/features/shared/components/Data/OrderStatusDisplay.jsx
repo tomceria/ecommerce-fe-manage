@@ -8,10 +8,11 @@ const NumberDisplay = ({ status }) => {
   const statusColor = statusId => {
     switch (statusId) {
       case "processing":
-      case "ordered": {
+      case "ordered":
+      case "verified":
+      case "delivering": {
         return colors.scheme.warning.dark;
       }
-      case "verified":
       case "delivered": {
         return colors.scheme.success.normal;
       }

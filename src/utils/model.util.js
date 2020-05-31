@@ -44,6 +44,9 @@ export const fieldTypes = {
   },
   ATTRIBUTE: {
     MULTIPLE: "ATTRIBUTE_MULTIPLE"
+  },
+  ORDERDETAIL: {
+    MULTIPLE: "ORDERDETAIL_MULTIPLE"
   }
 };
 
