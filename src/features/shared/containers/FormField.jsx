@@ -11,6 +11,7 @@ import Input from "../components/Form/Input";
 import Autocomplete from "../components/Form/Autocomplete";
 import Select from "../components/Form/Select";
 import RadioGroup from "../components/Form/RadioGroup";
+import DatePicker from "../components/Form/DatePicker";
 
 import ItemPicker from "../components/Form/ItemPicker";
 import ImageDropzone from "../components/Form/ImageDropzone";
@@ -74,6 +75,15 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.RADIO.GROUPED: {
       FieldComponent = RadioGroup;
+      break;
+    }
+    case fieldTypes.DATE.DATE: {
+      FieldComponent = DatePicker;
+      break;
+    }
+    case fieldTypes.DATE.DATETIME: {
+      properties.type = "datetime";
+      FieldComponent = DatePicker;
       break;
     }
     // CUSTOM FIELDS

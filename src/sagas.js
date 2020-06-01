@@ -13,9 +13,9 @@ import brandsSaga from "./features/Brands/saga";
 import attributesSaga from "./features/Attributes/saga";
 import inventorySaga from "./features/Inventory/saga";
 import shopSaga from "./features/Shop/saga";
-
 import ordersSaga from "./features/Orders/saga";
 import orderStatusesSaga from "./features/OrderStatuses/saga";
+import promotionsSaga from "./features/Promotions/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -29,12 +29,10 @@ export default function* rootSaga() {
     makersSaga(),
     brandsSaga(),
     attributesSaga(),
-    //
     inventorySaga(),
-    //
     shopSaga(),
-    //
     ordersSaga(),
-    orderStatusesSaga()
+    orderStatusesSaga(),
+    promotionsSaga()
   ]);
 }

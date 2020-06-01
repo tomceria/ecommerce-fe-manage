@@ -31,6 +31,11 @@ export const fieldTypes = {
   RADIO: {
     GROUPED: "RADIO_GROUPED"
   },
+  DATE: {
+    DATE: "DATE_DATE",
+    DATETIME: "DATE_DATETIME"
+    // TIME: "DATE_TIME"
+  },
   // CUSTOM FIELDS
   PICKER: {
     SINGLE: "PICKER_SINGLE",

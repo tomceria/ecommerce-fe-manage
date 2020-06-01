@@ -62,34 +62,28 @@ export default [
       { id: "false", name: "No" }
     ]
   },
-  // {
-  // name: "images",
-  // label: "Images",
-  // dataTypes: [
-  // {
-  // dataType: dataTypes.ARRAY,
-  // options: { min: 1 },
-  // msg: "At least 1 image is required."
-  // }
-  // ],
-  // fieldType: fieldTypes.MEDIA.IMAGES
-  // },
-  // {
-  // name: "variations",
-  // label: "Variations",
-  // dataTypes: [],
-  // fieldType: fieldTypes.VARIATION.MULTIPLE
-  // },
   {
-    name: "attributes",
-    label: "Attributes",
-    dataTypes: [],
-    fieldType: fieldTypes.ATTRIBUTE.MULTIPLE
+    name: "date",
+    label: "Date",
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: "Required."
+      }
+    ],
+    fieldType: fieldTypes.DATE.DATE
   },
   {
-    name: "orderDetails",
-    label: "Order Details",
-    dataTypes: [],
-    fieldType: fieldTypes.ORDERDETAIL.MULTIPLE
+    name: "datetime",
+    label: "Date Time",
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: "Required."
+      }
+    ],
+    fieldType: fieldTypes.DATE.DATETIME
   }
 ];

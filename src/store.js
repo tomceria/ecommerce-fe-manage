@@ -15,10 +15,10 @@ import makersReducer from "./features/Makers/reducers";
 import brandsReducer from "./features/Brands/reducers";
 import attributesReducer from "./features/Attributes/reducers";
 import inventoryReducer from "./features/Inventory/reducers";
-
 import shopReducer from "./features/Shop/reducers";
 import ordersReducer from "./features/Orders/reducers";
 import orderStatusesReducer from "./features/OrderStatuses/reducers";
+import promotionsReducer from "./features/Promotions/reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -35,13 +35,11 @@ export default configureStore({
     makers: makersReducer,
     brands: brandsReducer,
     attributes: attributesReducer,
-    //
     inventory: inventoryReducer,
-    //
     shop: shopReducer,
-    //
     orders: ordersReducer,
-    orderStatuses: orderStatusesReducer
+    orderStatuses: orderStatusesReducer,
+    promotions: promotionsReducer
   },
   middleware: [sagaMiddleware]
 });

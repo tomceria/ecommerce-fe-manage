@@ -4,6 +4,7 @@ import iconHome from "@iconify/icons-bx/bx-home-alt";
 // Manager
 import iconProduct from "@iconify/icons-bx/bx-carousel";
 import iconInventory from "@iconify/icons-bx/bx-box";
+import iconPromotion from "@iconify/icons-bx/bx-purchase-tag-alt";
 // Merchandiser
 import iconOrder from "@iconify/icons-bx/bx-notepad";
 // Customer Support
@@ -37,6 +38,10 @@ import EditScale from "../Scales/pages/EditScale";
 import ViewTypes from "../Types/pages/ViewTypes";
 import NewType from "../Types/pages/NewType";
 import EditType from "../Types/pages/EditType";
+// Maker
+import ViewMakers from "../Makers/pages/ViewMakers";
+import NewMaker from "../Makers/pages/NewMaker";
+import EditMaker from "../Makers/pages/EditMaker";
 // Brands
 import ViewBrands from "../Brands/pages/ViewBrands";
 import NewBrand from "../Brands/pages/NewBrand";
@@ -55,10 +60,10 @@ import EditShop from "../Shop/pages/EditShop";
 import ViewOrders from "../Orders/pages/ViewOrders";
 import InspectOrder from "../Orders/pages/InspectOrder";
 import VerifyOrder from "../Orders/pages/VerifyOrder";
-// Maker
-import ViewMakers from "../Makers/pages/ViewMakers";
-import NewMaker from "../Makers/pages/NewMaker";
-import EditMaker from "../Makers/pages/EditMaker";
+// Promotions
+import ViewPromotions from "../Promotions/pages/ViewPromotions";
+import NewPromotion from "../Promotions/pages/NewPromotion";
+import EditPromotion from "../Promotions/pages/EditPromotion";
 
 const routes = [
   {
@@ -295,6 +300,42 @@ const routes = [
         component: () => (
           <Protected roles={[role.MANAGER]}>
             <EditInventoryItem />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      }
+    ]
+  },
+  // Promotion
+  {
+    label: "Promotions",
+    link: "/promotions",
+    component: () => (
+      <Protected roles={[role.MANAGER]}>
+        <ViewPromotions />
+      </Protected>
+    ),
+    icon: iconPromotion,
+    roles: [role.MANAGER],
+    sub: [
+      {
+        label: "Add Promotion",
+        link: "/promotions/add",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <NewPromotion />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.MANAGER]
+      },
+      {
+        label: "Edit Promotion",
+        link: "/promotions/:id",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <EditPromotion />
           </Protected>
         ),
         hidden: true,
