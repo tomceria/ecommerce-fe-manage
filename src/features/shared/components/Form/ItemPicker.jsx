@@ -179,7 +179,7 @@ const ItemPicker = ({
     fetchItems();
   }, [filters]); // eslint-disable-line
 
-  // Set "selecteds" state on form value change
+  // Set "selecteds" state on form value change / on defaultValue
   useEffect(() => {
     let newSelecteds = [];
     if (multiple) {
@@ -393,7 +393,7 @@ ItemPicker.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       value: PropTypes.string,
-      object: PropTypes.arrayOf(PropTypes.shape({}))
+      object: PropTypes.arrayOf(PropTypes.string)
     })
   ]),
   // Field Properties
