@@ -22,6 +22,7 @@ export const LISTNAMES = {
   ACCOUNTUSERS: "LIST_ACCOUNTUSERS",
   ACCOUNTSTAFF: "LIST_ACCOUNTSTAFF",
   ACCOUNTSTAFF_MERCHANDISER: "LIST_ACCOUNTSTAFF_MERCHANDISER",
+  ACCOUNTSTAFF_SUPPORT: "LIST_ACCOUNTSTAFF_SUPPORT",
   PRODUCTS: "LIST_PRODUCTS",
   INVENTORY: "LIST_INVENTORY"
 };
@@ -61,6 +62,18 @@ const prepareList = listName => {
     case LISTNAMES.ACCOUNTSTAFF_MERCHANDISER: {
       listConsts.label = "Merchandiser";
       listConsts.url = "/accountStaff?roleId=merchandiser";
+      listConsts.resultName = "accounts";
+      listConsts.selectingIdentifier = "Staff.id";
+      listConsts.tableHead = [
+        { id: "Staff.id", label: "Staff ID", noSort: true },
+        { id: "username", label: "Username", noSort: true },
+        { id: "email", label: "Email", noSort: true }
+      ];
+      break;
+    }
+    case LISTNAMES.ACCOUNTSTAFF_SUPPORT: {
+      listConsts.label = "Customer Support";
+      listConsts.url = "/accountStaff?roleId=support";
       listConsts.resultName = "accounts";
       listConsts.selectingIdentifier = "Staff.id";
       listConsts.tableHead = [

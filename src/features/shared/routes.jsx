@@ -8,6 +8,7 @@ import iconPromotion from "@iconify/icons-bx/bx-purchase-tag-alt";
 // Merchandiser
 import iconOrder from "@iconify/icons-bx/bx-notepad";
 // Customer Support
+import iconSupport from "@iconify/icons-bx/bx-support";
 // Admin
 import iconAdministration from "@iconify/icons-bx/bx-wrench";
 // Others
@@ -64,6 +65,9 @@ import VerifyOrder from "../Orders/pages/VerifyOrder";
 import ViewPromotions from "../Promotions/pages/ViewPromotions";
 import NewPromotion from "../Promotions/pages/NewPromotion";
 import EditPromotion from "../Promotions/pages/EditPromotion";
+// SupportTickets
+import ViewSupportTickets from "../SupportTickets/pages/ViewSupportTickets";
+import EditSupportTicket from "../SupportTickets/pages/EditSupportTicket";
 
 const routes = [
   {
@@ -327,7 +331,6 @@ const routes = [
             <NewPromotion />
           </Protected>
         ),
-        hidden: true,
         roles: [role.MANAGER]
       },
       {
@@ -355,7 +358,7 @@ const routes = [
     icon: iconShopInfo,
     roles: [role.MANAGER]
   },
-  // Merchandiser
+  /* MERCHANDISER */
   {
     label: "Orders",
     link: "/orders",
@@ -391,8 +394,32 @@ const routes = [
       }
     ]
   },
-  // Customer Support
-  // Admin
+  /* CUSTOMER SUPPORT */
+  {
+    label: "Customer Support",
+    link: "/support",
+    component: () => (
+      <Protected roles={[role.SUPPORT]}>
+        <ViewSupportTickets />
+      </Protected>
+    ),
+    icon: iconSupport,
+    roles: [role.SUPPORT],
+    sub: [
+      {
+        label: "Edit Support Ticket",
+        link: "/support/:id",
+        component: () => (
+          <Protected roles={[role.SUPPORT]}>
+            <EditSupportTicket />
+          </Protected>
+        ),
+        hidden: true,
+        roles: [role.SUPPORT]
+      }
+    ]
+  },
+  /* ADMIN */
   {
     label: "Administration",
     link: "/admin",
