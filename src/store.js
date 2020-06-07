@@ -19,6 +19,9 @@ import shopReducer from "./features/Shop/reducers";
 import ordersReducer from "./features/Orders/reducers";
 import orderStatusesReducer from "./features/OrderStatuses/reducers";
 import promotionsReducer from "./features/Promotions/reducers";
+import supportTicketsReducer from "./features/SupportTickets/reducers";
+import supportTypesReducer from "./features/SupportTypes/reducers";
+import supportTicketStatusesReducer from "./features/SupportTicketStatuses/reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -39,7 +42,10 @@ export default configureStore({
     shop: shopReducer,
     orders: ordersReducer,
     orderStatuses: orderStatusesReducer,
-    promotions: promotionsReducer
+    promotions: promotionsReducer,
+    supportTickets: supportTicketsReducer,
+    supportTypes: supportTypesReducer,
+    supportTicketStatuses: supportTicketStatusesReducer
   },
   middleware: [sagaMiddleware]
 });

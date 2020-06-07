@@ -16,6 +16,9 @@ import shopSaga from "./features/Shop/saga";
 import ordersSaga from "./features/Orders/saga";
 import orderStatusesSaga from "./features/OrderStatuses/saga";
 import promotionsSaga from "./features/Promotions/saga";
+import supportTicketsSaga from "./features/SupportTickets/saga";
+import supportTypesSaga from "./features/SupportTypes/saga";
+import supportTicketStatusesSaga from "./features/SupportTicketStatuses/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -33,6 +36,9 @@ export default function* rootSaga() {
     shopSaga(),
     ordersSaga(),
     orderStatusesSaga(),
-    promotionsSaga()
+    promotionsSaga(),
+    supportTicketsSaga(),
+    supportTypesSaga(),
+    supportTicketStatusesSaga()
   ]);
 }
