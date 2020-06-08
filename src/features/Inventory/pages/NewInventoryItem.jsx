@@ -19,6 +19,22 @@ const NewInventoryItem = () => {
       </LayoutCardStyled>
       <LayoutCard>
         <h2 className="title">Import to Inventory</h2>
+        <p>
+          Start importing items into inventory by importing an
+          <b> Excel spreadsheet (.xlsx) </b>
+          containing:
+        </p>
+        <ul>
+          <li>First row: Header (3 columns)</li>
+          <li>
+            Remaining rows:
+            <ul>
+              <li>Column 1: Item ID</li>
+              <li>Column 2: Variation Name</li>
+              <li>Column 3: Quantity (number)</li>
+            </ul>
+          </li>
+        </ul>
         <NewInventoryItemCtn />
       </LayoutCard>
     </>
