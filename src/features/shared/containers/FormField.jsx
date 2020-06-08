@@ -15,6 +15,7 @@ import DatePicker from "../components/Form/DatePicker";
 
 import ItemPicker from "../components/Form/ItemPicker";
 import ImageDropzone from "../components/Form/ImageDropzone";
+import SheetDropzone from "../components/Form/SheetDropzone";
 import VariationField from "../components/Form/VariationField"; // eslint-disable-line
 import AttributeField from "../components/Form/AttributeField"; // eslint-disable-line
 import OrderDetailField from "../components/Form/OrderDetailField"; // eslint-disable-line
@@ -118,6 +119,10 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.ORDERDETAIL.MULTIPLE: {
       FieldComponent = OrderDetailField;
+      break;
+    }
+    case fieldTypes.SHEET.SINGLE: {
+      FieldComponent = SheetDropzone;
       break;
     }
   }

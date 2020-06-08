@@ -85,5 +85,30 @@ export default [
       }
     ],
     fieldType: fieldTypes.DATE.DATETIME
+  },
+  {
+    name: "sheet",
+    label: "Import Sheet",
+    dataTypes: [
+      {
+        dataType: dataTypes.ARRAY,
+        options: { min: 1 },
+        msg: "Spreadsheet with data is required."
+      },
+      {
+        dataType: dataTypes.CUSTOM,
+        options: (v, formValues) => {
+          const arr = JSON.parse(v);
+          for (let i = 0; i < arr.length; i += 1) {
+            if (arr[i].length !== 3) {
+              return false;
+            }
+          }
+          return true;
+        },
+        msg: "All rows must have only 3 columns."
+      }
+    ],
+    fieldType: fieldTypes.SHEET.SINGLE
   }
 ];

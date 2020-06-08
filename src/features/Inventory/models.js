@@ -30,7 +30,7 @@ const productField = options => ({
 const inventoryModel = [
   {
     name: "id",
-    label: "Serial Number / VIN",
+    label: "Inventory ID",
     dataTypes: [
       {
         dataType: dataTypes.STRING,
@@ -76,17 +76,29 @@ const inventoryModel = [
     ]
   },
   {
-    name: "identifiers",
-    label: "Identifiers (SSN/VIN)",
+    name: "inventories",
+    label: "Inventory Import Spreadsheet",
     dataTypes: [
       {
-        dataType: dataTypes.STRING,
+        dataType: dataTypes.ARRAY,
         options: { min: 1 },
-        msg: "Required."
+        msg: "Spreadsheet with data is required."
+      },
+      {
+        dataType: dataTypes.CUSTOM,
+        options: (v, formValues) => {
+          const arr = JSON.parse(v);
+          for (let i = 0; i < arr.length; i += 1) {
+            if (arr[i].length !== 3) {
+              return false;
+            }
+          }
+          return true;
+        },
+        msg: "All rows must have only 3 columns."
       }
     ],
-    fieldType: fieldTypes.INPUT.TEXTAREA,
-    fieldTypeOptions: { rows: 10 }
+    fieldType: fieldTypes.SHEET.SINGLE
   }
 ];
 export default inventoryModel;

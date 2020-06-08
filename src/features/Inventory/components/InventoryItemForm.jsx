@@ -7,11 +7,11 @@ import FormField from "../../shared/containers/FormField";
 import Button from "../../shared/components/Form/Button";
 
 const FIELDLIST = {
-  add: ["itemId", "variationId", "identifiers"],
+  add: ["inventories"],
   update: ["id", "variationId", "available"]
 };
 
-const InventoryItemForm = ({ model, isPerformingUpdate, isFetching, onProductChanged }) => {
+const InventoryItemForm = ({ model, isPerformingUpdate }) => {
   const formFuncs = useFormContext();
 
   const isLoadingForm = !useInventoryItemSubInfo();
@@ -24,14 +24,6 @@ const InventoryItemForm = ({ model, isPerformingUpdate, isFetching, onProductCha
     return FIELDLIST.add;
   };
 
-  const additionalProps = fieldName => {
-    const newProps = {};
-    if (!!onProductChanged && fieldName === "itemId") {
-      newProps.changed = onProductChanged;
-    }
-    return newProps;
-  };
-
   return (
     <>
       {model
@@ -41,13 +33,7 @@ const InventoryItemForm = ({ model, isPerformingUpdate, isFetching, onProductCha
             model={field}
             key={field.name}
             formFuncs={formFuncs}
-            disabled={
-              (isPerformingUpdate && field.name === "id") ||
-              isLoadingForm ||
-              isFetching ||
-              isSubmitting
-            }
-            {...additionalProps(field.name)} // eslint-disable-line
+            disabled={(isPerformingUpdate && field.name === "id") || isLoadingForm || isSubmitting}
           />
         ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
@@ -62,11 +48,8 @@ export default InventoryItemForm;
 // PropTypes
 InventoryItemForm.propTypes = {
   model: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  isPerformingUpdate: PropTypes.bool,
-  isFetching: PropTypes.bool.isRequired,
-  onProductChanged: PropTypes.func
+  isPerformingUpdate: PropTypes.bool
 };
 InventoryItemForm.defaultProps = {
-  isPerformingUpdate: undefined,
-  onProductChanged: undefined
+  isPerformingUpdate: undefined
 };

@@ -52,6 +52,9 @@ export const fieldTypes = {
   },
   ORDERDETAIL: {
     MULTIPLE: "ORDERDETAIL_MULTIPLE"
+  },
+  SHEET: {
+    SINGLE: "SHEET_SINGLE"
   }
 };
 

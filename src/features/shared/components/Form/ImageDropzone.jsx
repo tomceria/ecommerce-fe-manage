@@ -117,6 +117,7 @@ const ImageDropzone = ({
         {label}
       </label>
       <ImageDropzoneStyled
+        // eslint-disable-next-line
         {...getRootProps({ isDragActive, isDragAccept })}
         className={error && "error"}
       >
@@ -161,6 +162,7 @@ const ImageDropzone = ({
             </button>
           )}
         </div>
+        {/* eslint-disable-next-line */}
         <input {...getInputProps()} />
         <Controller
           // Form Identifier
