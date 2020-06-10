@@ -7,8 +7,10 @@ import App from "./App";
 import store from "./store";
 import * as serviceWorker from "./serviceWorker";
 import apiConfig from "./configs/api.config";
+import chartConfig from "./configs/chart.config";
 
 apiConfig();
+chartConfig();
 
 ReactDOM.render(
   <Provider store={store}>

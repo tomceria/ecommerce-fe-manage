@@ -12,6 +12,7 @@ import {
 // AUX
 const PickerComponent = props => {
   const { type } = props;
+  const additionalProps = {};
   let NewComponent = null;
   switch (type) {
     default:
@@ -23,8 +24,12 @@ const PickerComponent = props => {
       NewComponent = MUIDateTimePicker;
       break;
     }
+    case "year": {
+      NewComponent = MUIDatePicker;
+      additionalProps.views = ["year"];
+    }
   }
-  return <NewComponent {...props} type={undefined} />; // eslint-disable-line
+  return <NewComponent {...props} {...additionalProps} type={undefined} />; // eslint-disable-line
 };
 
 // Main Component

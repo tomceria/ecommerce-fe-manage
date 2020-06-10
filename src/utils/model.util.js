@@ -33,7 +33,8 @@ export const fieldTypes = {
   },
   DATE: {
     DATE: "DATE_DATE",
-    DATETIME: "DATE_DATETIME"
+    DATETIME: "DATE_DATETIME",
+    YEAR: "DATE_YEAR"
     // TIME: "DATE_TIME"
   },
   // CUSTOM FIELDS
