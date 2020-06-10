@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import { dataTypes, fieldTypes } from "../../utils/model.util";
 import { LISTNAMES } from "../shared/components/Form/ItemPicker";
 
@@ -84,7 +86,22 @@ export default [
         msg: "Required."
       }
     ],
-    fieldType: fieldTypes.DATE.DATETIME
+    fieldType: fieldTypes.DATE.DATETIME,
+    defaultValue: moment()
+      .add(1, "months")
+      .toISOString()
+  },
+  {
+    name: "year",
+    label: "Year",
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: "Required."
+      }
+    ],
+    fieldType: fieldTypes.DATE.YEAR
   },
   {
     name: "sheet",

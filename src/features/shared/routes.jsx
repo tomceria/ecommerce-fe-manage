@@ -5,6 +5,8 @@ import iconHome from "@iconify/icons-bx/bx-home-alt";
 import iconProduct from "@iconify/icons-bx/bx-carousel";
 import iconInventory from "@iconify/icons-bx/bx-box";
 import iconPromotion from "@iconify/icons-bx/bx-purchase-tag-alt";
+import iconShopInfo from "@iconify/icons-bx/bx-info-circle";
+import iconReport from "@iconify/icons-bx/bx-bar-chart-alt-2";
 // Merchandiser
 import iconOrder from "@iconify/icons-bx/bx-notepad";
 // Customer Support
@@ -13,7 +15,6 @@ import iconSupport from "@iconify/icons-bx/bx-support";
 import iconAdministration from "@iconify/icons-bx/bx-wrench";
 // Others
 import iconSearch from "@iconify/icons-bx/bx-search";
-import iconShopInfo from "@iconify/icons-bx/bx-info-circle";
 
 import Protected from "../Auth/hocs/Protected";
 import { roleConsts as role, roles as allRoles } from "../../configs/api.config";
@@ -57,6 +58,8 @@ import NewInventoryItem from "../Inventory/pages/NewInventoryItem";
 import EditInventoryItem from "../Inventory/pages/EditInventoryItem";
 // Shop
 import EditShop from "../Shop/pages/EditShop";
+// Reports
+import ReportDashboard from "../Reports/pages/ReportDashboard";
 // Orders
 import ViewOrders from "../Orders/pages/ViewOrders";
 import InspectOrder from "../Orders/pages/InspectOrder";
@@ -356,6 +359,18 @@ const routes = [
       </Protected>
     ),
     icon: iconShopInfo,
+    roles: [role.MANAGER]
+  },
+  // Shop
+  {
+    label: "Reports",
+    link: "/reports",
+    component: () => (
+      <Protected roles={[role.MANAGER]}>
+        <ReportDashboard />
+      </Protected>
+    ),
+    icon: iconReport,
     roles: [role.MANAGER]
   },
   /* MERCHANDISER */

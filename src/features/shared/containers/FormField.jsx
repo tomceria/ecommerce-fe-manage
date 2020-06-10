@@ -87,6 +87,11 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       FieldComponent = DatePicker;
       break;
     }
+    case fieldTypes.DATE.YEAR: {
+      properties.type = "year";
+      FieldComponent = DatePicker;
+      break;
+    }
     // CUSTOM FIELDS
     case fieldTypes.PICKER.SINGLE: {
       if (model.fieldTypeOptions) {
