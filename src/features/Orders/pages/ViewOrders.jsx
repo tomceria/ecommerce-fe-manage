@@ -44,7 +44,7 @@ const ViewOrders = () => {
             // { id: "loanTerm", label: "Loan Term", noSort: true },
             // { id: "apr", label: "APR", noSort: true },
             { id: "createdAt", label: "Created at", width: 125 },
-            { id: "modify", label: "Actions", noSort: true, width: 210 }
+            { id: "modify", label: "Actions", noSort: true, width: 350 }
           ]}
         />
       </LayoutCard>

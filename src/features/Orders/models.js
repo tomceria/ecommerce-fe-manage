@@ -193,6 +193,23 @@ const orderModel = [
     label: "Order Details",
     dataTypes: [],
     fieldType: fieldTypes.ORDERDETAIL.MULTIPLE
+  },
+  {
+    name: "verify",
+    label: "Proceed with action...",
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: "Required."
+      }
+    ],
+    fieldType: fieldTypes.RADIO.GROUPED,
+    // defaultValue: "true",
+    selections: [
+      { id: "true", name: "Verify this order" },
+      { id: "false", name: "Cancel this order" }
+    ]
   }
 ];
 export default orderModel;

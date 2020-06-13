@@ -84,6 +84,19 @@ const OrderList = ({
       ),
       modify: (
         <>
+          {item.statusId === "processing" && (
+            <div style={{ display: "flex" }}>
+              <Button
+                color="default"
+                onClick={() => rowActions.cancelOrder(item)}
+                disabled={rowActionsDisabled}
+                style={{ flexGrow: 1, marginLeft: "0.5rem" }}
+              >
+                <Icon icon={iconCancel} />
+                <span>Cancel</span>
+              </Button>
+            </div>
+          )}
           {item.statusId === "ordered" && (
             <div style={{ display: "flex" }}>
               <Button
@@ -117,6 +130,15 @@ const OrderList = ({
                 <Icon icon={iconDelivery} />
                 <span>Start Delivery</span>
               </Button>
+              <Button
+                color="default"
+                onClick={() => rowActions.cancelOrder(item)}
+                disabled={rowActionsDisabled}
+                style={{ flexGrow: 1, marginLeft: "0.5rem" }}
+              >
+                <Icon icon={iconCancel} />
+                <span>Cancel</span>
+              </Button>
             </div>
           )}
           {item.statusId === "delivering" && (
@@ -129,6 +151,15 @@ const OrderList = ({
               >
                 <Icon icon={iconComplete} />
                 <span>Complete</span>
+              </Button>
+              <Button
+                color="default"
+                onClick={() => rowActions.cancelOrder(item)}
+                disabled={rowActionsDisabled}
+                style={{ flexGrow: 1, marginLeft: "0.5rem" }}
+              >
+                <Icon icon={iconCancel} />
+                <span>Cancel</span>
               </Button>
             </div>
           )}
