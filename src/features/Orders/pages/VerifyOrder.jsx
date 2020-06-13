@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
 
+import InspectOrderCtn from "../containers/InspectOrderCtn";
 import VerifyOrderCtn from "../containers/VerifyOrderCtn";
 import { LayoutCard } from "../../shared/components/UI/Card";
 import Button from "../../shared/components/Form/Button";
@@ -20,6 +21,10 @@ const VerifyOrder = () => {
           </Link>
         </div>
       </LayoutCardStyled>
+      <LayoutCard>
+        <h2 className="title">Inspect Order</h2>
+        <InspectOrderCtn subjectId={orderId} />
+      </LayoutCard>
       <LayoutCard>
         <h2 className="title">Verify Order</h2>
         <VerifyOrderCtn subjectId={orderId} />

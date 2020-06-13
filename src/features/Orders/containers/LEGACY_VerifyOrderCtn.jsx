@@ -14,7 +14,7 @@ import FormWrapper from "../../shared/containers/FormWrapper";
 import request from "../../../utils/request.util";
 import { templates } from "../../../styles/stylings/stylings.style";
 
-const VerifyOrderCtn = ({ subjectId }) => {
+const EditOrderCtn = ({ subjectId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -30,9 +30,24 @@ const VerifyOrderCtn = ({ subjectId }) => {
     const nModel = JSON.parse(JSON.stringify(_model)); // HAS TO BE DEEP COPY
     nModel.forEach(field => {
       switch (field.name) {
-        case "id":
-        case "verify": {
+        case "id": {
           field.defaultValue = order[field.name];
+          break;
+        }
+        case "phone":
+        case "email":
+        case "address": {
+          field.defaultValue = order[`payee_${field.name}`];
+          break;
+        }
+        case "orderDetails": {
+          field.defaultValue = {
+            value: "",
+            object: {
+              orderId: order.id,
+              orderDetails: order.Items
+            }
+          };
           break;
         }
         default: {
@@ -63,12 +78,15 @@ const VerifyOrderCtn = ({ subjectId }) => {
   }, [fetchedOrder, isLoadingOrder]); // eslint-disable-line
 
   const handleOnSubmit = async data => {
-    const { id } = data;
-    // eslint-disable-next-line
-    const updateActionRoute = data.verify == "true" ? "verify" : "cancel";
+    const newData = {
+      orderDetails: data.orderDetails.map(oD => ({
+        id: parseInt(oD.id, 10),
+        inventoryId: oD.inventoryId
+      }))
+    };
     setErrRes(null);
     try {
-      const result = await request("patch", `/orders/${id}/${updateActionRoute}`);
+      const result = await request("patch", `/orders/${subjectId}/verify`, newData);
       setErrRes(result);
       history.push("/orders");
     } catch (e) {
@@ -87,10 +105,10 @@ const VerifyOrderCtn = ({ subjectId }) => {
   );
 };
 
-export default VerifyOrderCtn;
+export default EditOrderCtn;
 
 // PropTypes
-VerifyOrderCtn.propTypes = {
+EditOrderCtn.propTypes = {
   subjectId: PropTypes.string.isRequired
 };
 

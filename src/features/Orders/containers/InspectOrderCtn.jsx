@@ -151,7 +151,7 @@ const InspectOrderCtn = ({ subjectId }) => {
               { id: "paymentMethod", label: "Payment Method", noSort: true },
               { id: "paymentAmount", label: "Amount", noSort: true },
               { id: "isPaid", label: "Paid?", noSort: true },
-              { id: "due", label: "Due Date", noSort: true }
+              { id: "updatedAt", label: "Updated at", noSort: true }
             ]}
             items={order.OrderPayments}
             filters={{}}

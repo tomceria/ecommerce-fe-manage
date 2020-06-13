@@ -27,7 +27,7 @@ const OrderList = ({
       paymentMethod: item.paymentMethod.name,
       paymentAmount: <NumberDisplay type="currency" value={item.paymentAmount} />,
       isPaid: item.isPaid ? <b>Yes</b> : "No",
-      due: <DateDisplay value={item.due} />
+      updatedAt: <DateDisplay value={item.updatedAt} />
     }));
     setOrders(displayingOrders);
   }, [items]); // eslint-disable-line

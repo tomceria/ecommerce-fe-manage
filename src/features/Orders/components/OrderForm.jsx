@@ -8,7 +8,7 @@ import Button from "../../shared/components/Form/Button";
 
 const FIELDLIST = {
   add: ["userId", "lastName", "firstName", "email", "phone", "address", "itemId", "variationId"],
-  verify: ["id", "email", "phone", "address", "orderDetails"]
+  verify: ["id", "verify"]
 };
 
 const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) => {
@@ -44,14 +44,13 @@ const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) =>
               formFuncs={formFuncs}
               disabled={
                 ["id", "item_id", "item_name", "item_variationId"].includes(field.name) ||
-                (isPerformingVerify && ["email", "phone", "address"].includes(field.name)) ||
+                // (isPerformingVerify && ["email", "phone", "address"].includes(field.name)) ||
                 isLoadingForm ||
                 isFetching ||
                 isSubmitting
               }
               {...additionalProps(field.name)} // eslint-disable-line
             />
-            {field.name === "id" && <hr />}
           </React.Fragment>
         ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
