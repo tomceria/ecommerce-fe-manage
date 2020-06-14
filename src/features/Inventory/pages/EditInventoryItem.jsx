@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditInventoryItemCtn from "../containers/EditInventoryItemCtn";
 import { LayoutCard } from "../../shared/components/UI/Card";
@@ -9,6 +10,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditInventoryItem = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const inventoryItemId = routeMatch.params.id;
 
   return (
@@ -16,12 +19,12 @@ const EditInventoryItem = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/inventory" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Inventory</Button>
+            <Button color="primary">{t("INVENTORY.LABEL.BACK")}</Button>
           </Link>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Edit InventoryItem</h2>
+        <h2 className="title">{t("UI.PAGES.INVENTORY.EDIT")}</h2>
         <EditInventoryItemCtn subjectId={inventoryItemId} />
       </LayoutCard>
     </>

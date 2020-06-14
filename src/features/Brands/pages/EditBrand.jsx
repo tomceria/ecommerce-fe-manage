@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditBrandCtn from "../containers/EditBrandCtn";
 import DeleteBrandCtn from "../containers/DeleteBrandCtn";
@@ -10,6 +11,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditBrand = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const brandId = routeMatch.params.id;
 
   return (
@@ -17,7 +20,7 @@ const EditBrand = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/products/brands" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Brand list</Button>
+            <Button color="primary">{t("BRANDS.LABEL.BACK")}</Button>
           </Link>
         </div>
         <div>
@@ -27,7 +30,7 @@ const EditBrand = () => {
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Edit Brand</h2>
+        <h2 className="title">{t("UI.PAGES.PRODUCTS.BRANDS.EDIT")}</h2>
         <EditBrandCtn subjectId={brandId} />
       </LayoutCard>
     </>

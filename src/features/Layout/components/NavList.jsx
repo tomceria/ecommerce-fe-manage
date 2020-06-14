@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import routes from "../../shared/routes";
 import { selectAuthInfo } from "../../Auth/reducers";
@@ -8,9 +9,10 @@ import NavBarItem from "./Mobile/NavBarItem";
 import NavSubItem from "./NavSubItem";
 
 const NavList = ({ forNavBar, forSideDrawer }) => {
+  const { t } = useTranslation();
   const currentRole = useSelector(selectAuthInfo).role;
 
-  return routes.map(item => (
+  return routes(t).map(item => (
     <React.Fragment key={item.link}>
       {forNavBar && !item.hiddenForNavBar && item.roles.includes(currentRole) && (
         <NavBarItem

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Table from "../../shared/components/Data/Table";
 import DateDisplay, { dateDisplayString } from "../../shared/components/Data/DateDisplay";
@@ -22,6 +23,8 @@ const ProductList = ({
   // rowActionsDisabled,
   passingRef
 }) => {
+  const { t } = useTranslation();
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const ProductList = ({
       inventoryItemId: (
         <>
           {item.bought ? (
-            <Tooltip title="Bought item cannot be edited">
+            <Tooltip title={t("INVENTORY.TEXT.LIST.TXT0")}>
               <span>{item.id}</span>
             </Tooltip>
           ) : (
@@ -57,11 +60,19 @@ const ProductList = ({
           </span>
         </Tooltip>
       ),
-      available: <span>{item.available ? <b>Yes</b> : "No"}</span>,
-      bought: <span>{item.bought ? "Yes" : <b>No</b>}</span>,
+      available: (
+        <span>
+          {item.available ? <b>{t("MODELLING.COMMON.YES")}</b> : t("MODELLING.COMMON.NO")}
+        </span>
+      ),
+      bought: (
+        <span>{item.bought ? t("MODELLING.COMMON.YES") : <b>{t("MODELLING.COMMON.NO")}</b>}</span>
+      ),
       createdAt: (
         <>
-          <Tooltip title={`Updated at: ${dateDisplayString(item.updatedAt)}`}>
+          <Tooltip
+            title={`${t("MODELLING.COMMON.UPDATEDAT")}: ${dateDisplayString(item.updatedAt)}`}
+          >
             <span>
               <DateDisplay value={item.createdAt} />
             </span>

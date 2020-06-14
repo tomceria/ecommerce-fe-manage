@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import ReportChart from "../components/ReportChart";
@@ -8,6 +9,8 @@ import FormField from "../../shared/containers/FormField";
 import request from "../../../utils/request.util";
 
 const ProductSalesReportCtn = () => {
+  const { t } = useTranslation();
+
   const formFuncs = useForm();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +45,7 @@ const ProductSalesReportCtn = () => {
         {["timeStart", "timeEnd"].map(fieldName => (
           <FormField
             key={fieldName}
-            model={model.find(a => a.name === fieldName)}
+            model={model(t).find(a => a.name === fieldName)}
             formFuncs={formFuncs}
             changed={() => formFuncs.handleSubmit(handleOnSubmit)()}
             disabled={isLoading}

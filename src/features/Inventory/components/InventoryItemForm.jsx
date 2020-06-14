@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { useInventoryItemSubInfo } from "../hooks";
 import FormField from "../../shared/containers/FormField";
@@ -13,6 +14,7 @@ const FIELDLIST = {
 
 const InventoryItemForm = ({ model, isPerformingUpdate }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   const isLoadingForm = !useInventoryItemSubInfo();
   const { isSubmitting } = formFuncs.formState;
@@ -37,7 +39,7 @@ const InventoryItemForm = ({ model, isPerformingUpdate }) => {
           />
         ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
-        Submit
+        {t("FORM.COMMON.SUBMIT")}
       </Button>
     </>
   );

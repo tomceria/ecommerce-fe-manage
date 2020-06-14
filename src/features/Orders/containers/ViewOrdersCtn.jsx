@@ -5,6 +5,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { performGetOrders } from "../actions";
 import { selectOrdersFilters, selectOrders } from "../reducers";
@@ -32,6 +33,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
   const location = useLocation();
   const history = useHistory();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const filterFormFuncs = useForm();
 
@@ -94,7 +96,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
 
   const handleOnConfirmStartDeliverOrder = async order => {
     setIsUpdating(true);
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -102,7 +104,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
       setModalConfirmStartDeliverOrder(null);
       await request("patch", `/orders/${order.id}/deliver`);
       handleFiltersReload();
-      snackbar.enqueueSnackbar("Updated order successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {
@@ -115,7 +117,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
   };
   const handleOnConfirmCompleteOrder = async order => {
     setIsUpdating(true);
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -123,7 +125,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
       setModalConfirmCompleteOrder(null);
       await request("patch", `/orders/${order.id}/complete`);
       handleFiltersReload();
-      snackbar.enqueueSnackbar("Updated order successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {
@@ -136,7 +138,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
   };
   const handleOnConfirmCancelOrder = async order => {
     setIsUpdating(true);
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -144,7 +146,7 @@ const ViewOrdersCtn = ({ initialFilters, tableHead }) => {
       setModalConfirmCancelOrder(null);
       await request("patch", `/orders/${order.id}/cancel`);
       handleFiltersReload();
-      snackbar.enqueueSnackbar("Updated order successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {

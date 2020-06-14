@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { performGetAttributes } from "../actions";
 import { selectAttributes } from "../reducers";
@@ -15,6 +16,7 @@ const ViewAttributesCtn = ({ tableHead }) => {
 
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const fetchedAttributes = useSelector(selectAttributes.attributes);
   // const pagination = useSelector(selectAttributes.pagination);
@@ -44,7 +46,7 @@ const ViewAttributesCtn = ({ tableHead }) => {
     if (!destObj) {
       return false;
     }
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -62,7 +64,7 @@ const ViewAttributesCtn = ({ tableHead }) => {
         [newAttributes[sourceIndex].placing, newAttributes[destIndex].placing] = oldPlacings;
         return newAttributes;
       });
-      snackbar.enqueueSnackbar("Swapped successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {

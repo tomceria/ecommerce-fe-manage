@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import ViewInventoryItemsCtn from "../containers/ViewInventoryItemsCtn";
@@ -9,12 +10,14 @@ import Button from "../../shared/components/Form/Button";
 import { templates } from "../../../styles/stylings/stylings.style";
 
 const ViewInventoryItems = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <LayoutCardStyled>
         <div>
           <Link to="/inventory/add">
-            <Button color="primary">Start Import</Button>
+            <Button color="primary">{t("UI.PAGES.INVENTORY.ADD")}</Button>
           </Link>
         </div>
       </LayoutCardStyled>
@@ -32,18 +35,23 @@ const ViewInventoryItems = () => {
             {
               id: "inventoryItemId",
               sortId: "id",
-              label: model.find(e => e.name === "id").label,
+              label: model(t).find(e => e.name === "id").label,
               width: 200
             },
-            { id: "Item.name", sortId: "itemId", label: "Product Name", width: 200 },
+            {
+              id: "Item.name",
+              sortId: "itemId",
+              label: model(t).find(e => e.name === "itemId").label,
+              width: 200
+            },
             {
               id: "variationId",
-              label: model.find(e => e.name === "variationId").label,
+              label: model(t).find(e => e.name === "variationId").label,
               width: 50
             },
-            { id: "available", label: model.find(e => e.name === "available").label },
-            { id: "bought", label: "Bought?" },
-            { id: "createdAt", label: "Imported at", width: 125 }
+            { id: "available", label: model(t).find(e => e.name === "available").label },
+            { id: "bought", label: t("INVENTORY.LABEL.BOUGHT") },
+            { id: "createdAt", label: t("INVENTORY.LABEL.CREATEDAT"), width: 125 }
           ]}
         />
       </LayoutCard>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetOrder } from "../actions";
@@ -17,6 +18,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 const VerifyOrderCtn = ({ subjectId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formFuncs = useForm();
   const fetchedOrder = useSelector(selectOrder.order);
@@ -47,7 +49,7 @@ const VerifyOrderCtn = ({ subjectId }) => {
     dispatch(performGetOrder(subjectId));
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
     };
@@ -57,7 +59,7 @@ const VerifyOrderCtn = ({ subjectId }) => {
     setNewModel(null);
     // model with new defaultValue
     if (!isLoadingOrder && isSuccessOrder) {
-      const nModel = mapFetchedToFormModel(model, fetchedOrder);
+      const nModel = mapFetchedToFormModel(model(t), fetchedOrder);
       setNewModel(nModel);
     }
   }, [fetchedOrder, isLoadingOrder]); // eslint-disable-line

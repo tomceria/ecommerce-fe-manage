@@ -10,9 +10,9 @@ const makersSelector = selectMakers.makers;
 const brandsSelector = selectBrands.brands;
 
 // Constant Fields
-const scaleField = options => ({
+const scaleField = (t, options) => ({
   name: "scale",
-  label: "Scale",
+  label: t("PRODUCTS.MODEL.SCALE.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -22,7 +22,7 @@ const scaleField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -30,16 +30,16 @@ const scaleField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
     // selectableParent: {
     // suffix: " [All]"
     // }
   }
 });
-const typeField = options => ({
+const typeField = (t, options) => ({
   name: "type",
-  label: "Type",
+  label: t("PRODUCTS.MODEL.TYPE.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -49,7 +49,7 @@ const typeField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -57,16 +57,16 @@ const typeField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
     // selectableParent: {
     // suffix: " [All]"
     // }
   }
 });
-const makerField = options => ({
+const makerField = (t, options) => ({
   name: "maker",
-  label: "Maker",
+  label: t("PRODUCTS.MODEL.MAKER.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -76,7 +76,7 @@ const makerField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -84,7 +84,7 @@ const makerField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
     // selectableParent: {
     // suffix: " [All]"
@@ -92,9 +92,9 @@ const makerField = options => ({
     // childrenAlias: "ChildTH"
   }
 });
-const brandField = options => ({
+const brandField = (t, options) => ({
   name: "brand",
-  label: "Brand",
+  label: t("PRODUCTS.MODEL.BRAND.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -104,7 +104,7 @@ const brandField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -112,7 +112,7 @@ const brandField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
     // selectableParent: {
     // suffix: " [All]"
@@ -123,43 +123,43 @@ const brandField = options => ({
 
 // Models
 
-const productModel = [
+const productModel = t => [
   {
     name: "name",
-    label: "Product Name",
+    label: t("PRODUCTS.MODEL.NAME.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "id",
-    label: "Product ID",
+    label: t("PRODUCTS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  scaleField(),
-  typeField(),
-  makerField(),
-  brandField(),
+  scaleField(t),
+  typeField(t),
+  makerField(t),
+  brandField(t),
   {
     name: "year",
-    label: "Year",
+    label: t("PRODUCTS.MODEL.YEAR.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.NUMBER.INT,
         options: { min: 1970 },
-        msg: "Must be a number (1970 or higher)."
+        msg: t("PRODUCTS.MODEL.YEAR.DATATYPES.MSG")
       }
     ],
     fieldType: fieldTypes.INPUT.NUMBER,
@@ -167,12 +167,12 @@ const productModel = [
   },
   {
     name: "price",
-    label: "Price",
+    label: t("PRODUCTS.MODEL.PRICE.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.NUMBER.INT,
         options: { min: 1 },
-        msg: "Must be a number (1 or higher)."
+        msg: t("PRODUCTS.MODEL.PRICE.DATATYPES.MSG")
       }
     ],
     fieldType: fieldTypes.INPUT.NUMBER,
@@ -180,7 +180,7 @@ const productModel = [
   },
   {
     name: "hidden",
-    label: "Hidden from Display",
+    label: t("PRODUCTS.MODEL.HIDDEN.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
@@ -190,37 +190,37 @@ const productModel = [
     fieldType: fieldTypes.RADIO.GROUPED,
     defaultValue: "false",
     selections: [
-      { id: "true", name: "Yes" },
-      { id: "false", name: "No" }
+      { id: "true", name: t("MODELLING.COMMON.YES") },
+      { id: "false", name: t("MODELLING.COMMON.NO") }
     ]
   },
   {
     name: "images",
-    label: "Images",
+    label: t("PRODUCTS.MODEL.IMAGES.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.ARRAY,
         options: { min: 1 },
-        msg: "At least 1 image is required."
+        msg: t("PRODUCTS.MODEL.IMAGES.DATATYPES.MSG")
       }
     ],
     fieldType: fieldTypes.MEDIA.IMAGES
   },
   {
     name: "variations",
-    label: "Variations",
+    label: t("PRODUCTS.MODEL.VARIATIONS.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.VARIATION.MULTIPLE
   },
   {
     name: "attributes",
-    label: "Attributes",
+    label: t("PRODUCTS.MODEL.ATTRIBUTES.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.ATTRIBUTE.MULTIPLE
   },
   {
     name: "blog",
-    label: "Detail (Description)",
+    label: t("PRODUCTS.MODEL.BLOG.LABEL"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXTAREA, // TODO: INPUT BLOG
     fieldTypeOptions: { rows: 10 }
@@ -228,15 +228,15 @@ const productModel = [
 ];
 export default productModel;
 
-export const productFilterModel = [
+export const productFilterModel = t => [
   {
     name: "query",
-    label: "Search",
+    label: t("MODELLING.COMMON.QUERY"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  scaleField({ isFilter: true }),
-  typeField({ isFilter: true }),
-  makerField({ isFilter: true }),
-  brandField({ isFilter: true })
+  scaleField(t, { isFilter: true }),
+  typeField(t, { isFilter: true }),
+  makerField(t, { isFilter: true }),
+  brandField(t, { isFilter: true })
 ];

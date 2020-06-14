@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import ViewProductsCtn from "../containers/ViewProductsCtn";
@@ -9,38 +10,40 @@ import Button from "../../shared/components/Form/Button";
 import { templates } from "../../../styles/stylings/stylings.style";
 
 const ViewProducts = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <LayoutCardStyled>
         <div>
           <Link to="/products/add">
-            <Button color="primary">Add Product</Button>
+            <Button color="primary">{t("UI.PAGES.PRODUCTS.ADD")}</Button>
           </Link>
         </div>
         <div>
           <Link to="/products/scales">
-            <Button color="secondary">View Scales</Button>
+            <Button color="secondary">{t("PRODUCTS.LABEL.VIEW_SCALES")}</Button>
           </Link>
           <Link to="/products/types">
-            <Button color="secondary">View Types</Button>
+            <Button color="secondary">{t("PRODUCTS.LABEL.VIEW_TYPES")}</Button>
           </Link>
         </div>
         <div>
           <Link to="/products/makers">
-            <Button color="secondary">View Makers</Button>
+            <Button color="secondary">{t("PRODUCTS.LABEL.VIEW_MAKERS")}</Button>
           </Link>
           <Link to="/products/brands">
-            <Button color="secondary">View Brands</Button>
+            <Button color="secondary">{t("PRODUCTS.LABEL.VIEW_BRANDS")}</Button>
           </Link>
         </div>
         <div>
           <Link to="/products/attributes">
-            <Button color="secondary">View Attributes</Button>
+            <Button color="secondary">{t("PRODUCTS.LABEL.VIEW_ATTRIBUTES")}</Button>
           </Link>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Products</h2>
+        <h2 className="title">{t("UI.PAGES.PRODUCTS.HOME")}</h2>
         <ViewProductsCtn
           initialFilters={{
             query: "",
@@ -50,16 +53,16 @@ const ViewProducts = () => {
             sortDesc: true
           }}
           tableHead={[
-            { id: "name", label: model.find(e => e.name === "name").label, width: 200 },
-            { id: "image", label: "Image", noSort: true },
-            { id: "price", label: model.find(e => e.name === "price").label, width: 135 },
-            { id: "scale", label: model.find(e => e.name === "scale").label },
-            { id: "type", label: model.find(e => e.name === "type").label },
-            { id: "maker", label: model.find(e => e.name === "maker").label },
-            { id: "brand", label: model.find(e => e.name === "brand").label },
-            { id: "year", label: model.find(e => e.name === "year").label },
-            { id: "createdAt", label: "Created at", width: 125 },
-            { id: "hidden", label: "Visibility", width: 150 }
+            { id: "name", label: model(t).find(e => e.name === "name").label, width: 200 },
+            { id: "image", label: t("PRODUCTS.LABEL.IMAGE"), noSort: true },
+            { id: "price", label: model(t).find(e => e.name === "price").label, width: 135 },
+            { id: "scale", label: model(t).find(e => e.name === "scale").label },
+            { id: "type", label: model(t).find(e => e.name === "type").label },
+            { id: "maker", label: model(t).find(e => e.name === "maker").label },
+            { id: "brand", label: model(t).find(e => e.name === "brand").label },
+            { id: "year", label: model(t).find(e => e.name === "year").label },
+            { id: "createdAt", label: t("PRODUCTS.LABEL.CREATEDAT"), width: 125 },
+            { id: "hidden", label: t("PRODUCTS.LABEL.HIDDEN"), width: 150 }
           ]}
         />
       </LayoutCard>

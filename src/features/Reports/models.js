@@ -4,15 +4,15 @@ import { dataTypes, fieldTypes } from "../../utils/model.util";
 
 // Models
 
-export default [
+export default t => [
   {
     name: "year",
-    label: "Year",
+    label: t("REPORTS.MODEL.YEAR.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.DATE.YEAR,
@@ -20,26 +20,26 @@ export default [
   },
   {
     name: "category",
-    label: "Category",
+    label: t("REPORTS.MODEL.CATEGORY.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.SELECT.SIMPLE,
     defaultValue: "type",
     selections: [
-      { id: "type", name: "Type" },
-      { id: "scale", name: "Scale" },
-      { id: "maker", name: "Maker" },
-      { id: "brand", name: "Brand" }
+      { id: "type", name: t("REPORTS.MODEL.CATEGORY.SELECTIONS.TYPE") },
+      { id: "scale", name: t("REPORTS.MODEL.CATEGORY.SELECTIONS.SCALE") },
+      { id: "maker", name: t("REPORTS.MODEL.CATEGORY.SELECTIONS.MAKER") },
+      { id: "brand", name: t("REPORTS.MODEL.CATEGORY.SELECTIONS.BRAND") }
     ]
   },
   {
     name: "timeStart",
-    label: "Start Time",
+    label: t("REPORTS.MODEL.TIMESTART.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.DATE.DATETIME,
     defaultValue: moment()
@@ -48,7 +48,7 @@ export default [
   },
   {
     name: "timeEnd",
-    label: "End Time",
+    label: t("REPORTS.MODEL.TIMEEND.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.DATE.DATETIME,
     defaultValue: moment().toISOString()

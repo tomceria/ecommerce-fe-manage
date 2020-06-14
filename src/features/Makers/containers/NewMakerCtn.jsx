@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import MakerForm from "../components/MakerForm";
@@ -11,6 +12,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const NewMakerCtn = () => {
   const formFuncs = useForm();
+  const { t } = useTranslation();
 
   const [errRes, setErrRes] = useState(null);
 
@@ -20,7 +22,7 @@ const NewMakerCtn = () => {
     try {
       const result = await request("post", "/makers", { id, name, description });
       setErrRes(result);
-      handleOnClear(formFuncs, model);
+      handleOnClear(formFuncs, model(t));
     } catch (e) {
       setErrRes(e.response);
     }
@@ -28,7 +30,7 @@ const NewMakerCtn = () => {
 
   return (
     <MakerFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
-      <MakerForm model={model} />
+      <MakerForm model={model(t)} />
     </MakerFormWrapper>
   );
 };

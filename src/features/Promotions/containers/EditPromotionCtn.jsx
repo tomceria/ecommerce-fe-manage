@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetPromotion } from "../actions";
@@ -15,6 +16,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditPromotionCtn = ({ subjectId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formFuncs = useForm();
   const fetchedPromotion = useSelector(selectPromotion.promotion);
@@ -60,7 +62,7 @@ const EditPromotionCtn = ({ subjectId }) => {
     dispatch(performGetPromotion(subjectId));
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
     };
@@ -70,7 +72,7 @@ const EditPromotionCtn = ({ subjectId }) => {
     setNewModel(null);
     // model with new defaultValue
     if (!isLoadingPromotion && isSuccessPromotion) {
-      const nModel = mapFetchedToFormModel(model, fetchedPromotion);
+      const nModel = mapFetchedToFormModel(model(t), fetchedPromotion);
       setNewModel(nModel);
     }
   }, [fetchedPromotion, isLoadingPromotion]); // eslint-disable-line

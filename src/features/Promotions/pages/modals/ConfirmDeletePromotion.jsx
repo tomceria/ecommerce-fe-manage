@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeletePromotion = ({ promotion, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!promotion} title="Deleting Promotion" onClose={onClose}>
+    <Modal in={!!promotion} title={t("PROMOTIONS.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {promotion && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this promotion?</b>
+              <b>{t("PROMOTIONS.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Promotion will be deleted</b>
+              <b>{t("PROMOTIONS.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("PROMOTIONS.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{promotion.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{t("PROMOTIONS.MODEL.NAME.LABEL")}</b>
                   </td>
                   <td>{promotion.name}</td>
                 </tr>
@@ -34,10 +37,10 @@ const ConfirmDeletePromotion = ({ promotion, onClose, onConfirm, disabled }) => 
             </table>
             <div className="actions">
               <Button color="primary" onClick={() => onConfirm(promotion)} disabled={disabled}>
-                Confirm
+                {t("FORM.COMMON.CONFIRM")}
               </Button>
               <Button color="default" onClick={onClose} disabled={disabled}>
-                Cancel
+                {t("FORM.COMMON.CANCEL")}
               </Button>
             </div>
           </>

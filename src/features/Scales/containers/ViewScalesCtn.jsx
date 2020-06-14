@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { performGetScales } from "../actions";
 import { selectScales } from "../reducers";
@@ -15,6 +16,7 @@ const ViewScalesCtn = ({ tableHead }) => {
 
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const fetchedScales = useSelector(selectScales.scales);
   // const pagination = useSelector(selectScales.pagination);
@@ -44,7 +46,7 @@ const ViewScalesCtn = ({ tableHead }) => {
     if (!destObj) {
       return false;
     }
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -62,7 +64,7 @@ const ViewScalesCtn = ({ tableHead }) => {
         [newScales[sourceIndex].placing, newScales[destIndex].placing] = oldPlacings;
         return newScales;
       });
-      snackbar.enqueueSnackbar("Swapped successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {

@@ -5,9 +5,9 @@ import { LISTNAMES } from "../shared/components/Form/ItemPicker";
 const orderStatusesSelector = selectOrderStatuses.orderStatuses;
 
 // Constant Fields
-const accountUserField = options => ({
+const accountUserField = (t, options) => ({
   name: "userId",
-  label: "Customer",
+  label: t("ORDERS.MODEL.USERID.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -17,7 +17,7 @@ const accountUserField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   defaultValue: "",
@@ -27,9 +27,9 @@ const accountUserField = options => ({
     listName: LISTNAMES.ACCOUNTUSERS
   }
 });
-const accountStaffField = options => ({
+const accountStaffField = (t, options) => ({
   name: "verifier",
-  label: "Order Verifier",
+  label: t("ORDERS.MODEL.VERIFIER.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -39,7 +39,7 @@ const accountStaffField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   defaultValue: "",
@@ -49,9 +49,9 @@ const accountStaffField = options => ({
     listName: LISTNAMES.ACCOUNTSTAFF_MERCHANDISER
   }
 });
-const orderStatusField = options => ({
+const orderStatusField = (t, options) => ({
   name: "statusId",
-  label: "Status",
+  label: t("ORDERS.MODEL.STATUSID.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -61,7 +61,7 @@ const orderStatusField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -69,100 +69,100 @@ const orderStatusField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
   }
 });
 
 // Models
 
-const orderModel = [
+const orderModel = t => [
   {
     name: "id",
-    label: "Order ID",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  accountUserField(),
+  accountUserField(t),
   {
     name: "lastName",
-    label: "Last Name",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "firstName",
-    label: "First Name",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "email",
-    label: "Email",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       },
       {
         dataType: dataTypes.FORMAT.EMAIL,
         options: {},
-        msg: "Must follow the format of an email. eg. helloworld@domain.com"
+        msg: t("ORDERS.MODEL.EMAIL.DATATYPES.MSG")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "phone",
-    label: "Phone",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "address",
-    label: "Address",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "itemId",
-    label: "Product",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.PICKER.SINGLE,
@@ -172,56 +172,56 @@ const orderModel = [
   },
   {
     name: "variationId",
-    label: "Variation",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.SELECT.SIMPLE,
     selections: [],
     selectionOptions: {
       noneOption: {
-        label: "None"
+        label: t("MODELLING.COMMON.NONE")
       }
     }
   },
   {
     name: "orderDetails",
-    label: "Order Details",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.ORDERDETAIL.MULTIPLE
   },
   {
     name: "verify",
-    label: "Proceed with action...",
+    label: t("ORDERS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.RADIO.GROUPED,
     // defaultValue: "true",
     selections: [
-      { id: "true", name: "Verify this order" },
-      { id: "false", name: "Cancel this order" }
+      { id: "true", name: t("ORDERS.MODEL.VERIFY.SELECTIONS.TRUE") },
+      { id: "false", name: t("ORDERS.MODEL.VERIFY.SELECTIONS.FALSE") }
     ]
   }
 ];
 export default orderModel;
 
-export const orderFilterModel = [
+export const orderFilterModel = t => [
   {
     name: "query",
-    label: "Search",
+    label: t("MODELLING.COMMON.QUERY"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  orderStatusField({ isFilter: true }),
-  accountUserField({ isFilter: true }),
-  accountStaffField({ isFilter: true })
+  orderStatusField(t, { isFilter: true }),
+  accountUserField(t, { isFilter: true }),
+  accountStaffField(t, { isFilter: true })
 ];

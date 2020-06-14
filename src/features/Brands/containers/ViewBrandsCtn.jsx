@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { performGetBrands } from "../actions";
 import { selectBrands } from "../reducers";
@@ -15,6 +16,7 @@ const ViewBrandsCtn = ({ tableHead }) => {
 
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const fetchedBrands = useSelector(selectBrands.brands);
   // const pagination = useSelector(selectBrands.pagination);
@@ -44,7 +46,7 @@ const ViewBrandsCtn = ({ tableHead }) => {
     if (!destObj) {
       return false;
     }
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -62,7 +64,7 @@ const ViewBrandsCtn = ({ tableHead }) => {
         [newBrands[sourceIndex].placing, newBrands[destIndex].placing] = oldPlacings;
         return newBrands;
       });
-      snackbar.enqueueSnackbar("Swapped successfully!", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {

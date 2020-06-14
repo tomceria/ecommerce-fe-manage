@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteMaker = ({ maker, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!maker} title="Deleting Maker" onClose={onClose}>
+    <Modal in={!!maker} title={t("MAKERS.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {maker && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this maker?</b>
+              <b>{t("MAKERS.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Maker will be deleted</b>
+              <b>{t("MAKERS.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("MAKERS.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{maker.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{t("MAKERS.MODEL.NAME.LABEL")}</b>
                   </td>
                   <td>{maker.name}</td>
                 </tr>

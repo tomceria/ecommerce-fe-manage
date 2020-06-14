@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 // import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import iconTrash from "@iconify/icons-bx/bx-trash";
+import { useTranslation } from "react-i18next";
 
 import { selectMaker } from "../reducers";
 import request from "../../../utils/request.util";
@@ -15,6 +16,7 @@ import Button from "../../shared/components/Form/Button";
 const DeleteMakerCtn = () => {
   const history = useHistory();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const maker = useSelector(selectMaker.maker);
   const isLoadingMaker = useSelector(selectMaker.isLoadingMaker);
@@ -28,13 +30,13 @@ const DeleteMakerCtn = () => {
       return false;
     }
     setIsProcessing(true);
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
     try {
       await request("delete", `/makers/${maker.id}`);
-      snackbar.enqueueSnackbar("Deleted maker successfully", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
       setModalOn(null);

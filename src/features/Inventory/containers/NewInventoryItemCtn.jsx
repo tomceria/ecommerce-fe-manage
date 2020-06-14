@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 
@@ -13,6 +14,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 const NewInventoryItemCtn = () => {
   const history = useHistory();
   const formFuncs = useForm();
+  const { t } = useTranslation();
 
   const [errRes, setErrRes] = useState(null);
 
@@ -35,7 +37,7 @@ const NewInventoryItemCtn = () => {
   return (
     <InventoryItemFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
       <hr style={{ width: "100%" }} />
-      <InventoryItemForm model={model} />
+      <InventoryItemForm model={model(t)} />
     </InventoryItemFormWrapper>
   );
 };

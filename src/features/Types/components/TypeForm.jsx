@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { useTypeSubInfo } from "../hooks";
 import FormField from "../../shared/containers/FormField";
@@ -8,6 +9,7 @@ import Button from "../../shared/components/Form/Button";
 
 const TypeForm = ({ model, isPerformingUpdate }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   const isLoadingForm = !useTypeSubInfo();
   const { isSubmitting } = formFuncs.formState;
@@ -23,7 +25,7 @@ const TypeForm = ({ model, isPerformingUpdate }) => {
         />
       ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
-        Submit
+        {t("FORM.COMMON.SUBMIT")}
       </Button>
     </>
   );

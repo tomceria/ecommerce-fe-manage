@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import LinkDisplay from "../../shared/components/Data/LinkDisplay";
 import DateDisplay, { dateDisplayString } from "../../shared/components/Data/DateDisplay";
@@ -21,6 +22,8 @@ const SupportTicketList = ({
   rowActionsDisabled,
   passingRef
 }) => {
+  const { t } = useTranslation();
+
   const [supportTickets, setSupportTickets] = useState([]);
 
   useEffect(() => {
@@ -69,7 +72,9 @@ const SupportTicketList = ({
       ),
       createdAt: (
         <>
-          <Tooltip title={`Updated at: ${dateDisplayString(item.updatedAt)}`}>
+          <Tooltip
+            title={`${t("MODELLING.COMMON.UPDATEDAT")}: ${dateDisplayString(item.updatedAt)}`}
+          >
             <span>
               <DateDisplay value={item.createdAt} />
             </span>

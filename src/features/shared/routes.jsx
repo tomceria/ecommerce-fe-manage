@@ -72,9 +72,11 @@ import EditPromotion from "../Promotions/pages/EditPromotion";
 import ViewSupportTickets from "../SupportTickets/pages/ViewSupportTickets";
 import EditSupportTicket from "../SupportTickets/pages/EditSupportTicket";
 
-const routes = [
+const i18nId = "UI.PAGES";
+
+const routes = t => [
   {
-    label: "Dashboard",
+    label: t(`${i18nId}.DASHBOARD.HOME`),
     link: "/",
     component: Home,
     icon: iconHome,
@@ -82,7 +84,7 @@ const routes = [
   },
   // MANAGER
   {
-    label: "Products",
+    label: t(`${i18nId}.PRODUCTS.HOME`),
     link: "/products",
     component: () => (
       <Protected roles={[role.MANAGER]}>
@@ -93,7 +95,7 @@ const routes = [
     roles: [role.MANAGER],
     sub: [
       {
-        label: "Add Product",
+        label: t(`${i18nId}.PRODUCTS.ADD`),
         link: "/products/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -105,7 +107,7 @@ const routes = [
       },
       // Scale
       {
-        label: "Scales",
+        label: t(`${i18nId}.PRODUCTS.SCALES.HOME`),
         link: "/products/scales",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -115,7 +117,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Add Scale",
+        label: t(`${i18nId}.PRODUCTS.SCALES.ADD`),
         link: "/products/scales/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -126,7 +128,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Scale",
+        label: t(`${i18nId}.PRODUCTS.SCALES.EDIT`),
         link: "/products/scales/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -138,7 +140,7 @@ const routes = [
       },
       // Type
       {
-        label: "Types",
+        label: t(`${i18nId}.PRODUCTS.TYPES.HOME`),
         link: "/products/types",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -148,7 +150,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Add Type",
+        label: t(`${i18nId}.PRODUCTS.TYPES.ADD`),
         link: "/products/types/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -159,7 +161,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Type",
+        label: t(`${i18nId}.PRODUCTS.TYPES.EDIT`),
         link: "/products/types/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -171,7 +173,7 @@ const routes = [
       },
       // Maker
       {
-        label: "Makers",
+        label: t(`${i18nId}.PRODUCTS.MAKERS.HOME`),
         link: "/products/makers",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -181,7 +183,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Add Maker",
+        label: t(`${i18nId}.PRODUCTS.MAKERS.ADD`),
         link: "/products/makers/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -192,7 +194,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Maker",
+        label: t(`${i18nId}.PRODUCTS.MAKERS.EDIT`),
         link: "/products/makers/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -203,7 +205,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Brands",
+        label: t(`${i18nId}.PRODUCTS.BRANDS.HOME`),
         link: "/products/brands",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -214,7 +216,7 @@ const routes = [
       },
       // Brand
       {
-        label: "New Brand",
+        label: t(`${i18nId}.PRODUCTS.BRANDS.ADD`),
         link: "/products/brands/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -225,7 +227,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Brand",
+        label: t(`${i18nId}.PRODUCTS.BRANDS.EDIT`),
         link: "/products/brands/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -236,7 +238,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Attributes",
+        label: t(`${i18nId}.PRODUCTS.ATTRIBUTES.HOME`),
         link: "/products/attributes",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -246,7 +248,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "New Attribute",
+        label: t(`${i18nId}.PRODUCTS.ATTRIBUTES.ADD`),
         link: "/products/attributes/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -257,7 +259,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Attribute",
+        label: t(`${i18nId}.PRODUCTS.ATTRIBUTES.EDIT`),
         link: "/products/attributes/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -268,7 +270,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Product",
+        label: t(`${i18nId}.PRODUCTS.EDIT`),
         link: "/products/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -281,7 +283,7 @@ const routes = [
     ]
   },
   {
-    label: "Inventory",
+    label: t(`${i18nId}.INVENTORY.HOME`),
     link: "/inventory",
     component: () => (
       <Protected roles={[role.MANAGER]}>
@@ -292,7 +294,7 @@ const routes = [
     roles: [role.MANAGER],
     sub: [
       {
-        label: "Import",
+        label: t(`${i18nId}.INVENTORY.ADD`),
         link: "/inventory/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -302,7 +304,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Imported Item",
+        label: t(`${i18nId}.INVENTORY.EDIT`),
         link: "/inventory/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -316,7 +318,7 @@ const routes = [
   },
   // Promotion
   {
-    label: "Promotions",
+    label: t(`${i18nId}.PROMOTIONS.HOME`),
     link: "/promotions",
     component: () => (
       <Protected roles={[role.MANAGER]}>
@@ -327,7 +329,7 @@ const routes = [
     roles: [role.MANAGER],
     sub: [
       {
-        label: "Add Promotion",
+        label: t(`${i18nId}.PROMOTIONS.ADD`),
         link: "/promotions/add",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -337,7 +339,7 @@ const routes = [
         roles: [role.MANAGER]
       },
       {
-        label: "Edit Promotion",
+        label: t(`${i18nId}.PROMOTIONS.EDIT`),
         link: "/promotions/:id",
         component: () => (
           <Protected roles={[role.MANAGER]}>
@@ -351,7 +353,7 @@ const routes = [
   },
   // Shop
   {
-    label: "Shop",
+    label: t(`${i18nId}.SHOP.HOME`),
     link: "/shop",
     component: () => (
       <Protected roles={[role.MANAGER]}>
@@ -363,7 +365,7 @@ const routes = [
   },
   // Shop
   {
-    label: "Reports",
+    label: t(`${i18nId}.REPORTS.HOME`),
     link: "/reports",
     component: () => (
       <Protected roles={[role.MANAGER]}>
@@ -375,7 +377,7 @@ const routes = [
   },
   /* MERCHANDISER */
   {
-    label: "Orders",
+    label: t(`${i18nId}.ORDERS.HOME`),
     link: "/orders",
     component: () => (
       <Protected roles={[role.MERCHANDISER]}>
@@ -386,7 +388,7 @@ const routes = [
     roles: [role.MERCHANDISER],
     sub: [
       {
-        label: "Verify Order",
+        label: t(`${i18nId}.ORDERS.VERIFY`),
         link: "/orders/:id/verify",
         component: () => (
           <Protected roles={[role.MERCHANDISER]}>
@@ -397,7 +399,7 @@ const routes = [
         roles: [role.MERCHANDISER]
       },
       {
-        label: "Inspect Order",
+        label: t(`${i18nId}.ORDERS.INSPECT`),
         link: "/orders/:id",
         component: () => (
           <Protected roles={[role.MERCHANDISER]}>
@@ -411,7 +413,7 @@ const routes = [
   },
   /* CUSTOMER SUPPORT */
   {
-    label: "Customer Support",
+    label: t(`${i18nId}.SUPPORT.HOME`),
     link: "/support",
     component: () => (
       <Protected roles={[role.SUPPORT]}>
@@ -422,7 +424,7 @@ const routes = [
     roles: [role.SUPPORT],
     sub: [
       {
-        label: "Edit Support Ticket",
+        label: t(`${i18nId}.SUPPORT.EDIT`),
         link: "/support/:id",
         component: () => (
           <Protected roles={[role.SUPPORT]}>
@@ -436,7 +438,7 @@ const routes = [
   },
   /* ADMIN */
   {
-    label: "Administration",
+    label: t(`${i18nId}.ADMIN.HOME`),
     link: "/admin",
     component: () => (
       <Protected roles={[role.ADMIN]}>
@@ -447,7 +449,7 @@ const routes = [
     roles: [role.ADMIN],
     sub: [
       {
-        label: "Staff",
+        label: t(`${i18nId}.ADMIN.STAFF.HOME`),
         link: "/admin/staffs",
         component: () => (
           <Protected roles={[role.ADMIN]}>
@@ -457,7 +459,7 @@ const routes = [
         roles: [role.ADMIN]
       },
       {
-        label: "Add Staff",
+        label: t(`${i18nId}.ADMIN.STAFF.ADD`),
         link: "/admin/staffs/add",
         component: () => (
           <Protected roles={[role.ADMIN]}>
@@ -468,24 +470,13 @@ const routes = [
         roles: [role.ADMIN]
       },
       {
-        label: "Users",
+        label: t(`${i18nId}.ADMIN.USERS.HOME`),
         link: "/admin/users",
         component: () => (
           <Protected roles={[role.ADMIN]}>
             <ViewAccountUsers />
           </Protected>
         ),
-        roles: [role.ADMIN]
-      },
-      {
-        label: "Add User",
-        link: "/admin/users/add",
-        component: () => (
-          <Protected roles={[role.ADMIN]}>
-            <p>AddUser</p>
-          </Protected>
-        ),
-        hidden: true,
         roles: [role.ADMIN]
       }
     ]
@@ -500,7 +491,7 @@ const routes = [
     roles: allRoles
   },
   {
-    label: "Search Results",
+    label: t(`${i18nId}.SEARCH.HOME`),
     link: "/search",
     component: () => <p>Search</p>,
     icon: iconSearch,

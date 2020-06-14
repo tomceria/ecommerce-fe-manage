@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteBrand = ({ brand, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!brand} title="Deleting Brand" onClose={onClose}>
+    <Modal in={!!brand} title={t("BRANDS.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {brand && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this brand?</b>
+              <b>{t("BRANDS.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Brand will be deleted</b>
+              <b>{t("BRANDS.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("BRANDS.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{brand.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{t("BRANDS.MODEL.NAME.LABEL")}</b>
                   </td>
                   <td>{brand.name}</td>
                 </tr>

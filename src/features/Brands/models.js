@@ -2,34 +2,34 @@ import { dataTypes, fieldTypes } from "../../utils/model.util";
 
 // Models
 
-export default [
+export default t => [
   {
     name: "id",
-    label: "ID",
+    label: t("BRANDS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "name",
-    label: "Name",
+    label: t("BRANDS.MODEL.NAME.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "description",
-    label: "Description",
+    label: t("BRANDS.MODEL.DESCRIPTION.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.INPUT.TEXTAREA,
     fieldTypeOptions: {

@@ -6,6 +6,7 @@ import { Controller } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { remScale } from "../../../../styles/variables/size.style";
 import { colors } from "../../../../styles/variables/colors.style";
+import { useTranslation } from "react-i18next";
 
 const SheetDropzone = ({
   // Form Identifier
@@ -22,6 +23,7 @@ const SheetDropzone = ({
   style,
   className
 }) => {
+  const { t } = useTranslation();
   const snackbar = useSnackbar();
 
   const [localSheetRows, setLocalSheetRows] = useState([]);
@@ -62,6 +64,7 @@ const SheetDropzone = ({
           onChange={handleOnChange}
           disabled={disabled}
           style={{ marginRight: "1rem" }}
+          t={t}
         />
         {localSheetRows.length > 0 ? <b>{fileName}</b> : <span>(.xlsx)</span>}
       </SheetDropzoneStyled>
@@ -170,7 +173,7 @@ const FileInputStyled = styled.input`
   }
 
   &::after {
-    content: "Import...";
+    content: "${props => props.t("UI.FORM.IMPORT")}...";
     font-size: 0.875rem;
     font-weight: 500;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;

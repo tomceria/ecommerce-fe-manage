@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetShop } from "../actions";
@@ -14,6 +15,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditShopCtn = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formFuncs = useForm();
   const fetchedShop = useSelector(selectShop.shop);
@@ -27,7 +29,7 @@ const EditShopCtn = () => {
     dispatch(performGetShop());
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
     };
@@ -37,7 +39,7 @@ const EditShopCtn = () => {
     setNewModel(null);
     // model with new defaultValue
     if (!isLoadingShop && isSuccessShop) {
-      const nModel = JSON.parse(JSON.stringify(model));
+      const nModel = JSON.parse(JSON.stringify(model(t)));
       nModel.forEach(field => {
         field.defaultValue = fetchedShop[field.name];
       });

@@ -1,26 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmCompleteOrder = ({ order, onClose, onConfirm }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!order} title="Start delivery for order" onClose={onClose}>
+    <Modal in={!!order} title={t("ORDERS.DIALOG.STARTDELIVERY0")} onClose={onClose}>
       <StyledContainer>
         {order && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to start delivery for this order?</b>
+              <b>{t("ORDERS.DIALOG.STARTDELIVERY1")}</b>
               <br />
-              <b>This action cannot be undone.</b>
+              <b>{t("FORM.COMMON.UNDONE")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("ORDERS.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{order.id}</td>
                 </tr>
@@ -28,10 +31,10 @@ const ConfirmCompleteOrder = ({ order, onClose, onConfirm }) => {
             </table>
             <div className="actions">
               <Button color="primary" onClick={() => onConfirm(order)}>
-                Confirm
+                {t("FORM.COMMON.CONFIRM")}
               </Button>
               <Button color="default" onClick={onClose}>
-                Cancel
+                {t("FORM.COMMON.CANCEL")}
               </Button>
             </div>
           </>
