@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditSupportTicketCtn from "../containers/EditSupportTicketCtn";
 import DeleteSupportTicketCtn from "../containers/DeleteSupportTicketCtn";
@@ -10,6 +11,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditSupportTicket = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const supportTicketId = routeMatch.params.id;
 
   return (
@@ -17,7 +20,7 @@ const EditSupportTicket = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/support" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Support Ticket list</Button>
+            <Button color="primary">{t("SUPPORT.LABEL.BACK")}</Button>
           </Link>
         </div>
         <div>
@@ -27,7 +30,7 @@ const EditSupportTicket = () => {
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Support Ticket Details</h2>
+        <h2 className="title">{t("UI.PAGES.SUPPORT.EDIT")}</h2>
         <EditSupportTicketCtn subjectId={supportTicketId} />
       </LayoutCard>
     </>

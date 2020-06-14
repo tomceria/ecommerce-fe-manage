@@ -7,9 +7,9 @@ const supportTicketStatusesSelector = selectSupportTicketStatuses.supportTicketS
 const supportTypesSelector = selectSupportTypes.supportTypes;
 
 // Constant Fields
-const customerField = options => ({
+const customerField = (t, options) => ({
   name: "customer",
-  label: "Customer",
+  label: t("SUPPORT.MODEL.CUSTOMER.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -19,7 +19,7 @@ const customerField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   defaultValue: "",
@@ -29,9 +29,9 @@ const customerField = options => ({
     listName: LISTNAMES.ACCOUNTUSERS
   }
 });
-const supportField = options => ({
+const supportField = (t, options) => ({
   name: "support",
-  label: "Support Staff",
+  label: t("SUPPORT.MODEL.SUPPORT.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -41,7 +41,7 @@ const supportField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   defaultValue: "",
@@ -51,9 +51,9 @@ const supportField = options => ({
     listName: LISTNAMES.ACCOUNTSTAFF_SUPPORT
   }
 });
-const supportTicketStatusField = options => ({
+const supportTicketStatusField = (t, options) => ({
   name: "statusId",
-  label: "Status",
+  label: t("SUPPORT.MODEL.STATUSID.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -63,7 +63,7 @@ const supportTicketStatusField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -75,9 +75,9 @@ const supportTicketStatusField = options => ({
     }
   }
 });
-const supportTypeField = options => ({
+const supportTypeField = (t, options) => ({
   name: "supportTypeId",
-  label: "Support Type",
+  label: t("SUPPORT.MODEL.SUPPORTTYPEID.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -87,7 +87,7 @@ const supportTypeField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   fieldType: fieldTypes.SELECT.SIMPLE,
@@ -95,45 +95,45 @@ const supportTypeField = options => ({
   selectionOptions: {
     isReduxSelector: true,
     noneOption: {
-      label: options && options.isFilter ? "All" : " "
+      label: options && options.isFilter ? t("MODELLING.COMMON.ALL") : " "
     }
   }
 });
 
 // Models
 
-export default [
+export default t => [
   {
     name: "id",
-    label: "ID",
+    label: t("SUPPORT.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  supportTypeField(),
-  customerField(),
-  supportField(),
-  supportTicketStatusField(),
+  supportTypeField(t),
+  customerField(t),
+  supportField(t),
+  supportTicketStatusField(t),
   {
     name: "orderId",
-    label: "Order ID",
+    label: t("SUPPORT.MODEL.ORDERID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "note",
-    label: "Note",
+    label: t("SUPPORT.MODEL.NOTE.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.INPUT.TEXTAREA,
     fieldTypeOptions: {
@@ -142,15 +142,15 @@ export default [
   }
 ];
 
-export const supportTicketFilterModel = [
+export const supportTicketFilterModel = t => [
   {
     name: "query",
-    label: "Search",
+    label: t("MODELLING.COMMON.QUERY"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  customerField({ isFilter: true }),
-  supportField({ isFilter: true }),
-  supportTicketStatusField({ isFilter: true }),
-  supportTypeField({ isFilter: true })
+  customerField(t, { isFilter: true }),
+  supportField(t, { isFilter: true }),
+  supportTicketStatusField(t, { isFilter: true }),
+  supportTypeField(t, { isFilter: true })
 ];

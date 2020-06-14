@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import ProductForm from "../components/ProductForm";
@@ -11,6 +12,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const NewProductCtn = () => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const formFuncs = useForm({
     defaultValues: {
@@ -41,7 +43,7 @@ const NewProductCtn = () => {
 
   return (
     <ProductFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
-      <ProductForm model={model} />
+      <ProductForm model={model(t)} />
     </ProductFormWrapper>
   );
 };

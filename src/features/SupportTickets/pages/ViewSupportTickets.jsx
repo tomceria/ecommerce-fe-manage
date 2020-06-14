@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { LayoutCard } from "../../shared/components/UI/Card";
@@ -9,21 +10,23 @@ import ViewSupportTicketsCtn from "../containers/ViewSupportTicketsCtn";
 import Tooltip from "../../shared/components/Data/Tooltip";
 
 const ViewSupportTickets = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <LayoutCardStyled>
         <div>
-          <Tooltip title="Support Tickets must be submitted by customers">
+          <Tooltip title={t("SUPPORT.TEXT.VIEW.TXT0")}>
             <span style={{ flexGrow: 1 }}>
               <Button disabled color="primary">
-                Add Support Ticket
+                {t("SUPPORT.LABEL.ADDSUPPORTTICKET")}
               </Button>
             </span>
           </Tooltip>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Support Tickets</h2>
+        <h2 className="title">{t("UI.PAGES.SUPPORT.HOME")}</h2>
         <ViewSupportTicketsCtn
           initialFilters={{
             query: "",
@@ -33,17 +36,17 @@ const ViewSupportTickets = () => {
             sortDesc: true
           }}
           tableHead={[
-            { id: "supportTicketId", label: model.find(e => e.name === "id").label, width: 150 },
+            { id: "supportTicketId", label: model(t).find(e => e.name === "id").label, width: 150 },
             {
               id: "supportTypeId",
-              label: model.find(e => e.name === "supportTypeId").label,
+              label: model(t).find(e => e.name === "supportTypeId").label,
               width: 200
             },
-            { id: "statusId", label: model.find(e => e.name === "statusId").label, width: 150 },
-            { id: "customer", label: model.find(e => e.name === "customer").label },
-            { id: "support", label: model.find(e => e.name === "support").label, width: 150 },
-            { id: "orderId", label: model.find(e => e.name === "orderId").label, width: 125 },
-            { id: "createdAt", label: "Created at", width: 125 }
+            { id: "statusId", label: model(t).find(e => e.name === "statusId").label, width: 150 },
+            { id: "customer", label: model(t).find(e => e.name === "customer").label },
+            { id: "support", label: model(t).find(e => e.name === "support").label, width: 150 },
+            { id: "orderId", label: model(t).find(e => e.name === "orderId").label, width: 125 },
+            { id: "createdAt", label: t("MODELLING.COMMON.CREATEDAT"), width: 125 }
           ]}
         />
       </LayoutCard>

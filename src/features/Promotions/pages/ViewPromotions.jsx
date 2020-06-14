@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { LayoutCard } from "../../shared/components/UI/Card";
@@ -9,17 +10,19 @@ import { templates } from "../../../styles/stylings/stylings.style";
 import ViewPromotionsCtn from "../containers/ViewPromotionsCtn";
 
 const ViewPromotions = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <LayoutCardStyled>
         <div>
           <Link to="/promotions/add" style={{ flexGrow: 1 }}>
-            <Button color="primary">Add Promotion</Button>
+            <Button color="primary">{t("UI.PAGES.PROMOTIONS.ADD")}</Button>
           </Link>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Promotions</h2>
+        <h2 className="title">{t("UI.PAGES.PROMOTIONS.HOME")}</h2>
         <ViewPromotionsCtn
           initialFilters={{
             query: "",
@@ -29,14 +32,14 @@ const ViewPromotions = () => {
             sortDesc: true
           }}
           tableHead={[
-            { id: "id", label: model.find(e => e.name === "id").label },
-            { id: "name", label: model.find(e => e.name === "name").label },
-            { id: "timeStart", label: model.find(e => e.name === "timeStart").label },
-            { id: "timeEnd", label: model.find(e => e.name === "timeEnd").label },
-            { id: "offPercent", label: model.find(e => e.name === "offPercent").label },
+            { id: "id", label: model(t).find(e => e.name === "id").label },
+            { id: "name", label: model(t).find(e => e.name === "name").label },
+            { id: "timeStart", label: model(t).find(e => e.name === "timeStart").label },
+            { id: "timeEnd", label: model(t).find(e => e.name === "timeEnd").label },
+            { id: "offPercent", label: model(t).find(e => e.name === "offPercent").label },
             {
               id: "description",
-              label: model.find(e => e.name === "description").label,
+              label: model(t).find(e => e.name === "description").label,
               noSort: true
             }
           ]}

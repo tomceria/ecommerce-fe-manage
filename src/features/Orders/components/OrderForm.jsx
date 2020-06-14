@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { useOrderSubInfo } from "../hooks";
 import FormField from "../../shared/containers/FormField";
@@ -13,6 +14,7 @@ const FIELDLIST = {
 
 const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   const isLoadingForm = !useOrderSubInfo();
   const { isSubmitting } = formFuncs.formState;
@@ -54,7 +56,7 @@ const OrderForm = ({ model, isPerformingVerify, isFetching, onFieldChanged }) =>
           </React.Fragment>
         ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
-        Submit
+        {t("FORM.COMMON.SUBMIT")}
       </Button>
     </>
   );

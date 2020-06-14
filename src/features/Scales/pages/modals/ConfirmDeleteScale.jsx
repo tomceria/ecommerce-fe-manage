@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteScale = ({ scale, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!scale} title="Deleting Scale" onClose={onClose}>
+    <Modal in={!!scale} title={t("SCALES.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {scale && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this scale?</b>
+              <b>{t("SCALES.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Scale will be deleted</b>
+              <b>{t("SCALES.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("SCALES.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{scale.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{t("SCALES.MODEL.NAME.LABEL")}</b>
                   </td>
                   <td>{scale.name}</td>
                 </tr>

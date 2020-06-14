@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import TypeForm from "../components/TypeForm";
@@ -11,6 +12,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const NewTypeCtn = () => {
   const formFuncs = useForm();
+  const { t } = useTranslation();
 
   const [errRes, setErrRes] = useState(null);
 
@@ -20,7 +22,7 @@ const NewTypeCtn = () => {
     try {
       const result = await request("post", "/types", { id, name, description });
       setErrRes(result);
-      handleOnClear(formFuncs, model);
+      handleOnClear(formFuncs, model(t));
     } catch (e) {
       setErrRes(e.response);
     }
@@ -28,7 +30,7 @@ const NewTypeCtn = () => {
 
   return (
     <TypeFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
-      <TypeForm model={model} />
+      <TypeForm model={model(t)} />
     </TypeFormWrapper>
   );
 };

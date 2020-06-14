@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
+import { useTranslation } from "react-i18next";
 
 import { promotionFilterModel as model } from "../models";
 
@@ -11,12 +12,13 @@ import Button from "../../shared/components/Form/Button";
 
 const PromotionFilterForm = ({ isLoading, filtersReloaded }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   return (
     <>
       <div>
         <FormField
-          model={model.find(a => a.name === "query")}
+          model={model(t).find(a => a.name === "query")}
           formFuncs={formFuncs}
           disabled={isLoading}
           style={{ flexGrow: 1 }}
@@ -28,7 +30,7 @@ const PromotionFilterForm = ({ isLoading, filtersReloaded }) => {
       <div>
         {["timeStart", "timeEnd"].map(fieldName => (
           <FormField
-            model={model.find(a => a.name === fieldName)}
+            model={model(t).find(a => a.name === fieldName)}
             key={fieldName}
             formFuncs={formFuncs}
             changed={filtersReloaded}

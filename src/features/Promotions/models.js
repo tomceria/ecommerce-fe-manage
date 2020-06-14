@@ -3,70 +3,71 @@ import { LISTNAMES } from "../shared/components/Form/ItemPicker";
 
 // Models
 
-export default [
+export default t => [
   {
     name: "id",
-    label: "ID",
+    label: t("PROMOTIONS.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "name",
-    label: "Name",
+    label: t("PROMOTIONS.MODEL.NAME.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "timeStart",
-    label: "Start Time",
+    label: t("PROMOTIONS.MODEL.TIMESTART.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.DATE.DATETIME
   },
   {
     name: "timeEnd",
-    label: "End Time",
+    label: t("PROMOTIONS.MODEL.TIMEEND.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.DATE.DATETIME
   },
   {
     name: "offPercent",
-    label: "Sale-Off %",
+    label: t("PROMOTIONS.MODEL.OFFPERCENT.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.NUMBER.INT,
         options: { min: 1, max: 100 },
-        msg: "Required."
+        msg: t("PROMOTIONS.MODEL.OFFPERCENT.DATATYPES.MSG")
       }
     ],
-    fieldType: fieldTypes.INPUT.TEXT
+    fieldType: fieldTypes.INPUT.NUMBER,
+    fieldTypeOptions: { step: "1" }
   },
   {
     name: "description",
-    label: "Description",
+    label: t("PROMOTIONS.MODEL.DESCRIPTION.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.INPUT.TEXTAREA,
     fieldTypeOptions: {
@@ -75,12 +76,12 @@ export default [
   },
   {
     name: "items",
-    label: "Applied Items",
+    label: t("PROMOTIONS.MODEL.ITEMS.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.ARRAY,
         options: { min: 1 },
-        msg: "At least 1 item is required."
+        msg: t("PROMOTIONS.MODEL.ITEMS.DATATYPES.MSG")
       }
     ],
     fieldTypeOptions: {
@@ -90,22 +91,22 @@ export default [
   }
 ];
 
-export const promotionFilterModel = [
+export const promotionFilterModel = t => [
   {
     name: "query",
-    label: "Search",
+    label: t("MODELLING.COMMON.QUERY"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "timeStart",
-    label: "Start Time",
+    label: t("PROMOTIONS.MODEL.TIMESTART.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.DATE.DATETIME
   },
   {
     name: "timeEnd",
-    label: "End Time",
+    label: t("PROMOTIONS.MODEL.TIMEEND.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.DATE.DATETIME
   }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import Alert from "../components/Form/Alert";
 
 const FormWrapper = ({ formFuncs, submitted, errRes, children, className }) => {
+  const { t } = useTranslation();
+
   const [alertMsg, setAlertMsg] = useState("");
   const [severity, setSeverity] = useState("error");
 
@@ -33,7 +36,7 @@ const FormWrapper = ({ formFuncs, submitted, errRes, children, className }) => {
       // Success
       case 200:
       case 201: {
-        setAlertMsg("Success!");
+        setAlertMsg(t("FORM.COMMON.SUCCESS"));
         setSeverity("success");
         break;
       }

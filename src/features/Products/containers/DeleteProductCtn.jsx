@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 // import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import iconTrash from "@iconify/icons-bx/bx-trash";
+import { useTranslation } from "react-i18next";
 
 import { selectProduct } from "../reducers";
 import request from "../../../utils/request.util";
@@ -15,6 +16,7 @@ import Button from "../../shared/components/Form/Button";
 const DeleteProductCtn = () => {
   const history = useHistory();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const product = useSelector(selectProduct.product);
   const isLoadingProduct = useSelector(selectProduct.isLoadingProduct);
@@ -28,13 +30,13 @@ const DeleteProductCtn = () => {
       return false;
     }
     setIsProcessing(true);
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
     try {
       await request("delete", `/items/${product.id}`);
-      snackbar.enqueueSnackbar("Deleted product successfully", {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
       setModalOn(null);

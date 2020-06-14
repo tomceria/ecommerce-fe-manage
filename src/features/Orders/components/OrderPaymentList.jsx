@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Table from "../../shared/components/Data/Table";
 import NumberDisplay from "../../shared/components/Data/NumberDisplay";
@@ -19,6 +20,8 @@ const OrderList = ({
   // rowActionsDisabled,
   passingRef
 }) => {
+  const { t } = useTranslation();
+
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -26,7 +29,7 @@ const OrderList = ({
       ...item,
       paymentMethod: item.paymentMethod.name,
       paymentAmount: <NumberDisplay type="currency" value={item.paymentAmount} />,
-      isPaid: item.isPaid ? <b>Yes</b> : "No",
+      isPaid: item.isPaid ? <b>{t("MODELLING.COMMON.YES")}</b> : t("MODELLING.COMMON.NO"),
       updatedAt: <DateDisplay value={item.updatedAt} />
     }));
     setOrders(displayingOrders);

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetProduct } from "../actions";
@@ -15,11 +16,12 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditProductCtn = ({ subjectId }) => {
   const dispatch = useDispatch();
-
   const formFuncs = useForm();
+
   const fetchedProduct = useSelector(selectProduct.product);
   const isSuccessProduct = useSelector(selectProduct.isSuccessProduct);
   const isLoadingProduct = useSelector(selectProduct.isLoadingProduct);
+  const { t } = useTranslation();
 
   const [newModel, setNewModel] = useState(null);
   const [errRes, setErrRes] = useState(null);
@@ -111,7 +113,7 @@ const EditProductCtn = ({ subjectId }) => {
     dispatch(performGetProduct(subjectId));
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
     };
@@ -121,7 +123,7 @@ const EditProductCtn = ({ subjectId }) => {
     setNewModel(null);
     // model with new defaultValue
     if (!isLoadingProduct && isSuccessProduct) {
-      const nModel = mapFetchedToFormModel(model, fetchedProduct);
+      const nModel = mapFetchedToFormModel(model(t), fetchedProduct);
       setNewModel(nModel);
     }
   }, [fetchedProduct, isLoadingProduct]); // eslint-disable-line

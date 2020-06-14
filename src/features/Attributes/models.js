@@ -2,39 +2,39 @@ import { dataTypes, fieldTypes } from "../../utils/model.util";
 
 // Models
 
-export default [
+export default t => [
   {
     name: "id",
-    label: "ID",
+    label: t("ATTRIBUTES.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "name",
-    label: "Name",
+    label: t("ATTRIBUTES.MODEL.NAME.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "valueType",
-    label: "Value Type",
+    label: t("ATTRIBUTES.MODEL.VALUETYPE.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.RADIO.GROUPED,
@@ -42,17 +42,17 @@ export default [
     selections: [
       {
         id: "static",
-        name: "Static"
+        name: t("ATTRIBUTES.MODEL.VALUETYPE.SELECTIONS.STATIC")
       },
       {
         id: "dynamic",
-        name: "Dynamic"
+        name: t("ATTRIBUTES.MODEL.VALUETYPE.SELECTIONS.DYNAMIC")
       }
     ]
   },
   {
     name: "description",
-    label: "Description",
+    label: t("ATTRIBUTES.MODEL.DESCRIPTION.LABEL"),
     dataTypes: [],
     fieldType: fieldTypes.INPUT.TEXTAREA,
     fieldTypeOptions: {

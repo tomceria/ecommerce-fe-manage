@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteAttribute = ({ attribute, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!attribute} title="Deleting Attribute" onClose={onClose}>
+    <Modal in={!!attribute} title={t("ATTRIBUTES.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {attribute && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this attribute?</b>
+              <b>{t("ATTRIBUTES.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Attribute will be deleted</b>
+              <b>{t("ATTRIBUTES.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("ATTRIBUTES.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{attribute.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{t("ATTRIBUTES.MODEL.NAME.LABEL")}</b>
                   </td>
                   <td>{attribute.name}</td>
                 </tr>

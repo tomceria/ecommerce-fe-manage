@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetMaker } from "../actions";
@@ -15,6 +16,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditMakerCtn = ({ subjectId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formFuncs = useForm();
   const fetchedMaker = useSelector(selectMaker.maker);
@@ -28,7 +30,7 @@ const EditMakerCtn = ({ subjectId }) => {
     dispatch(performGetMaker(subjectId));
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
     };
@@ -38,7 +40,7 @@ const EditMakerCtn = ({ subjectId }) => {
     setNewModel(null);
     // model with new defaultValue
     if (!isLoadingMaker && isSuccessMaker) {
-      const nModel = JSON.parse(JSON.stringify(model));
+      const nModel = JSON.parse(JSON.stringify(model(t)));
       nModel.forEach(field => {
         field.defaultValue = fetchedMaker[field.name];
       });

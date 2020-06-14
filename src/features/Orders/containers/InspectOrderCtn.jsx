@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { performGetOrder } from "../actions";
 import { selectOrder } from "../reducers";
@@ -14,6 +15,7 @@ import OrderStatusDisplay from "../../shared/components/Data/OrderStatusDisplay"
 
 const InspectOrderCtn = ({ subjectId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const fetchedOrder = useSelector(selectOrder.order);
   const isSuccessOrder = useSelector(selectOrder.isSuccessOrder);
@@ -35,64 +37,64 @@ const InspectOrderCtn = ({ subjectId }) => {
     <>
       {!isLoadingOrder && isSuccessOrder && order && (
         <>
-          <h3>Information</h3>
+          <h3>{t("ORDERS.LABEL.INFORMATION")}</h3>
           <table>
             <tbody>
               <tr>
-                <td>Order ID: </td>
+                <td>{`${t("ORDERS.MODEL.ID.LABEL")}: `}</td>
                 <td>{order.id}</td>
               </tr>
               <tr>
-                <td>Customer ID: </td>
+                <td>{`${t("ORDERS.LABEL.CUSTOMERID")}: `}</td>
                 <td>{order.userId}</td>
               </tr>
               <tr>
-                <td>Status: </td>
+                <td>{`${t("ORDERS.MODEL.STATUSID.LABEL")}: `}</td>
                 <td>
                   <OrderStatusDisplay status={order.Status} />
                 </td>
               </tr>
               <tr>
-                <td>Total Payment: </td>
+                <td>{`${t("ORDERS.LABEL.TOTALPAYMENT")}: `}</td>
                 <td>
                   <NumberDisplay type="currency" value={order.totalPrice} />
                 </td>
               </tr>
               <tr>
-                <td>Applied Promotion ID: </td>
+                <td>{`${t("ORDERS.LABEL.APPLIEDPROMOTION")}: `}</td>
                 <td>{order.appliedPromotion}</td>
               </tr>
               <tr>
-                <td>Created at: </td>
+                <td>{`${t("MODELLING.COMMON.CREATEDAT")}: `}</td>
                 <td>
                   <DateDisplay value={order.createdAt} />
                 </td>
               </tr>
               <tr>
-                <td>Updated at: </td>
+                <td>{`${t("MODELLING.COMMON.UPDATEDAT")}: `}</td>
                 <td>
                   <DateDisplay value={order.updatedAt} />
                 </td>
               </tr>
             </tbody>
           </table>
-          <h3>Payee</h3>
+          <h3>{t("ORDERS.LABEL.PAYEE")}</h3>
           <table>
             <tbody>
               <tr>
-                <td>Name: </td>
+                <td>{`${t("ORDERS.LABEL.PAYEE_NAME")}: `}</td>
                 <td>{`${order.payee_lastName} ${order.payee_firstName}`}</td>
               </tr>
               <tr>
-                <td>Email: </td>
+                <td>{`${t("ORDERS.LABEL.PAYEE_EMAIL")}: `}</td>
                 <td>{order.payee_email}</td>
               </tr>
               <tr>
-                <td>Phone: </td>
+                <td>{`${t("ORDERS.LABEL.PAYEE_PHONE")}: `}</td>
                 <td>{order.payee_phone}</td>
               </tr>
               <tr>
-                <td>Delivery Address: </td>
+                <td>{`${t("ORDERS.LABEL.PAYEE_ADDRESS")}: `}</td>
                 <td>{order.payee_address}</td>
               </tr>
             </tbody>
@@ -120,16 +122,16 @@ const InspectOrderCtn = ({ subjectId }) => {
               </table>
             </>
           )}
-          <h3>Details</h3>
+          <h3>{t("ORDERS.LABEL.DETAILS")}</h3>
           <OrderDetailList
             loading={isLoadingOrder}
             success={isSuccessOrder}
             tableHead={[
-              { id: "item_id", label: "Item ID", noSort: true },
-              { id: "item_variationId", label: "Variation ID", noSort: true },
-              { id: "item_name", label: "Item Name", noSort: true },
-              { id: "item_price", label: "Unit Price", noSort: true },
-              { id: "item_inventoryId", label: "Selected Inventory Item", noSort: true }
+              { id: "item_id", label: t("ORDERS.LABEL.ITEM_ID"), noSort: true },
+              { id: "item_variationId", label: t("ORDERS.LABEL.ITEM_VARIATIONID"), noSort: true },
+              { id: "item_name", label: t("ORDERS.LABEL.ITEM_NAME"), noSort: true },
+              { id: "item_price", label: t("ORDERS.LABEL.ITEM_PRICE"), noSort: true },
+              { id: "item_inventoryId", label: t("ORDERS.LABEL.ITEM_INVENTORYID"), noSort: true }
             ]}
             items={order.Items}
             filters={{}}
@@ -142,16 +144,16 @@ const InspectOrderCtn = ({ subjectId }) => {
             passingRef={null}
           />
           <hr style={{ margin: "2rem 0" }} />
-          <h3>Payment Tracking</h3>
+          <h3>{t("ORDERS.LABEL.PAYMENTTRACKING")}</h3>
           <OrderPaymentList
             loading={isLoadingOrder}
             success={isSuccessOrder}
             tableHead={[
-              { id: "id", label: "Payment ID", noSort: true },
-              { id: "paymentMethod", label: "Payment Method", noSort: true },
-              { id: "paymentAmount", label: "Amount", noSort: true },
-              { id: "isPaid", label: "Paid?", noSort: true },
-              { id: "updatedAt", label: "Updated at", noSort: true }
+              { id: "id", label: t("ORDERS.LABEL.ORDERPAYMENTID"), noSort: true },
+              { id: "paymentMethod", label: t("ORDERS.LABEL.PAYMENTMETHOD"), noSort: true },
+              { id: "paymentAmount", label: t("ORDERS.LABEL.PAYMENTAMOUNT"), noSort: true },
+              { id: "isPaid", label: t("ORDERS.LABEL.ISPAID"), noSort: true },
+              { id: "updatedAt", label: t("MODELLING.COMMON.UPDATEDAT"), noSort: true }
             ]}
             items={order.OrderPayments}
             filters={{}}

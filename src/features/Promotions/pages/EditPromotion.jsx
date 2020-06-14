@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditPromotionCtn from "../containers/EditPromotionCtn";
 import DeletePromotionCtn from "../containers/DeletePromotionCtn";
@@ -10,6 +11,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditPromotion = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const promotionId = routeMatch.params.id;
 
   return (
@@ -17,7 +20,7 @@ const EditPromotion = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/promotions" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Promotion list</Button>
+            <Button color="primary">{t("PROMOTIONS.LABEL.BACK")}</Button>
           </Link>
         </div>
         <div>
@@ -27,7 +30,7 @@ const EditPromotion = () => {
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Edit Promotion</h2>
+        <h2 className="title">{t("UI.PAGES.PROMOTIONS.EDIT")}</h2>
         <EditPromotionCtn subjectId={promotionId} />
       </LayoutCard>
     </>

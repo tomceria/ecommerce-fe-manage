@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import { performGetInventoryItem } from "../actions";
@@ -18,6 +19,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditInventoryItemCtn = ({ subjectId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formFuncs = useForm();
   const fetchedProduct = useSelector(selectProduct.product);
@@ -61,7 +63,7 @@ const EditInventoryItemCtn = ({ subjectId }) => {
     dispatch(performGetInventoryItem(subjectId));
 
     return () => {
-      model.forEach(field => {
+      model(t).forEach(field => {
         formFuncs.unregister(field.name);
       });
       setNewModel(null);
@@ -94,7 +96,7 @@ const EditInventoryItemCtn = ({ subjectId }) => {
     // model with new defaultValue
     if (localProduct) {
       setNewModel(null);
-      const nModel = mapFetchedToFormModel(model, localInventoryItem, localProduct);
+      const nModel = mapFetchedToFormModel(model(t), localInventoryItem, localProduct);
       setNewModel(nModel);
     }
   }, [localProduct]); // eslint-disable-line

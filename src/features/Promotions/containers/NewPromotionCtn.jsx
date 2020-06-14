@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import PromotionForm from "../components/PromotionForm";
@@ -12,6 +13,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 const NewPromotionCtn = () => {
   const history = useHistory();
   const formFuncs = useForm();
+  const { t } = useTranslation();
 
   const [errRes, setErrRes] = useState(null);
 
@@ -36,7 +38,7 @@ const NewPromotionCtn = () => {
 
   return (
     <PromotionFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
-      <PromotionForm model={model} />
+      <PromotionForm model={model(t)} />
     </PromotionFormWrapper>
   );
 };

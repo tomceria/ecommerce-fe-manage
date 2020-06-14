@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
+import { useTranslation } from "react-i18next";
 
 import { supportTicketFilterModel as model } from "../models";
 
@@ -13,11 +14,12 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const SupportTicketFilterForm = ({ isLoading, filtersReloaded }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   const formFieldDisplay = fieldName => (
     <div key={fieldName}>
       <FormField
-        model={model.find(a => a.name === fieldName)}
+        model={model(t).find(a => a.name === fieldName)}
         formFuncs={formFuncs}
         changed={filtersReloaded}
         disabled={isLoading}
@@ -31,7 +33,7 @@ const SupportTicketFilterForm = ({ isLoading, filtersReloaded }) => {
       <FilterFormDiv>
         <div>
           <FormField
-            model={model.find(a => a.name === "query")}
+            model={model(t).find(a => a.name === "query")}
             formFuncs={formFuncs}
             disabled={isLoading}
             style={{ flexGrow: 1 }}

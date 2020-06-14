@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import NewBrandCtn from "../containers/NewBrandCtn";
 import { LayoutCard } from "../../shared/components/UI/Card";
@@ -8,17 +9,19 @@ import Button from "../../shared/components/Form/Button";
 import { templates } from "../../../styles/stylings/stylings.style";
 
 const NewBrand = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <LayoutCardStyled>
         <div>
           <Link to="/products/brands" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Brand list</Button>
+            <Button color="primary">{t("BRANDS.LABEL.BACK")}</Button>
           </Link>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">New Brand</h2>
+        <h2 className="title">{t("UI.PAGES.PRODUCTS.BRANDS.ADD")}</h2>
         <NewBrandCtn />
       </LayoutCard>
     </>

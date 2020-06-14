@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditScaleCtn from "../containers/EditScaleCtn";
 import DeleteScaleCtn from "../containers/DeleteScaleCtn";
@@ -10,6 +11,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditScale = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const scaleId = routeMatch.params.id;
 
   return (
@@ -17,7 +20,7 @@ const EditScale = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/products/scales" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Scale list</Button>
+            <Button color="primary">{t("SCALES.LABEL.BACK")}</Button>
           </Link>
         </div>
         <div>
@@ -27,7 +30,7 @@ const EditScale = () => {
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Edit Scale</h2>
+        <h2 className="title">{t("UI.PAGES.PRODUCTS.SCALES.EDIT")}</h2>
         <EditScaleCtn subjectId={scaleId} />
       </LayoutCard>
     </>

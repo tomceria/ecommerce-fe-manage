@@ -9,6 +9,7 @@ import { Icon } from "@iconify/react";
 import iconSearch from "@iconify/icons-bx/bx-search";
 import iconExpand from "@iconify/icons-bx/bx-chevron-down";
 import iconCollapse from "@iconify/icons-bx/bx-chevron-up";
+import { useTranslation } from "react-i18next";
 
 import Button from "./Button";
 import { TextFieldStyled } from "./Input";
@@ -27,95 +28,99 @@ export const LISTNAMES = {
   INVENTORY: "LIST_INVENTORY"
 };
 
-const prepareList = listName => {
+const prepareList = (t, listName) => {
   const listConsts = {
     label: ""
   };
   switch (listName) {
     case LISTNAMES.ACCOUNTUSERS: {
-      listConsts.label = "User";
+      listConsts.label = t("UI.FORM.SELECT_USER");
       listConsts.url = "/accountUser";
       listConsts.resultName = "accounts";
       listConsts.selectingIdentifier = "User.id";
       listConsts.tableHead = [
-        { id: "User.id", label: "User ID", noSort: true },
-        { id: "username", label: "Username", noSort: true },
-        { id: "email", label: "Email", noSort: true },
-        { id: "User.Info.lastName", label: "Last name", noSort: true },
-        { id: "User.Info.firstName", label: "First name", noSort: true }
+        { id: "User.id", label: t("MODELLING.COMMON.USERID"), noSort: true },
+        { id: "username", label: t("MODELLING.COMMON.USERNAME"), noSort: true },
+        { id: "email", label: t("MODELLING.COMMON.EMAIL"), noSort: true },
+        { id: "User.Info.lastName", label: t("MODELLING.COMMON.LASTNAME"), noSort: true },
+        { id: "User.Info.firstName", label: t("MODELLING.COMMON.FIRSTNAME"), noSort: true }
       ];
       break;
     }
     case LISTNAMES.ACCOUNTSTAFF: {
-      listConsts.label = "Staff";
+      listConsts.label = t("UI.FORM.SELECT_STAFF");
       listConsts.url = "/accountStaff";
       listConsts.resultName = "accounts";
       listConsts.selectingIdentifier = "Staff.id";
       listConsts.tableHead = [
-        { id: "Staff.id", label: "Staff ID", noSort: true },
-        { id: "username", label: "Username", noSort: true },
-        { id: "email", label: "Email", noSort: true },
-        { id: "Staff.Role.name", label: "Role", noSort: true }
+        { id: "Staff.id", label: t("MODELLING.COMMON.STAFFID"), noSort: true },
+        { id: "username", label: t("MODELLING.COMMON.USERNAME"), noSort: true },
+        { id: "email", label: t("MODELLING.COMMON.EMAIL"), noSort: true },
+        { id: "Staff.Role.name", label: t("MODELLING.COMMON.ROLE"), noSort: true }
       ];
       break;
     }
     case LISTNAMES.ACCOUNTSTAFF_MERCHANDISER: {
-      listConsts.label = "Merchandiser";
+      listConsts.label = t("UI.FORM.SELECT_MERCHANDISER");
       listConsts.url = "/accountStaff?roleId=merchandiser";
       listConsts.resultName = "accounts";
       listConsts.selectingIdentifier = "Staff.id";
       listConsts.tableHead = [
-        { id: "Staff.id", label: "Staff ID", noSort: true },
-        { id: "username", label: "Username", noSort: true },
-        { id: "email", label: "Email", noSort: true }
+        { id: "Staff.id", label: t("MODELLING.COMMON.STAFFID"), noSort: true },
+        { id: "username", label: t("MODELLING.COMMON.USERNAME"), noSort: true },
+        { id: "email", label: t("MODELLING.COMMON.EMAIL"), noSort: true }
       ];
       break;
     }
     case LISTNAMES.ACCOUNTSTAFF_SUPPORT: {
-      listConsts.label = "Customer Support";
+      listConsts.label = t("UI.FORM.SELECT_SUPPORT");
       listConsts.url = "/accountStaff?roleId=support";
       listConsts.resultName = "accounts";
       listConsts.selectingIdentifier = "Staff.id";
       listConsts.tableHead = [
-        { id: "Staff.id", label: "Staff ID", noSort: true },
-        { id: "username", label: "Username", noSort: true },
-        { id: "email", label: "Email", noSort: true }
+        { id: "Staff.id", label: t("MODELLING.COMMON.STAFFID"), noSort: true },
+        { id: "username", label: t("MODELLING.COMMON.USERNAME"), noSort: true },
+        { id: "email", label: t("MODELLING.COMMON.EMAIL"), noSort: true }
       ];
       break;
     }
     case LISTNAMES.PRODUCTS: {
-      listConsts.label = "Product";
+      listConsts.label = t("UI.FORM.SELECT_PRODUCT");
       listConsts.url = "/items";
       listConsts.resultName = "items";
       listConsts.selectingIdentifier = "id";
       listConsts.tableHead = [
-        { id: "id", label: "ID", noSort: true },
-        { id: "name", label: "Name", noSort: true }
+        { id: "id", label: t("MODELLING.COMMON.ID"), noSort: true },
+        { id: "name", label: t("MODELLING.COMMON.NAME"), noSort: true }
       ];
       break;
     }
     case LISTNAMES.INVENTORY: {
-      listConsts.label = "Inventory item";
+      listConsts.label = t("UI.FORM.SELECT_INVENTORY");
       listConsts.url = "/inventories";
       listConsts.resultName = "inventories";
       listConsts.selectingIdentifier = "id";
       listConsts.tableHead = [
-        { id: "id", label: "ID", noSort: true },
-        { id: "Item.name", label: "Product name", noSort: true },
-        { id: "Variation.name", label: "Variation", noSort: true },
-        { id: "Variation.id", label: "Variation ID", noSort: true },
-        { id: "available", label: "Availability", noSort: true },
-        { id: "bought", label: "Bought?", noSort: true }
+        { id: "id", label: t("INVENTORY.MODEL.ID.LABEL"), noSort: true },
+        { id: "Item.name", label: t("INVENTORY.MODEL.ITEMID.LABEL"), noSort: true },
+        { id: "Variation.name", label: t("INVENTORY.LABEL.VARIATIONNAME"), noSort: true },
+        { id: "Variation.id", label: t("INVENTORY.LABEL.VARIATIONID"), noSort: true },
+        { id: "available", label: t("INVENTORY.MODEL.AVAILABLE.LABEL"), noSort: true },
+        { id: "bought", label: t("INVENTORY.MODEL.BOUGHT.LABEL"), noSort: true }
       ];
       listConsts.listTransform = items => {
         return items.map(item => {
           const newItem = JSON.parse(JSON.stringify(item));
           newItem.available = newItem.available ? (
-            <b>Yes</b>
+            <b>{t("MODELLING.COMMON.YES")}</b>
           ) : (
-            <span style={{ color: "red" }}>No</span>
+            <span style={{ color: "red" }}>{t("MODELLING.COMMON.NO")}</span>
           );
-          newItem.bought = newItem.bought ? <span style={{ color: "red" }}>Yes</span> : <b>No</b>;
+          newItem.bought = newItem.bought ? (
+            <span style={{ color: "red" }}>{t("MODELLING.COMMON.YES")}</span>
+          ) : (
+            <b>{t("MODELLING.COMMON.NO")}</b>
+          );
           return newItem;
         });
       };
@@ -149,7 +154,9 @@ const ItemPicker = ({
   style,
   className
 }) => {
-  const listConsts = prepareList(listName);
+  const { t } = useTranslation();
+
+  const listConsts = prepareList(t, listName);
 
   const [isInModal, setIsInModal] = useState(false);
   // Selected item list
@@ -256,7 +263,9 @@ const ItemPicker = ({
       {/* MODAL */}
       <Modal
         in={isInModal}
-        title={`${multiple ? "Select multiple" : "Select one"} ${listConsts.label}`}
+        title={`${multiple ? t("UI.FORM.SELECT_MULTIPLE") : t("UI.FORM.SELECT_ONE")} ${
+          listConsts.label
+        }`}
         onClose={handleOnModalCancel}
       >
         <div>
@@ -264,7 +273,7 @@ const ItemPicker = ({
             <FilterFormWrapper>
               <div>
                 <TextFieldStyled
-                  label="Search"
+                  label={t("MODELLING.COMMON.QUERY")}
                   value={tempQuery}
                   onChange={e => setTempQuery(e.target.value)}
                   disabled={isLoading}
@@ -283,7 +292,7 @@ const ItemPicker = ({
               </div>
               <div>
                 <Button onClick={handleOnConfirm} style={{ flexGrow: 1 }}>
-                  Confirm
+                  {t("FORM.COMMON.CONFIRM")}
                 </Button>
               </div>
             </FilterFormWrapper>
@@ -329,7 +338,7 @@ const ItemPicker = ({
             )}
             {!small && (
               <Button onClick={handleOnModalOpen} disabled={disabled}>
-                Browse...
+                {`${t("UI.FORM.BROWSE")}...`}
               </Button>
             )}
             <span className="valueDisplay">
@@ -346,7 +355,7 @@ const ItemPicker = ({
                 disabled={disabled}
                 style={{ marginLeft: "1rem" }}
               >
-                Browse...
+                {`${t("UI.FORM.BROWSE")}...`}
               </Button>
             )}
           </div>

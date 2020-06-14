@@ -1,26 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteSupportTicket = ({ supportTicket, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!supportTicket} title="Deleting Support Ticket" onClose={onClose}>
+    <Modal in={!!supportTicket} title={t("SUPPORT.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {supportTicket && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this support ticket?</b>
+              <b>{t("SUPPORT.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Support Ticket will be deleted</b>
+              <b>{t("SUPPORT.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{t("SUPPORT.MODEL.ID.LABEL")}</b>
                   </td>
                   <td>{supportTicket.id}</td>
                 </tr>
@@ -28,10 +31,10 @@ const ConfirmDeleteSupportTicket = ({ supportTicket, onClose, onConfirm, disable
             </table>
             <div className="actions">
               <Button color="primary" onClick={() => onConfirm(supportTicket)} disabled={disabled}>
-                Confirm
+                {t("FORM.COMMON.CONFIRM")}
               </Button>
               <Button color="default" onClick={onClose} disabled={disabled}>
-                Cancel
+                {t("FORM.COMMON.CANCEL")}
               </Button>
             </div>
           </>

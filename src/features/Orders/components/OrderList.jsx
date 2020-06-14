@@ -5,6 +5,7 @@ import iconVerify from "@iconify/icons-bx/bx-list-check";
 import iconDelivery from "@iconify/icons-bx/bx-package";
 import iconComplete from "@iconify/icons-bx/bx-check-circle";
 import iconCancel from "@iconify/icons-bx/bx-x-circle";
+import { useTranslation } from "react-i18next";
 
 import Table from "../../shared/components/Data/Table";
 import NumberDisplay from "../../shared/components/Data/NumberDisplay";
@@ -28,6 +29,8 @@ const OrderList = ({
   rowActionsDisabled,
   passingRef
 }) => {
+  const { t } = useTranslation();
+
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -75,7 +78,9 @@ const OrderList = ({
       downPayment: item.downPayment && <NumberDisplay type="currency" value={item.downPayment} />,
       createdAt: (
         <>
-          <Tooltip title={`Updated at: ${dateDisplayString(item.updatedAt)}`}>
+          <Tooltip
+            title={`${t("MODELLING.COMMON.CREATEDAT")}: ${dateDisplayString(item.updatedAt)}`}
+          >
             <span>
               <DateDisplay value={item.createdAt} />
             </span>
@@ -93,7 +98,7 @@ const OrderList = ({
                 style={{ flexGrow: 1, marginLeft: "0.5rem" }}
               >
                 <Icon icon={iconCancel} />
-                <span>Cancel</span>
+                <span>{t("ORDERS.LABEL.CANCEL")}</span>
               </Button>
             </div>
           )}
@@ -106,7 +111,7 @@ const OrderList = ({
                 style={{ flexGrow: 1 }}
               >
                 <Icon icon={iconVerify} />
-                <span>Verify</span>
+                <span>{t("ORDERS.LABEL.VERIFY")}</span>
               </Button>
               <Button
                 color="default"
@@ -115,7 +120,7 @@ const OrderList = ({
                 style={{ flexGrow: 1, marginLeft: "0.5rem" }}
               >
                 <Icon icon={iconCancel} />
-                <span>Cancel</span>
+                <span>{t("ORDERS.LABEL.CANCEL")}</span>
               </Button>
             </div>
           )}
@@ -128,7 +133,7 @@ const OrderList = ({
                 style={{ flexGrow: 1 }}
               >
                 <Icon icon={iconDelivery} />
-                <span>Start Delivery</span>
+                <span>{t("ORDERS.LABEL.STARTDELIVERY")}</span>
               </Button>
               <Button
                 color="default"
@@ -137,7 +142,7 @@ const OrderList = ({
                 style={{ flexGrow: 1, marginLeft: "0.5rem" }}
               >
                 <Icon icon={iconCancel} />
-                <span>Cancel</span>
+                <span>{t("ORDERS.LABEL.CANCEL")}</span>
               </Button>
             </div>
           )}
@@ -150,7 +155,7 @@ const OrderList = ({
                 style={{ flexGrow: 1 }}
               >
                 <Icon icon={iconComplete} />
-                <span>Complete</span>
+                <span>{t("ORDERS.LABEL.COMPLETE")}</span>
               </Button>
               <Button
                 color="default"
@@ -159,7 +164,7 @@ const OrderList = ({
                 style={{ flexGrow: 1, marginLeft: "0.5rem" }}
               >
                 <Icon icon={iconCancel} />
-                <span>Cancel</span>
+                <span>{t("ORDERS.LABEL.CANCEL")}</span>
               </Button>
             </div>
           )}

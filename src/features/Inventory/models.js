@@ -2,9 +2,9 @@ import { dataTypes, fieldTypes } from "../../utils/model.util";
 import { LISTNAMES } from "../shared/components/Form/ItemPicker";
 
 // Constant Fields
-const productField = options => ({
+const productField = (t, options) => ({
   name: "itemId",
-  label: "Product",
+  label: t("INVENTORY.MODEL.ITEMID.LABEL"),
   dataTypes: [
     {
       dataType: dataTypes.CUSTOM,
@@ -14,7 +14,7 @@ const productField = options => ({
         }
         return v.length > 0;
       },
-      msg: "Required."
+      msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
     }
   ],
   defaultValue: "",
@@ -27,41 +27,41 @@ const productField = options => ({
 
 // Models
 
-const inventoryModel = [
+const inventoryModel = t => [
   {
     name: "id",
-    label: "Inventory ID",
+    label: t("INVENTORY.MODEL.ID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  productField(),
+  productField(t),
   {
     name: "variationId",
-    label: "Variation",
+    label: t("INVENTORY.MODEL.VARIATIONID.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.SELECT.SIMPLE,
     selections: [],
     selectionOptions: {
       noneOption: {
-        label: "None"
+        label: t("MODELLING.COMMON.NONE")
       }
     }
   },
   {
     name: "available",
-    label: "Availability",
+    label: t("INVENTORY.MODEL.AVAILABLE.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
@@ -77,12 +77,12 @@ const inventoryModel = [
   },
   {
     name: "inventories",
-    label: "Inventory Import Spreadsheet",
+    label: t("INVENTORY.MODEL.INVENTORIES.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.ARRAY,
         options: { min: 1 },
-        msg: "Spreadsheet with data is required."
+        msg: t("INVENTORY.MODEL.INVENTORIES.DATATYPES.MSG0")
       },
       {
         dataType: dataTypes.CUSTOM,
@@ -95,7 +95,7 @@ const inventoryModel = [
           }
           return true;
         },
-        msg: "All rows must have only 3 columns."
+        msg: t("INVENTORY.MODEL.INVENTORIES.DATATYPES.MSG1")
       }
     ],
     fieldType: fieldTypes.SHEET.SINGLE
@@ -103,12 +103,12 @@ const inventoryModel = [
 ];
 export default inventoryModel;
 
-export const inventoryItemFilterModel = [
+export const inventoryItemFilterModel = t => [
   {
     name: "query",
-    label: "Search",
+    label: t("MODELLING.COMMON.QUERY"),
     dataTypes: [{ dataType: dataTypes.STRING }],
     fieldType: fieldTypes.INPUT.TEXT
   },
-  productField({ isFilter: true })
+  productField(t, { isFilter: true })
 ];

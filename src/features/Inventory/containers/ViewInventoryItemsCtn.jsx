@@ -79,7 +79,6 @@ const ViewInventoryItemsCtn = ({ initialFilters, tableHead }) => {
 
   return (
     <>
-      {/* end MODALS */}
       <InventoryItemFilterFormWrapper formFuncs={filterFormFuncs} submitted={handleOnSubmit}>
         <InventoryItemFilterForm
           // Status

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import iconShow from "@iconify/icons-bx/bx-show";
 import iconHide from "@iconify/icons-bx/bx-hide";
+import { useTranslation } from "react-i18next";
 
 import Table from "../../shared/components/Data/Table";
 import NumberDisplay from "../../shared/components/Data/NumberDisplay";
@@ -27,6 +28,8 @@ const ProductList = ({
   rowActionsDisabled,
   passingRef
 }) => {
+  const { t } = useTranslation();
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -83,7 +86,9 @@ const ProductList = ({
             style={{ flexGrow: 1 }}
           >
             <Icon icon={item.hidden ? iconHide : iconShow} />
-            <span>{item.hidden ? "Hidden" : "Visible"}</span>
+            <span>
+              {item.hidden ? t("PRODUCTS.LABEL.HIDDEN_TRUE") : t("PRODUCTS.LABEL.HIDDEN_FALSE")}
+            </span>
           </Button>
         </div>
       )

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import EditTypeCtn from "../containers/EditTypeCtn";
 import DeleteTypeCtn from "../containers/DeleteTypeCtn";
@@ -10,6 +11,8 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const EditType = () => {
   const routeMatch = useRouteMatch();
+  const { t } = useTranslation();
+
   const typeId = routeMatch.params.id;
 
   return (
@@ -17,7 +20,7 @@ const EditType = () => {
       <LayoutCardStyled>
         <div>
           <Link to="/products/types" style={{ flexGrow: 1 }}>
-            <Button color="primary">Go to Type list</Button>
+            <Button color="primary">{t("TYPES.LABEL.BACK")}</Button>
           </Link>
         </div>
         <div>
@@ -27,7 +30,7 @@ const EditType = () => {
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Edit Type</h2>
+        <h2 className="title">{t("UI.PAGES.PRODUCTS.TYPES.EDIT")}</h2>
         <EditTypeCtn subjectId={typeId} />
       </LayoutCard>
     </>

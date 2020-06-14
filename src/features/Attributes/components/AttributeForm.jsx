@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { useAttributeSubInfo } from "../hooks";
 import FormField from "../../shared/containers/FormField";
@@ -8,6 +9,7 @@ import Button from "../../shared/components/Form/Button";
 
 const AttributeForm = ({ model, isPerformingUpdate }) => {
   const formFuncs = useFormContext();
+  const { t } = useTranslation();
 
   const isLoadingForm = !useAttributeSubInfo();
   const { isSubmitting } = formFuncs.formState;
@@ -27,7 +29,7 @@ const AttributeForm = ({ model, isPerformingUpdate }) => {
         />
       ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
-        Submit
+        {t("FORM.COMMON.SUBMIT")}
       </Button>
     </>
   );

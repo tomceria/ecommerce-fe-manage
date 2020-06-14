@@ -1,32 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../../../shared/components/UI/Modal";
 import Button from "../../../shared/components/Form/Button";
 
 const ConfirmDeleteProduct = ({ product, onClose, onConfirm, disabled }) => {
+  const { t } = useTranslation();
+
   return (
-    <Modal in={!!product} title="Deleting Product" onClose={onClose}>
+    <Modal in={!!product} title={t("PRODUCTS.DIALOG.DELETE0")} onClose={onClose}>
       <StyledContainer>
         {product && (
           <>
             <p style={{ textAlign: "center" }}>
-              <b>Are you sure wanted to delete this product?</b>
+              <b>{t("PRODUCTS.DIALOG.DELETE1")}</b>
               <br />
-              <b>WARNING: Any related items of this Product will be deleted</b>
+              <b>{t("PRODUCTS.DIALOG.DELETE2")}</b>
             </p>
             <table style={{ marginBottom: "2rem" }}>
               <tbody>
                 <tr>
                   <td>
-                    <b>ID:</b>
+                    <b>{`${t("PRODUCTS.MODEL.ID.LABEL")}:`}</b>
                   </td>
                   <td>{product.id}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Name:</b>
+                    <b>{`${t("PRODUCTS.MODEL.NAME.LABEL")}:`}</b>
                   </td>
                   <td>{product.name}</td>
                 </tr>
@@ -34,10 +37,10 @@ const ConfirmDeleteProduct = ({ product, onClose, onConfirm, disabled }) => {
             </table>
             <div className="actions">
               <Button color="primary" onClick={() => onConfirm(product)} disabled={disabled}>
-                Confirm
+                {t("FORM.COMMON.CONFIRM")}
               </Button>
               <Button color="default" onClick={onClose} disabled={disabled}>
-                Cancel
+                {t("FORM.COMMON.CANCEL")}
               </Button>
             </div>
           </>

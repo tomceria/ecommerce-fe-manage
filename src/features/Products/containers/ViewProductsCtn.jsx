@@ -5,6 +5,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { performGetProducts } from "../actions";
 import { selectProductsFilters, selectProducts } from "../reducers";
@@ -29,6 +30,7 @@ const ViewProductsCtn = ({ initialFilters, tableHead }) => {
   const location = useLocation();
   const history = useHistory();
   const snackbar = useSnackbar();
+  const { t } = useTranslation();
 
   const filterFormFuncs = useForm();
 
@@ -86,7 +88,7 @@ const ViewProductsCtn = ({ initialFilters, tableHead }) => {
   const handleOnConfirmHideProduct = async product => {
     setIsUpdating(true);
     const newValue = !product.hidden;
-    const loadingSb = snackbar.enqueueSnackbar("Loading", {
+    const loadingSb = snackbar.enqueueSnackbar(t("FORM.COMMON.LOADING"), {
       variant: "warning",
       persist: true
     });
@@ -100,7 +102,7 @@ const ViewProductsCtn = ({ initialFilters, tableHead }) => {
         newProducts.find(o => o.id === product.id).hidden = newValue;
         return newProducts;
       });
-      snackbar.enqueueSnackbar(`${newValue ? "Hide" : "Unhide"} product successfully!`, {
+      snackbar.enqueueSnackbar(t("FORM.COMMON.SUCCESS"), {
         variant: "success"
       });
     } catch (e) {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import model from "../models";
 import AttributeForm from "../components/AttributeForm";
@@ -11,6 +12,7 @@ import { templates } from "../../../styles/stylings/stylings.style";
 
 const NewAttributeCtn = () => {
   const formFuncs = useForm();
+  const { t } = useTranslation();
 
   const [errRes, setErrRes] = useState(null);
 
@@ -20,7 +22,7 @@ const NewAttributeCtn = () => {
     try {
       const result = await request("post", "/attributes", { id, name, description, valueType });
       setErrRes(result);
-      handleOnClear(formFuncs, model);
+      handleOnClear(formFuncs, model(t));
     } catch (e) {
       setErrRes(e.response);
     }
@@ -28,7 +30,7 @@ const NewAttributeCtn = () => {
 
   return (
     <AttributeFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
-      <AttributeForm model={model} />
+      <AttributeForm model={model(t)} />
     </AttributeFormWrapper>
   );
 };
