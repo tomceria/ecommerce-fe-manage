@@ -71,8 +71,8 @@ const inventoryModel = t => [
     fieldType: fieldTypes.RADIO.GROUPED,
     defaultValue: "false",
     selections: [
-      { id: "true", name: "Yes" },
-      { id: "false", name: "No" }
+      { id: "true", name: t("MODELLING.COMMON.YES") },
+      { id: "false", name: t("MODELLING.COMMON.NO") }
     ]
   },
   {
@@ -99,6 +99,19 @@ const inventoryModel = t => [
       }
     ],
     fieldType: fieldTypes.SHEET.SINGLE
+  },
+  {
+    name: "identifiers",
+    label: t("INVENTORY.MODEL.IDENTIFIERS.LABEL"),
+    dataTypes: [
+      {
+        dataType: dataTypes.STRING,
+        options: { min: 1 },
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
+      }
+    ],
+    fieldType: fieldTypes.INPUT.TEXTAREA,
+    fieldTypeOptions: { rows: 10 }
   }
 ];
 export default inventoryModel;

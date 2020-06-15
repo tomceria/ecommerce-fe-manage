@@ -56,6 +56,7 @@ const ViewProducts = () => {
             { id: "name", label: model(t).find(e => e.name === "name").label, width: 200 },
             { id: "image", label: t("PRODUCTS.LABEL.IMAGE"), noSort: true },
             { id: "price", label: model(t).find(e => e.name === "price").label, width: 135 },
+            { id: "quantities", label: t("PRODUCTS.LABEL.QUANTITIES"), width: 128, noSort: true },
             { id: "scale", label: model(t).find(e => e.name === "scale").label },
             { id: "type", label: model(t).find(e => e.name === "type").label },
             { id: "maker", label: model(t).find(e => e.name === "maker").label },

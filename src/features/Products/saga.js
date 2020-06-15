@@ -4,12 +4,19 @@ import axios from "axios";
 import {
   doGetProducts,
   doGetProduct,
+  doGetFilterValues,
+  //
   setLoadingProducts,
   setLoadingProduct,
+  setLoadingFilterValues,
+  //
   setSuccessProducts,
   setSuccessProduct,
+  setSuccessFilterValues,
+  //
   performGetProducts,
-  performGetProduct
+  performGetProduct,
+  performGetFilterValues
 } from "./actions";
 import { baseURL } from "../../configs/api.config";
 
@@ -49,9 +56,23 @@ function* workGetProduct(action) {
   yield put(setLoadingProduct(false));
 }
 
+function* workGetFilterValues(action) {
+  let response = {};
+  yield put(setLoadingFilterValues(true));
+  try {
+    response = yield call(axios.get, `${baseURL}/items/filterValues`);
+    yield put(setSuccessFilterValues(true));
+  } catch (e) {
+    yield put(setSuccessFilterValues(false));
+  }
+  yield put(doGetFilterValues(response.data.values));
+  yield put(setLoadingFilterValues(false));
+}
+
 export default function* productsSaga() {
   yield all([
     takeLatest(performGetProducts, workGetProducts),
-    takeLatest(performGetProduct, workGetProduct)
+    takeLatest(performGetProduct, workGetProduct),
+    takeLatest(performGetFilterValues, workGetFilterValues)
   ]);
 }

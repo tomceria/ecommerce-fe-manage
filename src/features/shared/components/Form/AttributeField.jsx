@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import { isInt } from "validator";
+import { useTranslation } from "react-i18next";
 
 import FormField from "../../containers/FormField"; // eslint-disable-line
 import { selectAttributes } from "../../../Attributes/reducers";
@@ -27,6 +28,8 @@ const AttributeField = ({
   style,
   className
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const fetchedAttributes = useSelector(selectAttributes.attributes);
   const isLoadingAttributes = useSelector(selectAttributes.isLoadingAttributes);
@@ -35,7 +38,7 @@ const AttributeField = ({
   const model = attribute => [
     {
       name: `${name}.${attribute.id}.value`,
-      label: "Value",
+      label: t("UI.FORM.VALUE"),
       dataTypes: [
         {
           dataType: dataTypes.CUSTOM,
@@ -45,7 +48,7 @@ const AttributeField = ({
             }
             return true;
           },
-          msg: "Required."
+          msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
         }
       ],
       // TODO: TEMPORARY FIX, wait for Autocomplete solution
@@ -69,7 +72,7 @@ const AttributeField = ({
     },
     {
       name: `${name}.${attribute.id}.rating`,
-      label: "Rating",
+      label: t("UI.FORM.RATING"),
       dataTypes: [
         {
           dataType: dataTypes.CUSTOM,
@@ -79,7 +82,7 @@ const AttributeField = ({
             }
             return true;
           },
-          msg: "Required."
+          msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
         },
         {
           dataType: dataTypes.CUSTOM,

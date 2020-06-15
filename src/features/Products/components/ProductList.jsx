@@ -12,6 +12,8 @@ import DateDisplay, { dateDisplayString } from "../../shared/components/Data/Dat
 import LinkDisplay from "../../shared/components/Data/LinkDisplay";
 import Tooltip from "../../shared/components/Data/Tooltip";
 import Button from "../../shared/components/Form/Button";
+import ColorBand from "../../shared/components/Data/ColorBand";
+import { remScale } from "../../../styles/variables/size.style";
 import { uploadPath } from "../../../configs/api.config";
 
 const ProductList = ({
@@ -36,9 +38,12 @@ const ProductList = ({
     const displayingProducts = items.map(item => ({
       ...item,
       name: (
-        <LinkDisplay to={`/products/${item.id}`} weight={700}>
-          {item.name}
-        </LinkDisplay>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <LinkDisplay to={`/products/${item.id}`} weight={700}>
+            {item.name}
+          </LinkDisplay>
+          <span>{`${item.id}`}</span>
+        </div>
       ),
       image: (
         <ImageCtn>
@@ -46,14 +51,30 @@ const ProductList = ({
         </ImageCtn>
       ),
       price: <NumberDisplay type="currency" value={item.price} />,
-      createdAt: (
-        <>
-          <Tooltip title={`Updated at: ${dateDisplayString(item.updatedAt)}`}>
-            <span>
-              <DateDisplay value={item.createdAt} />
-            </span>
-          </Tooltip>
-        </>
+      quantities: (
+        <div style={{ display: "flex", width: "100%" }}>
+          {item.Variations.map((varia, index) => (
+            <div
+              key={varia.id}
+              style={{ flexGrow: "1", marginLeft: index === 0 ? 0 : remScale(8) }}
+            >
+              <Tooltip title={varia.name}>
+                <div>
+                  <ColorBand
+                    colorsString={varia.colors}
+                    style={{
+                      height: remScale(21),
+                      minWidth: "initial"
+                    }}
+                  />
+                  <span style={{ display: "flex", justifyContent: "center" }}>
+                    {varia.inventorySize}
+                  </span>
+                </div>
+              </Tooltip>
+            </div>
+          ))}
+        </div>
       ),
       scale: item.Scale && (
         <LinkDisplay to={`products/scales/${item.Scale.id}`} weight={500}>
@@ -69,6 +90,15 @@ const ProductList = ({
         <LinkDisplay to={`products/makers/${item.Maker.id}`} weight={500}>
           {item.Maker.name}
         </LinkDisplay>
+      ),
+      createdAt: (
+        <>
+          <Tooltip title={`Updated at: ${dateDisplayString(item.updatedAt)}`}>
+            <span>
+              <DateDisplay value={item.createdAt} />
+            </span>
+          </Tooltip>
+        </>
       ),
       brand: item.Brand && (
         <p>

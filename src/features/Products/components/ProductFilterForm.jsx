@@ -51,6 +51,18 @@ const ProductFilterForm = ({ isLoading, filtersReloaded }) => {
           />
         ))}
       </div>
+      <div>
+        {["variationName"].map(fieldName => (
+          <FormField
+            model={model(t).find(a => a.name === fieldName)}
+            key={fieldName}
+            formFuncs={formFuncs}
+            changed={filtersReloaded}
+            disabled={isLoading}
+            style={{ width: "10rem", flexGrow: 1 }}
+          />
+        ))}
+      </div>
     </>
   );
 };

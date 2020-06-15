@@ -1,26 +1,26 @@
 import { dataTypes, fieldTypes } from "../../utils/model.util";
 
-const authModel = [
+const authModel = t => [
   {
     name: "username",
-    label: "Username",
+    label: t("AUTH.MODEL.USERNAME.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.TEXT
   },
   {
     name: "password",
-    label: "Password",
+    label: t("AUTH.MODEL.PASSWORD.LABEL"),
     dataTypes: [
       {
         dataType: dataTypes.STRING,
         options: { min: 1 },
-        msg: "Required."
+        msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
       }
     ],
     fieldType: fieldTypes.INPUT.PASSWORD

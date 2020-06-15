@@ -19,10 +19,13 @@ const ViewInventoryItems = () => {
           <Link to="/inventory/add">
             <Button color="primary">{t("UI.PAGES.INVENTORY.ADD")}</Button>
           </Link>
+          <Link to="/inventory/add-basic">
+            <Button color="primary">{t("UI.PAGES.INVENTORY.ADDBASIC")}</Button>
+          </Link>
         </div>
       </LayoutCardStyled>
       <LayoutCard>
-        <h2 className="title">Inventory</h2>
+        <h2 className="title">{t("UI.PAGES.INVENTORY.HOME")}</h2>
         <ViewInventoryItemsCtn
           initialFilters={{
             query: "",

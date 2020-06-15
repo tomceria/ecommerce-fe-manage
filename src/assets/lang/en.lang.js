@@ -39,6 +39,7 @@ export default {
         INVENTORY: {
           HOME: "Inventory",
           ADD: "Import",
+          ADDBASIC: "Quick Import",
           EDIT: "Edit Imported Item"
         },
         PROMOTIONS: {
@@ -94,7 +95,11 @@ export default {
         SELECT_MERCHANDISER: "Merchandiser",
         SELECT_SUPPORT: "Customer Support",
         SELECT_PRODUCT: "Product",
-        SELECT_INVENTORY: "Inventory item"
+        SELECT_INVENTORY: "Inventory item",
+        COLORS: "Colors (HEX)",
+        PREVIEW: "Preview",
+        VALUE: "Value",
+        RATING: "Rating"
       }
     },
     MODELLING: {
@@ -132,10 +137,25 @@ export default {
         SUBMIT: "Submit",
         CONFIRM: "Confirm",
         CANCEL: "Cancel",
+        CLEAR: "Clear",
         UNDONE: "This action cannot be undone."
       }
     },
     //
+    AUTH: {
+      MODEL: {
+        USERNAME: {
+          LABEL: "Username"
+        },
+        PASSWORD: {
+          LABEL: "Password"
+        }
+      },
+      LABEL: {
+        LOGIN: "Login",
+        STAYSIGNEDIN: "Stay signed in"
+      }
+    },
     DASHBOARD: {
       HOME: {
         WELCOMEMSG: "Welcome to Tempest"
@@ -190,6 +210,9 @@ export default {
         },
         BLOG: {
           LABEL: "Detail (Description)"
+        },
+        VARIATIONNAME: {
+          LABEL: "Variation Name"
         }
       },
       LABEL: {
@@ -203,7 +226,8 @@ export default {
         VIEW_BRANDS: "View Brands",
         VIEW_ATTRIBUTES: "View Attributes",
         HIDDEN_TRUE: "Hidden",
-        HIDDEN_FALSE: "Visible"
+        HIDDEN_FALSE: "Visible",
+        QUANTITIES: "Quantity"
       },
       DIALOG: {
         DELETE0: "Deleting Product",
@@ -335,7 +359,7 @@ export default {
     INVENTORY: {
       MODEL: {
         ID: {
-          LABEL: "Inventory ID"
+          LABEL: "Serial Number"
         },
         ITEMID: {
           LABEL: "Product"
@@ -352,6 +376,9 @@ export default {
             MSG0: "Spreadsheet with data is required.",
             MSG1: "All rows must have only 3 columns."
           }
+        },
+        IDENTIFIERS: {
+          LABEL: "Serial Numbers (1 per line)"
         }
       },
       LABEL: {
@@ -371,9 +398,9 @@ export default {
           TXT2: "containing:",
           TXT3: "First row: Header (3 columns)",
           TXT4: "Remaining rows:",
-          TXT5: "Column 1: Item ID",
-          TXT6: "Column 2: Variation Name",
-          TXT7: "Column 3: Quantity (number)"
+          TXT5: "Column 1: Serial Number",
+          TXT6: "Column 2: Product Name",
+          TXT7: "Column 3: Variation Name"
         }
       }
     },

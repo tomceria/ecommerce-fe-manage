@@ -47,7 +47,7 @@ const ColorBandStyled = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    border: 0.1em solid ${`${colors.white}${alpha(50)}`};
+    border: 0.1em solid ${`${colors.gray.darker}${alpha(50)}`};
   }
 `;
 const ColorStripe = styled.div`
