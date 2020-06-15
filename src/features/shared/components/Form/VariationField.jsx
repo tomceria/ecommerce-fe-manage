@@ -5,6 +5,7 @@ import { useFormContext, useFieldArray } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import iconTrash from "@iconify/icons-bx/bx-trash";
 import { isHexColor } from "validator";
+import { useTranslation } from "react-i18next";
 
 import FormField from "../../containers/FormField"; // eslint-disable-line
 import Button from "./Button";
@@ -29,15 +30,17 @@ const VariationField = ({
   style,
   className
 }) => {
+  const { t } = useTranslation();
+
   const model = (field, index) => [
     {
       name: `${name}[${index}].name`,
-      label: "Name",
+      label: t("MODELLING.COMMON.NAME"),
       dataTypes: [
         {
           dataType: dataTypes.STRING,
           options: { min: 1 },
-          msg: "Required."
+          msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
         }
       ],
       fieldType: fieldTypes.INPUT.TEXT,
@@ -48,12 +51,12 @@ const VariationField = ({
     },
     {
       name: `${name}[${index}].colors`,
-      label: "Colors (HEX)",
+      label: t("UI.FORM.COLORS"),
       dataTypes: [
         {
           dataType: dataTypes.STRING,
           options: { min: 1 },
-          msg: "Required."
+          msg: t("MODELLING.DATATYPES.MSG.REQUIRED")
         },
         {
           dataType: dataTypes.CUSTOM,
@@ -137,7 +140,7 @@ const VariationField = ({
               </Button>
             </div>
             <div className="preview">
-              <span>Preview:</span>
+              <span>{`${t("UI.FORM.PREVIEW")}:`}</span>
               <ColorBand colorsString={colorValues[index]} />
             </div>
           </li>

@@ -11,9 +11,9 @@ export default {
           ADD: "Thêm Sản phẩm",
           EDIT: "Sửa Sản phẩm",
           SCALES: {
-            HOME: "Tỷ lệ",
-            ADD: "Thêm Tỷ lệ",
-            EDIT: "Sửa Tỷ lệ"
+            HOME: "Tỉ lệ",
+            ADD: "Thêm Tỉ lệ",
+            EDIT: "Sửa Tỉ lệ"
           },
           TYPES: {
             HOME: "Phân loại",
@@ -39,6 +39,7 @@ export default {
         INVENTORY: {
           HOME: "Kho hàng",
           ADD: "Nhập hàng",
+          ADDBASIC: "Nhập hàng nhanh",
           EDIT: "Sửa Món hàng đã nhập"
         },
         PROMOTIONS: {
@@ -94,7 +95,11 @@ export default {
         SELECT_MERCHANDISER: "Nhân viên duyệt đơn",
         SELECT_SUPPORT: "Nhân viên CSKH",
         SELECT_PRODUCT: "Sản phẩm",
-        SELECT_INVENTORY: "Món hàng trong kho"
+        SELECT_INVENTORY: "Món hàng trong kho",
+        COLORS: "Màu (Mã HEX)",
+        PREVIEW: "Xem trước",
+        VALUE: "Giá trị",
+        RATING: "Đánh giá"
       }
     },
     MODELLING: {
@@ -132,10 +137,25 @@ export default {
         SUBMIT: "Gửi",
         CONFIRM: "Xác nhận",
         CANCEL: "Từ chối",
+        CLEAR: "Xoá",
         UNDONE: "Hành động này không thể hoàn tác."
       }
     },
     //
+    AUTH: {
+      MODEL: {
+        USERNAME: {
+          LABEL: "Tài khoản"
+        },
+        PASSWORD: {
+          LABEL: "Mật khẩu"
+        }
+      },
+      LABEL: {
+        LOGIN: "Đăng nhập",
+        STAYSIGNEDIN: "Ghi nhớ đăng nhập"
+      }
+    },
     DASHBOARD: {
       HOME: {
         WELCOMEMSG: "Chào mừng đến với Tempest"
@@ -150,7 +170,7 @@ export default {
           LABEL: "Mã Sản phẩm"
         },
         SCALE: {
-          LABEL: "Tỷ lệ"
+          LABEL: "Tỉ lệ"
         },
         TYPE: {
           LABEL: "Phân loại"
@@ -168,7 +188,7 @@ export default {
           }
         },
         PRICE: {
-          LABEL: "Price",
+          LABEL: "Giá",
           DATATYPES: {
             MSG: "Phải là số (1 trở lên)."
           }
@@ -190,6 +210,9 @@ export default {
         },
         BLOG: {
           LABEL: "Chi tiết (Mô tả)"
+        },
+        VARIATIONNAME: {
+          LABEL: "Tên màu"
         }
       },
       LABEL: {
@@ -197,13 +220,14 @@ export default {
         IMAGE: "Hình ảnh",
         CREATEDAT: "Tạo vào lúc",
         HIDDEN: "Hiển thị",
-        VIEW_SCALES: "Xem Tỷ lệ",
+        VIEW_SCALES: "Xem Tỉ lệ",
         VIEW_TYPES: "Xem Phân loại",
         VIEW_MAKERS: "Xem Nhà sản xuất",
         VIEW_BRANDS: "Xem Thương hiệu",
         VIEW_ATTRIBUTES: "Xem Thuộc tính",
         HIDDEN_TRUE: "Ẩn",
-        HIDDEN_FALSE: "Hiển thị"
+        HIDDEN_FALSE: "Hiển thị",
+        QUANTITIES: "Số lượng"
       },
       DIALOG: {
         DELETE0: "Xoá Sản phẩm",
@@ -228,13 +252,13 @@ export default {
         }
       },
       LABEL: {
-        BACK: "Về Danh sách Tỷ lệ",
+        BACK: "Về Danh sách Tỉ lệ",
         PLACING: "Thứ tự"
       },
       DIALOG: {
-        DELETE0: "Xoá Tỷ lệ",
-        DELETE1: "Bạn có chắc chắn muốn xoá Tỷ lệ",
-        DELETE2: "Mọi thứ liên quan đến Tỷ lệ sẽ bị xoá bỏ"
+        DELETE0: "Xoá Tỉ lệ",
+        DELETE1: "Bạn có chắc chắn muốn xoá Tỉ lệ",
+        DELETE2: "Mọi thứ liên quan đến Tỉ lệ sẽ bị xoá bỏ"
       }
     },
     TYPES: {
@@ -335,7 +359,7 @@ export default {
     INVENTORY: {
       MODEL: {
         ID: {
-          LABEL: "Mã Món hàng"
+          LABEL: "Mã số Seri"
         },
         ITEMID: {
           LABEL: "Sản phẩm"
@@ -352,6 +376,9 @@ export default {
             MSG0: "Bảng tính phải có dữ liệu.",
             MSG1: "Mọi dòng phải có 3 cột."
           }
+        },
+        IDENTIFIERS: {
+          LABEL: "Mã số Seri (1 mã / dòng)"
         }
       },
       LABEL: {
@@ -366,14 +393,14 @@ export default {
           TXT0: "Sản phẩm đã mua không được sửa"
         },
         ADD: {
-          TXT0: "Tiến hành nhập hàng vào khó bằng cách chèn một",
+          TXT0: "Tiến hành nhập hàng vào kho bằng cách chèn một",
           TXT1: " Tập tin bảng tính Excel (.xlsx) ",
           TXT2: "bao gồm:",
           TXT3: "Dòng đầu: Tiêu đề (3 Cột)",
           TXT4: "Các dòng còn lại:",
-          TXT5: "Cột 1: Mã Sản phẩm",
-          TXT6: "Cột 2: Tên Màu",
-          TXT7: "Cột 3: Số lượng"
+          TXT5: "Cột 1: Mã số sê-ri",
+          TXT6: "Cột 2: Tên sản phẩm",
+          TXT7: "Cột 3: Tên Màu"
         }
       }
     },
@@ -447,9 +474,9 @@ export default {
           LABEL: "Danh mục",
           SELECTIONS: {
             TYPE: "Phân loại",
-            SCALE: "Tỷ lệ",
+            SCALE: "Tỉ lệ",
             MAKER: "Nhà sản xuất",
-            BRAND: "Thưng hiệu"
+            BRAND: "Thương hiệu"
           }
         },
         TIMESTART: {

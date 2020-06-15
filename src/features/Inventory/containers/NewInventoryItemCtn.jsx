@@ -20,9 +20,9 @@ const NewInventoryItemCtn = () => {
 
   const handleOnSubmit = async data => {
     const inventories = JSON.parse(data.inventories).map(inv => ({
-      itemId: inv[0],
-      variationName: inv[1],
-      quantity: inv[2]
+      inventoryItemId: inv[0],
+      itemId: inv[1],
+      variationName: inv[2]
     }));
     setErrRes(null);
     try {
@@ -37,7 +37,7 @@ const NewInventoryItemCtn = () => {
   return (
     <InventoryItemFormWrapper formFuncs={formFuncs} submitted={handleOnSubmit} errRes={errRes}>
       <hr style={{ width: "100%" }} />
-      <InventoryItemForm model={model(t)} />
+      <InventoryItemForm model={model(t)} isFetching={false} />
     </InventoryItemFormWrapper>
   );
 };

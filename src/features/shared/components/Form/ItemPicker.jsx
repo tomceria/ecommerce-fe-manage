@@ -258,6 +258,23 @@ const ItemPicker = ({
     }
   };
 
+  const handleOnClear = () => {
+    setSelecteds([]);
+    setSelectings([]);
+    if (multiple) {
+      control.setValue(name, JSON.stringify([]));
+    } else {
+      // single no value
+      control.setValue(name, "");
+    }
+    control.triggerValidation(name);
+    setIsInModal(false);
+    // Trigger "changed" handler
+    if (changed) {
+      changed();
+    }
+  };
+
   return (
     <FieldContainer className={className}>
       {/* MODAL */}
@@ -291,7 +308,10 @@ const ItemPicker = ({
                 </Button>
               </div>
               <div>
-                <Button onClick={handleOnConfirm} style={{ flexGrow: 1 }}>
+                <Button onClick={handleOnClear} style={{ flexGrow: 1 }}>
+                  {t("FORM.COMMON.CLEAR")}
+                </Button>
+                <Button color="primary" onClick={handleOnConfirm} style={{ flexGrow: 1 }}>
                   {t("FORM.COMMON.CONFIRM")}
                 </Button>
               </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 
-import { performGetProducts } from "./actions";
+import { performGetProducts, performGetFilterValues } from "./actions";
 import { performGetScales } from "../Scales/actions";
 import { performGetTypes } from "../Types/actions";
 import { performGetMakers } from "../Makers/actions";
@@ -12,6 +12,7 @@ import { selectTypes } from "../Types/reducers";
 import { selectMakers } from "../Makers/reducers";
 import { selectBrands } from "../Brands/reducers";
 import { queryParams } from "../../utils/route.util";
+import { selectFilterValues } from "./reducers";
 
 export function useProductSubInfo() {
   const dispatch = useDispatch();
@@ -20,10 +21,12 @@ export function useProductSubInfo() {
   const isLoadingTypes = useSelector(selectTypes.isLoadingTypes);
   const isLoadingMakers = useSelector(selectMakers.isLoadingMakers);
   const isLoadingBrands = useSelector(selectBrands.isLoadingBrands);
+  const isLoadingFilterValues = useSelector(selectFilterValues.isLoadingFilterValues);
   const isSuccessScales = useSelector(selectScales.isSuccessScales);
   const isSuccessTypes = useSelector(selectTypes.isSuccessTypes);
   const isSuccessMakers = useSelector(selectMakers.isSuccessMakers);
   const isSuccessBrands = useSelector(selectBrands.isSuccessBrands);
+  const isSuccessFilterValues = useSelector(selectFilterValues.isSuccessFilterValues);
 
   const [isReady, setIsReady] = useState(false);
 
@@ -32,6 +35,7 @@ export function useProductSubInfo() {
     dispatch(performGetTypes());
     dispatch(performGetMakers());
     dispatch(performGetBrands());
+    dispatch(performGetFilterValues());
     // eslint-disable-next-line
   }, []);
 
@@ -41,15 +45,17 @@ export function useProductSubInfo() {
       !isLoadingTypes &&
       !isLoadingScales &&
       !isLoadingMakers &&
+      !isLoadingFilterValues &&
       isSuccessBrands &&
       isSuccessTypes &&
       isSuccessScales &&
-      isSuccessMakers
+      isSuccessMakers &&
+      isSuccessFilterValues
     ) {
       setIsReady(true);
     }
     // eslint-disable-next-line
-  }, [isLoadingScales, isLoadingTypes, isLoadingMakers, isLoadingBrands]);
+  }, [isLoadingScales, isLoadingTypes, isLoadingMakers, isLoadingBrands, isLoadingFilterValues]);
 
   return isReady;
 }
@@ -95,7 +101,7 @@ export function useProductFilters(initialFilters, filters, isLoadingFilterForm, 
       // Only set value when data finished fetching (above returns isReady(bool))
       let finalFilters = initialFilters;
       finalFilters = { ...finalFilters, ...queryParams.get(location) };
-      ["query", "scale", "type", "maker", "brand"].forEach(attr => {
+      ["query", "scale", "type", "maker", "brand", "variationName"].forEach(attr => {
         formFuncs.setValue(attr, finalFilters[attr]);
       });
     }

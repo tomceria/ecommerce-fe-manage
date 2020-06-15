@@ -11,6 +11,7 @@ export const slice = createSlice({
       type: "",
       maker: "",
       brand: "",
+      variationName: "",
       sort: "createdAt",
       sortDesc: true
     },
@@ -22,7 +23,12 @@ export const slice = createSlice({
     //
     product: {},
     isLoadingProduct: false,
-    isSuccessProduct: false
+    isSuccessProduct: false,
+    //
+    filterValues: {},
+    variations: [],
+    isLoadingFilterValues: false,
+    isSuccessFilterValues: false
   },
   reducers: {
     // Set Products
@@ -35,6 +41,10 @@ export const slice = createSlice({
     doGetProduct: (state, action) => {
       state.product = action.payload;
     },
+    doGetFilterValues: (state, action) => {
+      state.filterValues = action.payload;
+      state.variations = action.payload.variations.map(varia => ({ id: varia, name: varia }));
+    },
     // Loading
     setLoadingProducts: (state, action) => {
       state.isLoadingProducts = action.payload;
@@ -42,12 +52,18 @@ export const slice = createSlice({
     setLoadingProduct: (state, action) => {
       state.isLoadingProduct = action.payload;
     },
+    setLoadingFilterValues: (state, action) => {
+      state.isLoadingFilterValues = action.payload;
+    },
     // Is Success
     setSuccessProducts: (state, action) => {
       state.isSuccessProducts = action.payload;
     },
     setSuccessProduct: (state, action) => {
       state.isSuccessProduct = action.payload;
+    },
+    setSuccessFilterValues: (state, action) => {
+      state.isSuccessFilterValues = action.payload;
     }
   }
 });
@@ -64,6 +80,12 @@ export const selectProduct = {
   product: state => state.products.product,
   isLoadingProduct: state => state.products.isLoadingProduct,
   isSuccessProduct: state => state.products.isSuccessProduct
+};
+export const selectFilterValues = {
+  filterValues: state => state.products.filterValues,
+  variations: state => state.products.variations,
+  isLoadingFilterValues: state => state.products.isLoadingFilterValues,
+  isSuccessFilterValues: state => state.products.isSuccessFilterValues
 };
 
 export default slice.reducer;

@@ -1,4 +1,5 @@
 import { dataTypes, fieldTypes } from "../../utils/model.util";
+import { selectFilterValues } from "./reducers";
 import { selectScales } from "../Scales/reducers";
 import { selectTypes } from "../Types/reducers";
 import { selectMakers } from "../Makers/reducers";
@@ -8,6 +9,7 @@ const scalesSelector = selectScales.scales;
 const typesSelector = selectTypes.types;
 const makersSelector = selectMakers.makers;
 const brandsSelector = selectBrands.brands;
+const variationNamesSelector = selectFilterValues.variations;
 
 // Constant Fields
 const scaleField = (t, options) => ({
@@ -238,5 +240,21 @@ export const productFilterModel = t => [
   scaleField(t, { isFilter: true }),
   typeField(t, { isFilter: true }),
   makerField(t, { isFilter: true }),
-  brandField(t, { isFilter: true })
+  brandField(t, { isFilter: true }),
+  {
+    name: "variationName",
+    label: t("PRODUCTS.MODEL.VARIATIONNAME.LABEL"),
+    dataTypes: [],
+    fieldType: fieldTypes.SELECT.SIMPLE,
+    selections: variationNamesSelector,
+    selectionOptions: {
+      isReduxSelector: true,
+      noneOption: {
+        label: t("MODELLING.COMMON.ALL")
+      }
+      // selectableParent: {
+      // suffix: " [All]"
+      // }
+    }
+  }
 ];

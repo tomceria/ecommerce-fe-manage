@@ -152,6 +152,7 @@ const FormControlStyled = styled(FormControl)`
   & .MuiInputLabel-outlined {
     background: ${colors.white};
     transform: translate(14px, 12px) scale(1);
+    width: ${remScale(100)};
   }
 
   & div.Mui-focused {

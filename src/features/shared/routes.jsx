@@ -55,6 +55,7 @@ import EditAttribute from "../Attributes/pages/EditAttribute";
 // Inventory
 import ViewInventoryItems from "../Inventory/pages/ViewInventoryItems";
 import NewInventoryItem from "../Inventory/pages/NewInventoryItem";
+import NewInventoryItemBasic from "../Inventory/pages/NewInventoryItemBasic";
 import EditInventoryItem from "../Inventory/pages/EditInventoryItem";
 // Shop
 import EditShop from "../Shop/pages/EditShop";
@@ -299,6 +300,16 @@ const routes = t => [
         component: () => (
           <Protected roles={[role.MANAGER]}>
             <NewInventoryItem />
+          </Protected>
+        ),
+        roles: [role.MANAGER]
+      },
+      {
+        label: t(`${i18nId}.INVENTORY.ADDBASIC`),
+        link: "/inventory/add-basic",
+        component: () => (
+          <Protected roles={[role.MANAGER]}>
+            <NewInventoryItemBasic />
           </Protected>
         ),
         roles: [role.MANAGER]

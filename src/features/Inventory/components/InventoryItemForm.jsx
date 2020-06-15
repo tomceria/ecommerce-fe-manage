@@ -9,10 +9,17 @@ import Button from "../../shared/components/Form/Button";
 
 const FIELDLIST = {
   add: ["inventories"],
+  addBasic: ["itemId", "variationId", "identifiers"],
   update: ["id", "variationId", "available"]
 };
 
-const InventoryItemForm = ({ model, isPerformingUpdate }) => {
+const InventoryItemForm = ({
+  model,
+  isPerformingUpdate,
+  isPerformingAddBasic,
+  isFetching,
+  onProductChanged
+}) => {
   const formFuncs = useFormContext();
   const { t } = useTranslation();
 
@@ -23,7 +30,18 @@ const InventoryItemForm = ({ model, isPerformingUpdate }) => {
     if (isPerformingUpdate) {
       return FIELDLIST.update;
     }
+    if (isPerformingAddBasic) {
+      return FIELDLIST.addBasic;
+    }
     return FIELDLIST.add;
+  };
+
+  const additionalProps = fieldName => {
+    const newProps = {};
+    if (!!onProductChanged && fieldName === "itemId") {
+      newProps.changed = onProductChanged;
+    }
+    return newProps;
   };
 
   return (
@@ -35,7 +53,13 @@ const InventoryItemForm = ({ model, isPerformingUpdate }) => {
             model={field}
             key={field.name}
             formFuncs={formFuncs}
-            disabled={(isPerformingUpdate && field.name === "id") || isLoadingForm || isSubmitting}
+            disabled={
+              (isPerformingUpdate && field.name === "id") ||
+              isLoadingForm ||
+              isFetching ||
+              isSubmitting
+            }
+            {...additionalProps(field.name)} // eslint-disable-line
           />
         ))}
       <Button type="submit" color="primary" disabled={isLoadingForm || isSubmitting}>
@@ -50,8 +74,13 @@ export default InventoryItemForm;
 // PropTypes
 InventoryItemForm.propTypes = {
   model: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  isPerformingUpdate: PropTypes.bool
+  isPerformingUpdate: PropTypes.bool,
+  isPerformingAddBasic: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
+  onProductChanged: PropTypes.func
 };
 InventoryItemForm.defaultProps = {
-  isPerformingUpdate: undefined
+  isPerformingUpdate: undefined,
+  isPerformingAddBasic: undefined,
+  onProductChanged: undefined
 };

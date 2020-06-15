@@ -1,4 +1,4 @@
 const clientInfo = {
-  org: "Autogo - Authorized Vehicle Dealer"
+  org: "Autogo - Cửa hàng xe mô hình tĩnh"
 };
 export default clientInfo;
