@@ -7,11 +7,28 @@ import {
   FormControl,
   FormLabel,
   FormControlLabel,
+  FormHelperText,
   Radio,
   RadioGroup as RadioGroupMUI
 } from "@material-ui/core";
 
-const RadioGroup = ({ name, label, control, defaultValue, selections, changed, disabled }) => {
+import { colors } from "../../../../styles/variables/colors.style";
+
+const RadioGroup = ({
+  // Form Identifier
+  name,
+  label,
+  // react-hook-form Props
+  error,
+  control,
+  rules,
+  defaultValue,
+  // Additional Props
+  selections,
+  errormessage,
+  changed,
+  disabled
+}) => {
   const handleOnChange = e => {
     if (changed) {
       changed(e);
@@ -20,13 +37,14 @@ const RadioGroup = ({ name, label, control, defaultValue, selections, changed, d
   };
 
   return (
-    <FormControl component="fieldset" disabled={disabled}>
+    <FormControlStyled component="fieldset" disabled={disabled}>
       <FormLabel component="legend">{label}</FormLabel>
       <Controller
         // Form Identifier
         name={name}
         // react-hook-form Props
         control={control}
+        rules={rules}
         defaultValue={defaultValue}
         onChange={([event]) => handleOnChange(event)}
         as={
@@ -37,7 +55,8 @@ const RadioGroup = ({ name, label, control, defaultValue, selections, changed, d
           </RadioGroupMUI>
         }
       />
-    </FormControl>
+      <FormHelperText>{error && errormessage}</FormHelperText>
+    </FormControlStyled>
   );
 };
 
@@ -49,7 +68,9 @@ RadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   // react-hook-form Props
+  error: PropTypes.bool,
   control: PropTypes.shape({}).isRequired,
+  rules: PropTypes.shape({}),
   defaultValue: PropTypes.string,
   // Selections
   selections: PropTypes.oneOfType([
@@ -61,14 +82,27 @@ RadioGroup.propTypes = {
     ),
     PropTypes.func
   ]).isRequired,
+  // Additional Props
+  errormessage: PropTypes.string,
   // Handlers
   changed: PropTypes.func,
   disabled: PropTypes.bool
 };
 RadioGroup.defaultProps = {
   // react-hook-form Props
+  error: undefined,
+  rules: undefined,
   defaultValue: undefined,
+  // Additional Props
+  errormessage: undefined,
   // Handlers
   changed: () => {},
   disabled: false
 };
+
+// Styles
+const FormControlStyled = styled(FormControl)`
+  & .MuiFormHelperText-root {
+    color: ${colors.scheme.error.normal};
+  }
+`;

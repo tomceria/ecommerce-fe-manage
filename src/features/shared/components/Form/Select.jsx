@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { FormControl, InputLabel, Select as MaterialSelect } from "@material-ui/core";
+import {
+  FormControl,
+  InputLabel,
+  Select as MaterialSelect,
+  FormHelperText
+} from "@material-ui/core";
 import { Controller } from "react-hook-form";
 
 import { colors } from "../../../../styles/variables/colors.style";
@@ -42,10 +47,11 @@ const Select = ({
     >
       <InputLabel shrink={!!touched}>{label}</InputLabel>
       <Controller
-        control={control}
         // Form Identifier
         name={name}
         // react-hook-form Props
+        control={control}
+        error={error}
         defaultValue={defaultValue}
         rules={rules}
         onChange={([event]) => handleOnChange(event)}
@@ -72,6 +78,7 @@ const Select = ({
           </MaterialSelect>
         }
       />
+      <FormHelperText>{error && errormessage}</FormHelperText>
     </FormControlStyled>
   );
 };
@@ -102,8 +109,8 @@ Select.propTypes = {
       prefix: PropTypes.string,
       suffix: PropTypes.string
     })
-  ]).isRequired,
-  childrenAlias: PropTypes.string.isRequired,
+  ]),
+  childrenAlias: PropTypes.string,
   style: PropTypes.shape({}),
   error: PropTypes.bool,
   errormessage: PropTypes.string,
@@ -115,6 +122,8 @@ Select.defaultProps = {
   defaultValue: undefined,
   touched: undefined,
   disabled: false,
+  selectableParent: undefined,
+  childrenAlias: undefined,
   style: {},
   error: undefined,
   errormessage: "",
@@ -143,10 +152,15 @@ const FormControlStyled = styled(FormControl)`
   & .MuiInputLabel-outlined {
     background: ${colors.white};
     transform: translate(14px, 12px) scale(1);
+    width: ${remScale(100)};
   }
 
   & div.Mui-focused {
     background: ${colors.white} !important;
+  }
+
+  & .MuiOutlinedInput-root.Mui-error {
+    box-shadow: 0 0 5px 2px ${colors.scheme.error.light};
   }
 
   & select {

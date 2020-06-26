@@ -1,6 +1,4 @@
-// TODO: To be replaced with info stored in MongoDB
-
 const clientInfo = {
-  org: "Bambi Toy Shop"
+  org: "Autogo - Cửa hàng xe mô hình tĩnh"
 };
 export default clientInfo;

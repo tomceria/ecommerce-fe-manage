@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import request from "../../../utils/request.util";
+import LoadScreen from "../../shared/components/UI/LoadScreen";
+import { colors } from "../../../styles/variables/colors.style";
+import { headerHeight } from "../../Layout/components/MainHeader";
 
 const Protected = ({ roles, children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +32,9 @@ const Protected = ({ roles, children }) => {
           {!isInRoles && <p>Access Denied</p>}
         </>
       ) : (
-        <p>Loading...</p>
+        <div style={{ height: `calc(100vh - ${headerHeight} - 3rem)` }}>
+          <LoadScreen in mover={colors.white} background={colors.gray.light} />
+        </div>
       )}
     </>
   );

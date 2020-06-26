@@ -4,11 +4,17 @@ import { slice } from "./reducers";
 export const {
   doGetProducts,
   doGetProduct,
+  doGetFilterValues,
+  //
   setLoadingProducts,
   setLoadingProduct,
+  setLoadingFilterValues,
+  //
   setSuccessProducts,
-  setSuccessProduct
+  setSuccessProduct,
+  setSuccessFilterValues
 } = slice.actions;
+
 export const performGetProducts = createAction("PRODUCTS_SAGA_GETPRODUCTS", function prepare(
   filters
 ) {
@@ -19,3 +25,4 @@ export const performGetProducts = createAction("PRODUCTS_SAGA_GETPRODUCTS", func
 export const performGetProduct = createAction("PRODUCTS_SAGA_GETPRODUCT", function prepare(id) {
   return { payload: id };
 });
+export const performGetFilterValues = createAction("PRODUCTS_SAGA_GETFILTERVALUES");

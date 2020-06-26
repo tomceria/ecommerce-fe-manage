@@ -60,7 +60,7 @@ const LoginFormWrapper = styled(FormWrapper)`
     margin-top: 2rem !important;
   }
 
-  & > .remember {
+  & > .submit {
     margin-top: 0.5rem !important;
   }
 `;

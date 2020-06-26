@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import Alert from "../components/Form/Alert";
 
 const FormWrapper = ({ formFuncs, submitted, errRes, children, className }) => {
+  const { t } = useTranslation();
+
   const [alertMsg, setAlertMsg] = useState("");
+  const [severity, setSeverity] = useState("error");
 
   useEffect(() => {
     if (!errRes) {
@@ -13,15 +17,27 @@ const FormWrapper = ({ formFuncs, submitted, errRes, children, className }) => {
       return;
     }
     switch (errRes.status) {
+      // Field validation errors
       case 422: {
         errRes.data.errors.reverse().forEach(fieldEr => {
           formFuncs.setError(fieldEr.param, "", fieldEr.msg);
         });
         break;
       }
+      // API processing errors
       case 400:
+      case 401:
+      case 403:
       case 500: {
         setAlertMsg(errRes.data.message);
+        setSeverity("error");
+        break;
+      }
+      // Success
+      case 200:
+      case 201: {
+        setAlertMsg(t("FORM.COMMON.SUCCESS"));
+        setSeverity("success");
         break;
       }
       default: {
@@ -35,7 +51,7 @@ const FormWrapper = ({ formFuncs, submitted, errRes, children, className }) => {
     // eslint-disable-next-line
     <FormContext {...formFuncs}>
       <form onSubmit={formFuncs.handleSubmit(submitted)} className={className}>
-        {alertMsg && <Alert severity="error">{alertMsg}</Alert>}
+        {alertMsg && <Alert severity={severity}>{alertMsg}</Alert>}
         {children}
       </form>
     </FormContext>
@@ -53,10 +69,13 @@ FormWrapper.propTypes = {
   submitted: PropTypes.func.isRequired,
   errRes: PropTypes.shape({
     status: PropTypes.number,
-    data: PropTypes.shape({
-      errors: PropTypes.arrayOf(PropTypes.shape({})),
-      message: PropTypes.string
-    })
+    data: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        errors: PropTypes.arrayOf(PropTypes.shape({})),
+        message: PropTypes.string
+      })
+    ])
   }),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.string])),

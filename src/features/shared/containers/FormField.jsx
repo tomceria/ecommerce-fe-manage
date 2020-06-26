@@ -6,9 +6,19 @@ import { useFormContext } from "react-hook-form";
 import _ from "lodash";
 
 import { fieldTypes, validate } from "../../../utils/model.util";
+
 import Input from "../components/Form/Input";
+import Autocomplete from "../components/Form/Autocomplete";
 import Select from "../components/Form/Select";
 import RadioGroup from "../components/Form/RadioGroup";
+import DatePicker from "../components/Form/DatePicker";
+
+import ItemPicker from "../components/Form/ItemPicker";
+import ImageDropzone from "../components/Form/ImageDropzone";
+import SheetDropzone from "../components/Form/SheetDropzone";
+import VariationField from "../components/Form/VariationField"; // eslint-disable-line
+import AttributeField from "../components/Form/AttributeField"; // eslint-disable-line
+import OrderDetailField from "../components/Form/OrderDetailField"; // eslint-disable-line
 
 const FormField = ({ model, changed, disabled, className, style }) => {
   const [isTouched, setIsTouched] = useState(false);
@@ -18,7 +28,7 @@ const FormField = ({ model, changed, disabled, className, style }) => {
   // Effect for isTouched
   useEffect(() => {
     setIsTouched(
-      !!formFuncs.getValues()[model.name] || !!formFuncs.formState.dirtyFields[model.name]
+      formFuncs.getValues()[model.name] !== "" || !!formFuncs.formState.dirtyFields[model.name]
     );
     // eslint-disable-next-line
   }, [formFuncs.getValues(), formFuncs.formState.dirtyFields]);
@@ -48,12 +58,16 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       break;
     }
     case fieldTypes.INPUT.NUMBER: {
-      // TODO: INPUT NUMBER
       properties.type = "number";
       if (model.fieldTypeOptions) {
         properties.step = model.fieldTypeOptions.step;
       }
       FieldComponent = Input;
+      break;
+    }
+    case fieldTypes.INPUT.AUTOCOMPLETE: {
+      properties.type = "text";
+      FieldComponent = Autocomplete;
       break;
     }
     case fieldTypes.SELECT.SIMPLE: {
@@ -62,6 +76,58 @@ const FormField = ({ model, changed, disabled, className, style }) => {
     }
     case fieldTypes.RADIO.GROUPED: {
       FieldComponent = RadioGroup;
+      break;
+    }
+    case fieldTypes.DATE.DATE: {
+      FieldComponent = DatePicker;
+      break;
+    }
+    case fieldTypes.DATE.DATETIME: {
+      properties.type = "datetime";
+      FieldComponent = DatePicker;
+      break;
+    }
+    case fieldTypes.DATE.YEAR: {
+      properties.type = "year";
+      FieldComponent = DatePicker;
+      break;
+    }
+    // CUSTOM FIELDS
+    case fieldTypes.PICKER.SINGLE: {
+      if (model.fieldTypeOptions) {
+        properties.small = model.fieldTypeOptions.small;
+        properties.listName = model.fieldTypeOptions.listName;
+      }
+      FieldComponent = ItemPicker;
+      break;
+    }
+    case fieldTypes.PICKER.MULTIPLE: {
+      properties.multiple = true;
+      if (model.fieldTypeOptions) {
+        properties.small = model.fieldTypeOptions.small;
+        properties.listName = model.fieldTypeOptions.listName;
+      }
+      FieldComponent = ItemPicker;
+      break;
+    }
+    case fieldTypes.MEDIA.IMAGES: {
+      FieldComponent = ImageDropzone;
+      break;
+    }
+    case fieldTypes.VARIATION.MULTIPLE: {
+      FieldComponent = VariationField;
+      break;
+    }
+    case fieldTypes.ATTRIBUTE.MULTIPLE: {
+      FieldComponent = AttributeField;
+      break;
+    }
+    case fieldTypes.ORDERDETAIL.MULTIPLE: {
+      FieldComponent = OrderDetailField;
+      break;
+    }
+    case fieldTypes.SHEET.SINGLE: {
+      FieldComponent = SheetDropzone;
       break;
     }
   }
@@ -107,16 +173,18 @@ const FormField = ({ model, changed, disabled, className, style }) => {
       rules={{
         validate: value => validate(value, model.dataTypes, formFuncs.getValues)
       }}
-      error={!!formFuncs.errors[model.name]}
+      error={!!_.get(formFuncs.errors, model.name)}
       // Selections
       selections={selections}
       selectableParent={selectableParent}
-      childrenAlias={childrenAlias || "Parent"}
+      childrenAlias={childrenAlias}
       // Handlers
       touched={isTouched}
       changed={changed}
       // Others
-      errormessage={formFuncs.errors[model.name] && formFuncs.errors[model.name].message}
+      errormessage={
+        _.get(formFuncs.errors, model.name) && _.get(formFuncs.errors, model.name).message
+      }
       disabled={disabled}
       className={className}
       style={style}
@@ -142,10 +210,14 @@ FormField.propTypes = {
     ),
     fieldType: PropTypes.string.isRequired,
     fieldTypeOptions: PropTypes.shape({
+      // Input
       rows: PropTypes.number,
-      step: PropTypes.string
+      step: PropTypes.string,
+      // ItemPicker
+      small: PropTypes.bool,
+      listName: PropTypes.string
     }),
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.shape({})]),
     selections: PropTypes.oneOfType([
       PropTypes.arrayOf(
         PropTypes.shape({
@@ -153,7 +225,9 @@ FormField.propTypes = {
           name: PropTypes.string.isRequired
         })
       ),
-      PropTypes.func
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.func,
+      PropTypes.bool
     ]),
     selectionOptions: PropTypes.shape({
       isReduxSelector: PropTypes.bool,

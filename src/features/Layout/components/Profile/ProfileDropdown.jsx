@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { colors } from "../../../../styles/variables/colors.style";
 import { remScale } from "../../../../styles/variables/size.style";
@@ -16,6 +17,7 @@ const profileHeight = remScale(96);
 
 const ProfileDropdown = ({ show, closed, className }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleLinkOnClick = closed;
 
@@ -36,7 +38,7 @@ const ProfileDropdown = ({ show, closed, className }) => {
         <Link to="/" onClick={handleLinkOnClick} className="avatar">
           <Avatar
             height={profileHeight}
-            image="https://xansan.com/wp-content/uploads/2018/10/user-avatar-default-2609.png"
+            image="/undraw_male_avatar_323b.png"
             alt="User Profile Picture"
           />
         </Link>
@@ -47,10 +49,10 @@ const ProfileDropdown = ({ show, closed, className }) => {
           @hoangluuminh
         </Link>
         <Link to="/" onClick={handleLinkOnClick} className="profileLink">
-          View Profile
+          {t("UI.LAYOUT.PROFILE.VIEWPROFILE")}
         </Link>
         <button type="button" className="logout" onClick={handleLogoutClick}>
-          Log Out
+          {t("UI.LAYOUT.PROFILE.LOGOUT")}
         </button>
       </ProfileContainer>
     </Fade>

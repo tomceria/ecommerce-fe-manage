@@ -1,9 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { LayoutCard } from "../../shared/components/UI/Card";
 
 const Home = () => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <p>Welcome to home :)</p>
+      <LayoutCard>
+        <h1>{t("DASHBOARD.HOME.WELCOMEMSG")}</h1>
+      </LayoutCard>
     </>
   );
 };

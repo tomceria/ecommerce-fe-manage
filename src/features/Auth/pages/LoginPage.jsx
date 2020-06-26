@@ -28,7 +28,7 @@ const LoginPage = () => {
           <SysLogo type="full" />
         </div>
         <p style={{ textAlign: "center", margin: 0, color: colors.gray.dark }}>
-          {`for ${clientInfo.org}`}
+          {`${clientInfo.org}`}
         </p>
         <LoginFormCtn onLoggingIn={handleLoggingIn} />
       </div>
